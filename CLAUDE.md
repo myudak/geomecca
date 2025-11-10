@@ -119,6 +119,15 @@ Each domain typically contains page components and domain-specific UI components
 
 8. **Real-time Data**: Uses Socket.IO for real-time waveform streaming and event updates. WebSocket data stored in `window.socketData`.
 
+9. **Dark/Light Mode**:
+   - Implemented using Tailwind's `dark:` prefix and DaisyUI themes
+   - Theme management hook: `src/hooks/use-theme.ts`
+   - Supports three modes: `light`, `dark`, `system` (follows OS preference)
+   - Theme preference persisted in localStorage
+   - Theme toggle component in navbar: `src/components/theme-toggle/`
+   - Use `dark:` prefix for dark mode styles: `<div class="bg-white dark:bg-gray-900">`
+   - See `DARK_MODE_GUIDE.md` for detailed documentation
+
 ## Testing
 
 No test framework is currently configured. When adding tests, consider using Vitest (integrates well with Vite).

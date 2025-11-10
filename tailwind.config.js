@@ -6,12 +6,14 @@ export default {
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {},
-  },  
+  },
   plugins: [daisyui],
   daisyui: {
-    themes: ["business"],
+    themes: ["light", "business"],
+    darkTheme: "business",
   },
 }
 

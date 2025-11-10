@@ -1,7 +1,8 @@
+import L from 'leaflet'
+
 import plateBoundariesJson from '../../geo-json/plate-boundaries.json'
 import trenchJson from '../../geo-json/trench.json'
 import volcanoesJson from '../../geo-json/volcanoes.json'
-import L from 'leaflet'
 
 const volcanoIcon = L.icon({
   iconUrl: '/images/volcano.svg',

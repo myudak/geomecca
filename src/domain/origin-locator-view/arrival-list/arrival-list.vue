@@ -9,7 +9,7 @@ import { Pick } from '@src/types/pick'
 import { Station } from '@src/types/station'
 import { formatDate, getPreferredOrigin } from '@src/utils/string'
 import { computed, ref, watch } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import { toast } from 'vue3-toastify'
 
 interface SelectedPick {
@@ -25,7 +25,6 @@ const { event, originId } = defineProps<{
 
 const pickerStore = usePickerStore()
 const { mutateAsync: commitEvent } = usePutEventCommit()
-const router = useRouter()
 
 const isConfirmationModalShow = ref(false)
 const selectedPicks = ref<SelectedPick>({})

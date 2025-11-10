@@ -1,10 +1,11 @@
+import L, { LatLngTuple } from 'leaflet'
+
 import pusgenBandaJson from '../../geo-json/pusgen-banda.json'
 import pusgenJavaJson from '../../geo-json/pusgen-java.json'
 import pusgenKalimantanJson from '../../geo-json/pusgen-kalimantan.json'
 import pusgenMalukuJson from '../../geo-json/pusgen-maluku.json'
 import pusgenSulawesiJson from '../../geo-json/pusgen-sulawesi.json'
 import pusgenSumJson from '../../geo-json/pusgen-sum.json'
-import L, { LatLngTuple } from 'leaflet'
 
 export const DEFAULT_MAP_CENTER: LatLngTuple = [-2.5489, 118.0149]
 export const DEFAULT_MAP_ZOOM = 5

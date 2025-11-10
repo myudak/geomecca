@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ThemeToggle } from '@src/components/theme-toggle'
 import { NAVBAR_MENUS } from '@src/constants/navbar'
 import { RouterLink, useRoute } from 'vue-router'
 
@@ -12,7 +13,9 @@ const filteredMenus = NAVBAR_MENUS.filter((menu) => menu.label !== 'Home')
 <template>
   <div class="navbar bg-base-200">
     <div class="navbar-start">
-      <RouterLink to="/" class="btn btn-ghost text-xl"> TEWS </RouterLink>
+      <RouterLink to="/" class="btn btn-ghost text-xl">
+        <img src="/images/geomecca-logo.png" alt="TEWS Logo" class="w-10 h-10" />
+      </RouterLink>
     </div>
     <div class="navbar-center hidden md:flex">
       <ul class="menu menu-horizontal px-1">
@@ -29,7 +32,10 @@ const filteredMenus = NAVBAR_MENUS.filter((menu) => menu.label !== 'Home')
       </ul>
     </div>
     <div class="navbar-end">
-      <AdminMenu />
+      <div class="flex items-center gap-2">
+        <ThemeToggle />
+        <AdminMenu />
+      </div>
     </div>
   </div>
 </template>
