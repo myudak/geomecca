@@ -20,13 +20,12 @@ import { getChannelByOrder, getChannelFullName } from '../../../utils/station'
 import { ConfigIcons } from '../config-icons'
 import { SettingsDrawer } from '../settings-drawer'
 import { StationWaveItem } from '../station-wave-item'
-import { TimestampAxis } from '../timestamp-axis'
 import { TraceViewNavigation } from '../trace-view-navigation'
 
 const TIMESTAMP_HEIGHT = 40
 const TAB_HEIGHT = 33
 const WRAPPER_HEIGHT = window.innerHeight - TAB_HEIGHT - TIMESTAMP_HEIGHT
-const CHANNEL_NAME_WIDTH = 0
+const CHANNEL_NAME_WIDTH = 280 // Width of left station info panel
 const MIN_ROW_HEIGHT = 40
 
 const socket = io(SOCKET_IO_BASE_URL, {
@@ -224,7 +223,7 @@ const prevPage = () => {
 
 <template>
   <FullScreenLoading v-if="isLoading || isProfileLoading || !isConnected" />
-  <div v-else class="flex flex-col h-full overflow-hidden border-t border-t-white/10">
+  <div v-else class="flex flex-col h-full overflow-hidden bg-gray-50 dark:bg-gray-900">
     <TraceViewNavigation
       :status="stationStatus"
       :total-enabled="enabledStations.length"
@@ -236,7 +235,8 @@ const prevPage = () => {
       @change-limit="(newLimit) => (channelLimit = newLimit)"
       @next-page="nextPage"
       @prev-page="prevPage" />
-    <div class="flex-1 w-full h-full overflow-y-auto">
+
+    <div class="flex-1 w-full h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">
       <div class="flex">
         <div v-if="show" id="trace-view-container" ref="traceViewContainer" class="h-full flex-1 overflow-x-hidden">
           <StationWaveItem
@@ -257,11 +257,27 @@ const prevPage = () => {
       </div>
     </div>
 
-    <div className="relative w-full overflow-hidden">
-      <div :style="{ transform: `translateX(${CHANNEL_NAME_WIDTH}px)` }">
-        <TimestampAxis :width="width" :start-time="startDate.getTime()" :end-time="endDate.getTime()" />
+    <!-- Footer with Station Count and Copyright -->
+    <div
+      class="bg-white dark:bg-[#1d1d1d] border-t border-gray-200 dark:border-gray-700 px-6 py-3 grid grid-cols-3 items-center gap-4">
+      <!-- Left: Active Stations -->
+      <div class="flex items-center gap-2 text-sm">
+        <div
+          class="flex items-center justify-center w-6 h-6 rounded-full border-2 border-warning text-warning dark:text-white dark:bg-slate-200">
+          <v-icon name="io-checkmark" scale="0.7" />
+        </div>
+        <span class="text-gray-700 dark:text-gray-300 font-medium">{{ selectedStations.length }} Active Stations</span>
       </div>
-      <ConfigIcons @open-map="navigateToStationView" @open-settings="toggleSettingOpen" />
+
+      <!-- Center: Copyright -->
+      <div class="text-sm text-gray-500 dark:text-gray-400 text-center">
+        GeoMecca System © {{ new Date().getFullYear() }}
+      </div>
+
+      <!-- Right: Config Icons -->
+      <div class="flex justify-end">
+        <ConfigIcons @open-map="navigateToStationView" @open-settings="toggleSettingOpen" />
+      </div>
     </div>
   </div>
   <SettingsDrawer

@@ -52,12 +52,12 @@ const updateInfo = (max: number | null, avg: number | null) => {
 
   const maxInfo = stationInfo.querySelector('.info-max')
   if (maxInfo && max) {
-    maxInfo.textContent = parseFloat(max.toFixed(3)).toString()
+    maxInfo.textContent = Math.round(max).toString()
   }
 
   const avgInfo = stationInfo.querySelector('.info-avg')
   if (avgInfo && avg) {
-    avgInfo.textContent = parseFloat(avg.toFixed(3)).toString()
+    avgInfo.textContent = parseFloat(avg.toFixed(2)).toString()
   }
 }
 
@@ -194,7 +194,8 @@ const createLine = (props: {
 
   updateInfo(max, total / length)
 
-  bufferCtx.strokeStyle = '#75ecb8'
+  bufferCtx.strokeStyle = '#22d3ee' // Cyan color to match the image
+  bufferCtx.lineWidth = 1
   bufferCtx.stroke()
   drawAllArrivals(bufferCtx, newXScale, newHeight)
   drawAllPicks(bufferCtx, newXScale, newHeight)
@@ -316,32 +317,41 @@ watch(
 </script>
 
 <template>
-  <div
-    class="flex items-center h-full w-full text-center relative"
-    :style="{ height: `${height}px`, width: `${width}px` }">
+  <div class="flex items-center h-full w-full relative group" :style="{ height: `${height}px` }">
+    <!-- Left Side - Station Info -->
     <div
-      v-if="showToggle"
-      class="absolute flex items-center top-[50%] -translate-y-1/2 left-1 gap-2 bg-accent/90 rounded-2xl text-xs text-white px-2 py-1 z-10">
-      <input :checked="enabled" type="checkbox" class="toggle toggle-success toggle-xs" @click="$emit('toggle')" />
-      <div class="font-bold">{{ channelName }}</div>
-      <div :id="`station-info-${channelName.replace(/\./g, '-')}`" class="flex gap-1 text-xs w-full max-sm:hidden">
-        <div>
-          <span>max: </span>
-          <span class="info-max">-</span>
+      class="flex items-center justify-between px-6 py-3 bg-gray-100 dark:bg-[#202020] backdrop-blur-sm border-r border-gray-200 dark:border-gray-700 min-w-[280px] w-[280px] h-full shrink-0">
+      <div class="flex flex-col gap-1">
+        <div class="flex items-center gap-2">
+          <input
+            v-if="showToggle"
+            :checked="enabled"
+            type="checkbox"
+            class="toggle toggle-success rounded-full"
+            style="--tglbg: #10b981; background-color: transparent"
+            @click="$emit('toggle')" />
+          <div class="font-bold text-gray-900 dark:text-white text-sm">{{ channelName }}</div>
         </div>
-        <div>
-          <span>avg: </span>
-          <span class="info-avg">-</span>
+        <div :id="`station-info-${channelName.replace(/\./g, '-')}`" class="flex gap-1 text-xs">
+          <div class="text-error font-semibold">
+            <span class="text-error/70">Max: </span>
+            <span class="info-max">5805</span>
+          </div>
+          <div class="text-error font-semibold">
+            <span class="text-error/70"> avg: -</span>
+            <span class="info-avg">204.00</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="flex-1 h-full flex flex-col items-center justify-center border-b border-b-white/10">
-      <div class="flex relative w-full h-full">
-        <div class="flex-1 w-full h-full">
-          <canvas ref="canvas" class="h-full" :style="{ width: `${width}px` }" />
-        </div>
-      </div>
+
+    <!-- Right Side - Waveform Canvas -->
+    <div
+      class="flex-1 h-full bg-white dark:bg-black border-b border-gray-200 dark:border-[#1c1c1c] relative overflow-hidden">
+      <canvas ref="canvas" class="h-full w-full" :style="{ width: `${width - 280}px` }" />
+
+      <!-- Hover overlay for better interaction feedback -->
+      <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-all pointer-events-none"></div>
     </div>
   </div>
 </template>
-
