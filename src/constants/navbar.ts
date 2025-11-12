@@ -5,23 +5,18 @@ export const NAVBAR_MENUS = [
     icon: 'md-home-outlined'
   },
   {
+    path: '/map-view',
+    label: 'Microseismic Monitoring',
+    icon: 'md-monitorheart'
+  },
+  {
     path: '/trace-view',
-    label: 'Trace',
+    label: 'Trace Monitoring',
     icon: 'wi-earthquake'
   },
   {
-    path: '/eq-view',
-    label: 'Events',
-    icon: 'la-dot-circle'
-  },
-  {
-    path: '/station-view',
-    label: 'Stations',
-    icon: 'ri-base-station-line'
-  },
-  {
     path: '/origin-locator-view/events',
-    label: 'Locator',
+    label: 'Microseismic Analyst',
     icon: 'bi-pin-angle'
   },
   {

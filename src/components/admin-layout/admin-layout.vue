@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { AdminNavbar } from '../admin-navbar'
+import { AdminNavbar, MonitoringToolbar } from '../admin-navbar'
 import { AdminBottomMenu } from './admin-bottom-menu'
 </script>
 
 <template>
-  <div class="w-full flex flex-col h-dvh overflow-hidden">
+  <div class="flex h-dvh w-full flex-col overflow-hidden">
     <AdminNavbar />
-    <div class="flex-1 h-full overflow-y-auto">
+    <MonitoringToolbar />
+    <div class="h-full flex-1 overflow-y-auto">
       <slot />
     </div>
     <AdminBottomMenu />
