@@ -27,7 +27,7 @@ withDefaults(
     <input
       v-model="model"
       :type="type"
-      class="input input-bordered placeholder-white/40"
+      class="input input-bordered dark:placeholder-white/40 placeholder-black/40"
       :disabled="disabled"
       :placeholder="placeholder" />
     <div v-if="!!error" class="label">

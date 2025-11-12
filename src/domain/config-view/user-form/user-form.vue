@@ -54,16 +54,23 @@ function onSubmitForm() {
 
 <template>
   <div>
-    <h3 class="text-xl font-bold mb-2">{{ title }}</h3>
-    <div class="flex flex-col gap-2">
+    <div class="mb-6">
+      <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{{ title }}</h3>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Fill in the user details below</p>
+    </div>
+    <div class="flex flex-col gap-4">
       <Input v-model="username" label="Username" />
       <Input v-model="region" label="Region" />
       <Input v-if="usage !== 'edit'" v-model="password" type="password" label="Password" />
-      <div class="flex gap-4 mt-4">
-        <button class="btn btn-outline btn-neutral btn-block shrink" @click="emit('onCancel', null)">Cancel</button>
-        <button class="btn btn-info btn-block shrink" @click="onSubmitForm">
+      <div class="flex gap-3 mt-4">
+        <button
+          class="btn btn-outline flex-1 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a2a2a] text-gray-700 dark:text-gray-300"
+          @click="emit('onCancel', null)">
+          Cancel
+        </button>
+        <button class="btn btn-primary flex-1 rounded-lg hover:shadow-lg" @click="onSubmitForm">
           <div v-if="isLoading" class="loading loading-spinner" />
-          <span v-else>Submit</span>
+          <span v-else>{{ usage === 'edit' ? 'Update User' : 'Create User' }}</span>
         </button>
       </div>
     </div>

@@ -6,6 +6,7 @@ import { Pagination } from '@src/components/pagination'
 import { AddUserPayload, UpdateUserPayload, User } from '@src/types/user'
 import { useDebounceFn } from '@vueuse/core'
 import { onMounted, ref, VNodeRef, watch } from 'vue'
+import Avatar from 'vue-boring-avatars'
 import { toast } from 'vue3-toastify'
 
 import { ConfigLayout } from '../config-layout'
@@ -217,72 +218,109 @@ function showMore(page: number) {
 <template>
   <ConfigLayout>
     <div class="p-6 w-full h-full overflow-y-auto">
-      <div class="mb-6">
-        <h2 class="font-bold mb-4">User List</h2>
-        <div class="flex items-center gap-4 justify-between">
-          <Input v-model="searchQuery" class="max-w-80" placeholder="Search . . ." />
-          <button class="btn btn-primary" @click="onAddUserButtonClick">Add User</button>
+      <!-- Header Card -->
+      <div class="bg-white dark:bg-[#202020] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">User Management</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage system users and permissions</p>
+          </div>
+          <button class="btn btn-primary gap-2 rounded-lg hover:shadow-lg transition-all" @click="onAddUserButtonClick">
+            <v-icon name="md-add" scale="1.1" />
+            Add User
+          </button>
+        </div>
+        <Input v-model="searchQuery" class="max-w-md" placeholder="Search users by username or region..." />
+      </div>
+
+      <!-- Table Card -->
+      <div
+        class="bg-white dark:bg-[#202020] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <div class="w-full overflow-x-auto">
+          <table class="table">
+            <thead class="bg-gray-100 dark:bg-[#1a1a1a]">
+              <tr class="text-gray-700 dark:text-gray-300">
+                <th class="font-semibold">Username</th>
+                <th class="font-semibold">Region</th>
+                <th class="min-w-[150px] font-semibold">Stations</th>
+                <th class="font-semibold">Action</th>
+              </tr>
+            </thead>
+            <tbody v-if="users.length" class="text-gray-700 dark:text-gray-300">
+              <tr
+                v-for="user in users"
+                :key="user._id"
+                class="hover:bg-gray-50 dark:hover:bg-[#252525] transition-colors">
+                <td class="font-medium">
+                  <div class="flex items-center gap-2">
+                    <Avatar
+                      :size="32"
+                      :name="user.username"
+                      variant="beam"
+                      :colors="['#0A0310', '#49007E', '#FF005B', '#FF7D10', '#FFB238']" />
+                    {{ user.username }}
+                  </div>
+                </td>
+                <td>
+                  <span class="badge badge-ghost rounded-md">{{ user.region }}</span>
+                </td>
+                <td>
+                  <div
+                    class="badge badge-info badge-outline rounded-lg font-semibold cursor-pointer hover:bg-info hover:text-white transition-all"
+                    @click="onStationBadgeClick(user.stations)">
+                    <v-icon name="gi-radar-dish" scale="0.8" class="mr-1" />
+                    {{ user.stations.length }} Stations
+                  </div>
+                </td>
+                <td class="flex gap-2">
+                  <button
+                    class="btn btn-square btn-sm btn-ghost text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-[#2a2a3a] transition-all"
+                    @click="onEditButtonClick(user)">
+                    <v-icon name="hi-pencil-alt" />
+                  </button>
+                  <button
+                    class="btn btn-square btn-sm btn-ghost text-error hover:bg-red-50 dark:hover:bg-[#3a2a2a] transition-all"
+                    @click="onDeleteButtonClick(user)">
+                    <v-icon name="fa-regular-trash-alt" />
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tbody v-else>
+              <tr v-if="isDataFetching">
+                <td colspan="4">
+                  <div class="flex items-center justify-center gap-2 w-full py-8">
+                    <div class="loading loading-spinner text-primary" />
+                    <div class="text-gray-600 dark:text-gray-400">Loading users...</div>
+                  </div>
+                </td>
+              </tr>
+              <tr v-else>
+                <td colspan="4" class="text-center py-8">
+                  <div class="flex flex-col items-center gap-2">
+                    <v-icon name="fa-users" scale="2" class="text-gray-400" />
+                    <p class="text-gray-600 dark:text-gray-400">No users found</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="border-t border-gray-200 dark:border-gray-700 p-4">
+          <Pagination
+            :total-pages="totalPages"
+            :total="totalData"
+            :per-page="perPage"
+            :current-page="currentPage"
+            @pagechanged="showMore" />
         </div>
       </div>
 
-      <div class="w-full overflow-x-auto">
-        <table class="table">
-          <thead class="bg-[#2B395C] text-white">
-            <tr>
-              <th>Username</th>
-              <th>Region</th>
-              <th class="min-w-[150px]">Station</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody v-if="users.length">
-            <tr v-for="user in users" :key="user._id">
-              <td>{{ user.username }}</td>
-              <td>{{ user.region }}</td>
-              <td>
-                <div
-                  class="badge badge-info badge-outline rounded-md font-bold cursor-pointer"
-                  @click="onStationBadgeClick(user.stations)">
-                  {{ user.stations.length }} Stations
-                </div>
-              </td>
-              <td class="flex gap-2">
-                <button class="btn btn-square btn-sm btn-outline btn-error" @click="onDeleteButtonClick(user)">
-                  <v-icon name="fa-regular-trash-alt" />
-                </button>
-                <button class="btn btn-square btn-sm btn-outline" @click="onEditButtonClick(user)">
-                  <v-icon name="hi-pencil-alt" />
-                </button>
-              </td>
-            </tr>
-          </tbody>
-          <tbody v-else>
-            <tr v-if="isDataFetching">
-              <td colspan="4">
-                <div class="flex items-center justify-center gap-2 w-full">
-                  <div class="loading loading-spinner" />
-                  <div>Loading...</div>
-                </div>
-              </td>
-            </tr>
-            <tr v-else>
-              <td colspan="4" class="text-center">Data user not found</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="mx-auto">
-        <Pagination
-          class="mt-4"
-          :total-pages="totalPages"
-          :total="totalData"
-          :per-page="perPage"
-          :current-page="currentPage"
-          @pagechanged="showMore" />
-      </div>
+      <!-- User Form Modal -->
       <dialog ref="userFormModalRef" class="modal">
-        <div class="modal-box">
+        <div class="modal-box bg-white dark:bg-[#202020] rounded-xl border border-gray-200 dark:border-gray-700">
           <UserForm
             :usage="userFormUsage"
             :user-data="selectedUser"
@@ -298,17 +336,33 @@ function showMore(page: number) {
           </div>
         </div>
       </dialog>
+
+      <!-- Delete Confirmation Modal -->
       <dialog ref="userDeleteModalRef" class="modal">
-        <div class="modal-box">
-          <h3 class="text-2xl font-bold mb-4">Delete User</h3>
-          <p>
-            Are you sure to delete user <span class="text-rose-700 font-bold">{{ selectedUser?.username }}</span> ?
+        <div class="modal-box bg-white dark:bg-[#202020] rounded-xl border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-full bg-red-100 dark:bg-[#3a2020] flex items-center justify-center">
+              <v-icon name="fa-exclamation-triangle" class="text-error" scale="1.2" />
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Delete User</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">This action cannot be undone</p>
+            </div>
+          </div>
+          <p class="text-gray-700 dark:text-gray-300 mb-6">
+            Are you sure you want to delete user
+            <span class="font-bold text-error">{{ selectedUser?.username }}</span
+            >?
           </p>
-          <div class="flex gap-4 mt-4">
-            <button class="btn btn-outline btn-error btn-block shrink" @click="onModalDeleteClose">Cancel</button>
-            <button class="btn btn-error btn-block shrink" @click="removeUser">
+          <div class="flex gap-3">
+            <button
+              class="btn btn-outline flex-1 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a2a2a] text-gray-700 dark:text-gray-300"
+              @click="onModalDeleteClose">
+              Cancel
+            </button>
+            <button class="btn btn-error flex-1 rounded-lg hover:shadow-lg" @click="removeUser">
               <div v-if="isDeleting" class="loading loading-spinner" />
-              <span v-else>Delete</span>
+              <span v-else>Delete User</span>
             </button>
           </div>
           <div class="modal-action h-0 mt-0">
@@ -318,8 +372,10 @@ function showMore(page: number) {
           </div>
         </div>
       </dialog>
+
+      <!-- User Station Modal -->
       <dialog ref="userStationModalRef" class="modal">
-        <div class="modal-box">
+        <div class="modal-box bg-white dark:bg-[#202020] rounded-xl border border-gray-200 dark:border-gray-700">
           <UserStationForm
             :is-loading="false"
             :user-station="selectedUserStation"
