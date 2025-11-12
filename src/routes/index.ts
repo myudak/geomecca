@@ -6,6 +6,7 @@ const routes = [
   { path: '/trace-view', component: () => import('../domain/trace-view/trace-view-page') },
   { path: '/station-view', component: () => import('../domain/station-view/station-view-page') },
   { path: '/eq-view', component: () => import('@src/domain/eq-view/eq-view-page') },
+  { path: '/map-view', name: 'map-view', component: () => import('@src/domain/map-view/map-view-page') },
   {
     path: '/origin-locator-view/:tab',
     component: () => import('@src/domain/origin-locator-view/origin-locator-view-page')

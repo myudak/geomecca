@@ -5,31 +5,41 @@ const magnitudes = [...new Array(8)].map((_, index) => index + 1)
 </script>
 
 <template>
-  <div class="bg-white/50 backdrop-blur-lg rounded-md shadow-sm text-xs text-black max-md:hidden">
-    <div class="text-xs font-semibold p-1 border-b border-slate-400/50">Depth in km</div>
-    <div class="grid grid-cols-5 border-b border-slate-400/50">
-      <div class="py-1 px-2 flex items-center gap-2">
-        <div class="mask mask-square w-3 bg-[#f00]">&nbsp;</div>
-        <div>&lt; 50</div>
-      </div>
-
-      <div v-for="depth in [50, 100, 250, 600]" :key="depth" class="py-1 px-2 flex items-center gap-2">
-        <div class="mask mask-square w-3" :style="{ backgroundColor: getDepthColor(depth) }">&nbsp;</div>
-        <div>{{ depth }}</div>
+  <div
+    class="max-md:hidden rounded-3xl bg-white/80 px-5 py-4 text-slate-900 shadow-xl backdrop-blur-lg dark:bg-slate-900/70 dark:text-white">
+    <div>
+      <p class="text-lg font-semibold tracking-wide">Depth (km)</p>
+      <div class="mt-3 flex flex-wrap items-center gap-4 text-sm font-medium">
+        <div
+          v-for="legend in [
+            { label: '< 50', depth: 25 },
+            { label: '50', depth: 75 },
+            { label: '100', depth: 125 },
+            { label: '200', depth: 225 },
+            { label: '> 300', depth: 350 }
+          ]"
+          :key="legend.label"
+          class="flex items-center gap-2">
+          <span class="inline-flex h-3 w-3 rounded-sm" :style="{ backgroundColor: getDepthColor(legend.depth) }"></span>
+          <span>{{ legend.label }}</span>
+        </div>
       </div>
     </div>
-    <div class="text-xs font-semibold p-1 border-b border-slate-400/50">Magnitudes</div>
-    <div class="flex items-center justify-center">
-      <div v-for="magnitude in magnitudes" :key="magnitude" class="py-2 px-1 flex items-center gap-1">
-        <div
-          class="mask mask-circle w-3 bg-primary border-2 rounded-full border-black"
-          :style="{
-            width: `${getMagnitudeWidth(magnitude)}px`,
-            height: `${getMagnitudeWidth(magnitude)}px`
-          }">
-          &nbsp;
+
+    <div class="my-4 h-px bg-slate-900/10 dark:bg-white/20"></div>
+
+    <div>
+      <p class="text-lg font-semibold tracking-wide">Magnitude</p>
+      <div class="mt-4 flex items-end justify-between gap-3">
+        <div v-for="magnitude in magnitudes" :key="magnitude" class="flex flex-col items-center gap-2 text-sm">
+          <span
+            class="flex items-center justify-center rounded-full border border-slate-900/10 bg-sky-600 dark:border-white/20"
+            :style="{
+              width: `${getMagnitudeWidth(magnitude)}px`,
+              height: `${getMagnitudeWidth(magnitude)}px`
+            }"></span>
+          <span>{{ magnitude }}</span>
         </div>
-        <div>{{ magnitude }}</div>
       </div>
     </div>
   </div>
