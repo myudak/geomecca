@@ -1,17 +1,24 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useTheme } from '@src/hooks/use-theme'
 
-const { theme, toggleTheme } = useTheme()
+const { theme, toggleThemeWithAnimation } = useTheme()
+
+const isDark = computed(() => theme.value === 'dark')
+
+const handleClick = (event: MouseEvent) => {
+  toggleThemeWithAnimation(event)
+}
 </script>
 
 <template>
   <button
     class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-    :title="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
-    @click="toggleTheme">
+    :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+    @click="handleClick">
     <!-- Sun Icon (Light Mode) -->
     <svg
-      v-if="theme === 'dark'"
+      v-if="isDark"
       class="w-5 h-5 text-gray-600 dark:text-gray-300"
       fill="none"
       stroke="currentColor"

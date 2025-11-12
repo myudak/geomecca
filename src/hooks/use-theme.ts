@@ -36,6 +36,47 @@ export const useTheme = () => {
     setTheme(newTheme)
   }
 
+  const toggleThemeWithAnimation = async (event: MouseEvent, duration = 400) => {
+    // Check if View Transitions API is supported
+    if (!document.startViewTransition) {
+      toggleTheme()
+      return
+    }
+
+    const newTheme = theme.value === 'dark' ? 'light' : 'dark'
+
+    // Start view transition
+    const transition = document.startViewTransition(() => {
+      theme.value = newTheme
+      localStorage.setItem(THEME_STORAGE_KEY, newTheme)
+      applyTheme(newTheme)
+    })
+
+    await transition.ready
+
+    // Get click position
+    const x = event.clientX
+    const y = event.clientY
+
+    // Calculate maximum radius for circular reveal
+    const maxRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    )
+
+    // Animate the transition with circular clip-path
+    document.documentElement.animate(
+      {
+        clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${maxRadius}px at ${x}px ${y}px)`]
+      },
+      {
+        duration,
+        easing: 'ease-in-out',
+        pseudoElement: '::view-transition-new(root)'
+      }
+    )
+  }
+
   // Watch for system theme changes
   onMounted(() => {
     applyTheme(theme.value)
@@ -63,6 +104,7 @@ export const useTheme = () => {
     theme,
     setTheme,
     toggleTheme,
+    toggleThemeWithAnimation,
     getSystemTheme
   }
 }

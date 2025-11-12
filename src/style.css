@@ -164,3 +164,10 @@
     margin: 0;
   }
 }
+
+/* View Transition styles for animated theme toggle */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
