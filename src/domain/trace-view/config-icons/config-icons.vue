@@ -1,13 +1,13 @@
 <template>
   <div class="flex gap-2">
     <button
-      class="btn btn-square btn-sm bg-gray-200 dark:bg-gray-700 hover:bg-primary border-gray-300 dark:border-gray-600 hover:border-primary transition-all text-gray-700 dark:text-gray-300 hover:text-white"
+      class="btn btn-square btn-sm border border-brand-surface-light-active bg-brand-surface-light-hover text-brand-text-light transition-all hover:border-brand-surface-normal hover:bg-brand-surface-light dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark dark:text-brand-text-dark dark:hover:bg-brand-surface-dark-hover"
       @click="emit('open-map')">
       <v-icon name="fa-map" scale="0.9" />
     </button>
 
     <button
-      class="btn btn-square btn-sm bg-gray-200 dark:bg-gray-700 hover:bg-primary border-gray-300 dark:border-gray-600 hover:border-primary transition-all text-gray-700 dark:text-gray-300 hover:text-white"
+      class="btn btn-square btn-sm border border-brand-surface-light-active bg-brand-surface-light-hover text-brand-text-light transition-all hover:border-brand-surface-normal hover:bg-brand-surface-light dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark dark:text-brand-text-dark dark:hover:bg-brand-surface-dark-hover"
       @click="emit('open-settings')">
       <v-icon name="md-settings" scale="0.9" />
     </button>

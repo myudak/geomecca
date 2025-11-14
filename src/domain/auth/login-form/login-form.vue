@@ -31,27 +31,27 @@ const onSubmit = () => {
 </script>
 
 <template>
-  <form class="flex flex-col gap-6" @submit.prevent="onSubmit">
+  <form class="flex flex-col gap-7" @submit.prevent="onSubmit">
     <div class="space-y-2">
-      <label for="email" class="block text-sm font-medium text-slate-600"> Email </label>
+      <label for="email" class="block text-sm font-medium text-slate-600">Email</label>
       <input
         id="email"
         v-model="username"
         type="text"
-        placeholder="you@example.com"
-        class="w-full rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 text-base text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-200 disabled:cursor-not-allowed disabled:opacity-60"
+        placeholder="Email"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#0c5a91] focus:ring-2 focus:ring-[#0c5a91]/20 disabled:cursor-not-allowed disabled:opacity-60"
         :disabled="isLoading" />
     </div>
 
     <div class="space-y-2">
-      <label for="password" class="block text-sm font-medium text-slate-600"> Password </label>
+      <label for="password" class="block text-sm font-medium text-slate-600">Password</label>
       <div class="relative">
         <input
           id="password"
           v-model="password"
           :type="showPassword ? 'text' : 'password'"
-          placeholder="••••••••"
-          class="w-full rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 pr-12 text-base text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-200 disabled:cursor-not-allowed disabled:opacity-60"
+          placeholder="Password"
+          class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 pr-12 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#0c5a91] focus:ring-2 focus:ring-[#0c5a91]/20 disabled:cursor-not-allowed disabled:opacity-60"
           :disabled="isLoading" />
         <button
           type="button"
@@ -94,7 +94,7 @@ const onSubmit = () => {
     <button
       type="submit"
       :disabled="!isValid || isLoading"
-      class="w-full rounded-2xl bg-[#0c5a91] px-4 py-3 text-base font-semibold text-white shadow-lg shadow-[#0c5a91]/30 transition hover:bg-[#094873] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0c5a91] disabled:cursor-not-allowed disabled:opacity-60">
+      class="w-full rounded-xl bg-[#0c5a91] px-4 py-3 text-base font-semibold text-white shadow-sm shadow-[#0c5a91]/40 transition hover:bg-[#094873] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0c5a91] disabled:cursor-not-allowed disabled:opacity-60">
       {{ isLoading ? 'Logging in...' : 'Login' }}
     </button>
 

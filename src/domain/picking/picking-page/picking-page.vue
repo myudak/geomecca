@@ -229,47 +229,77 @@ watch(
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 h-full">
-    <PickingFilter
-      v-model:phase="selectedPhase"
-      :order-phase="orderPhase"
-      @confirm="onConfirm()"
-      @close="goBack()"
-      @change-order-phase="(newPhase) => (orderPhase = newPhase)" />
-
-    <div ref="container" class="border-t flex-1 h-full">
-      <div v-if="!!width && !!xScale && startTime && endTime && diffTime" class="w-full">
-        <div v-if="selectedArrivalByPickId && !!selectedStation" class="w-full">
-          <ArrivalPickerWaveformItem
-            :width="width"
-            :x-scale="xScale"
-            :station="selectedStation"
-            :origin="preferredOrigin"
-            :origin-time="originTime"
-            :start-time="startTime"
-            :end-time="endTime"
-            :arrivals="selectedArrivalByPickId.arrivals"
-            :updated-arrivals="selectedArrivalByPickId.updatedArrivals"
-            @change-phase="onChangePhase" />
+  <section
+    class="flex h-full flex-col gap-6 rounded-[32px] border border-brand-surface-light-active bg-brand-surface-light p-6 text-brand-text-light shadow dark:border-brand-surface-dark-hover dark:bg-brand-surface-darker dark:text-brand-text-dark">
+    <header class="flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <button
+          class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:border-sky-400 hover:text-sky-400 dark:border-slate-700 dark:text-slate-300"
+          type="button"
+          @click="goBack">
+          <v-icon name="io-chevron-back-sharp" />
+        </button>
+        <div>
+          <p class="text-xs uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500">Microseismic Analyst</p>
+          <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">Arrival Picking Workspace</h2>
         </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button
+          class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg shadow-emerald-500/30 transition hover:bg-emerald-400"
+          type="button"
+          @click="onConfirm">
+          <v-icon name="io-checkmark" />
+        </button>
+        <button
+          class="flex h-10 w-10 items-center justify-center rounded-full bg-rose-500 text-white shadow-lg shadow-rose-500/30 transition hover:bg-rose-400"
+          type="button"
+          @click="goBack">
+          <v-icon name="io-close-sharp" />
+        </button>
+      </div>
+    </header>
 
-        <div class="w-full max-h-[280px] overflow-y-auto">
-          <PickingArrivalWaveformItem
-            v-for="pickId in Object.keys(arrivalByPickId)"
-            :key="pickId"
-            :selected="selectedPickId === pickId"
-            :width="width"
-            :origin="preferredOrigin"
-            :origin-time="originTime"
-            :start-time="getStartTimeByPhase(arrivalByPickId[pickId])"
-            :end-time="addMinutes(getStartTimeByPhase(arrivalByPickId[pickId]), diffTime)"
-            :station="arrivalByPickId[pickId].station"
-            :arrivals="joinPSArrival(arrivalByPickId[pickId].arrivals)"
-            :updated-arrivals="joinPSArrival(arrivalByPickId[pickId].updatedArrivals)"
-            @select-station="onSelectStation(pickId)" />
+    <div class="rounded-2xl border border-brand-surface-light-active bg-brand-surface-light-hover p-4 dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark">
+      <PickingFilter v-model:phase="selectedPhase" :order-phase="orderPhase" @change-order-phase="(newPhase) => (orderPhase = newPhase)" />
+    </div>
+
+    <div class="flex-1 overflow-hidden rounded-[28px] border border-brand-surface-light-active bg-brand-surface-light p-4 dark:border-brand-surface-dark-hover dark:bg-brand-surface-darker">
+      <div ref="container" class="flex h-full flex-col gap-4">
+        <div v-if="!!width && !!xScale && startTime && endTime && diffTime" class="flex-1 space-y-4">
+          <div v-if="selectedArrivalByPickId && !!selectedStation" class="w-full rounded-2xl bg-slate-900/40 p-4">
+            <ArrivalPickerWaveformItem
+              :width="width"
+              :x-scale="xScale"
+              :station="selectedStation"
+              :origin="preferredOrigin"
+              :origin-time="originTime"
+              :start-time="startTime"
+              :end-time="endTime"
+              :arrivals="selectedArrivalByPickId.arrivals"
+              :updated-arrivals="selectedArrivalByPickId.updatedArrivals"
+              @change-phase="onChangePhase" />
+          </div>
+
+          <div class="w-full rounded-2xl bg-slate-900/20 p-2">
+            <div class="max-h-[320px] space-y-2 overflow-y-auto pr-1">
+              <PickingArrivalWaveformItem
+                v-for="pickId in Object.keys(arrivalByPickId)"
+                :key="pickId"
+                :selected="selectedPickId === pickId"
+                :width="width"
+                :origin="preferredOrigin"
+                :origin-time="originTime"
+                :start-time="getStartTimeByPhase(arrivalByPickId[pickId])"
+                :end-time="addMinutes(getStartTimeByPhase(arrivalByPickId[pickId]), diffTime)"
+                :station="arrivalByPickId[pickId].station"
+                :arrivals="joinPSArrival(arrivalByPickId[pickId].arrivals)"
+                :updated-arrivals="joinPSArrival(arrivalByPickId[pickId].updatedArrivals)"
+                @select-station="onSelectStation(pickId)" />
+            </div>
+          </div>
         </div>
-        <!-- <TimestampAxis :width="width" :start-time="startTime.getTime()" :end-time="endTime.getTime()" /> -->
       </div>
     </div>
-  </div>
+  </section>
 </template>

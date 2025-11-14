@@ -186,88 +186,111 @@ function showMore(page: number) {
 
 <template>
   <ConfigLayout>
-    <div class="p-6 w-full">
+    <div class="h-full w-full overflow-y-auto p-6 space-y-6">
       <!-- Header Card -->
-      <div class="bg-white dark:bg-[#202020] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
-        <div class="flex items-center justify-between mb-4">
+      <div
+        class="rounded-3xl border border-brand-surface-light-active bg-white/95 p-6 shadow-lg shadow-brand-surface-light-active/40 dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark">
+        <div class="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Station Management</h2>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage seismic monitoring stations</p>
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-brand-text-muted dark:text-brand-text-muted-dark">
+              Geomecca
+            </p>
+            <h2 class="mt-1 text-3xl font-bold text-brand-text-light dark:text-brand-text-dark">Station Management</h2>
+            <p class="text-sm text-brand-text-muted dark:text-brand-text-muted-dark">Manage seismic monitoring stations</p>
           </div>
           <button
-            class="btn btn-primary gap-2 rounded-lg hover:shadow-lg transition-all"
+            class="inline-flex items-center gap-2 rounded-2xl bg-brand-surface-normal px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-surface-normal/40 transition hover:bg-brand-surface-normal-hover"
             @click="onAddStationButtonClick">
             <v-icon name="md-add" scale="1.1" />
             Add Station
           </button>
         </div>
-        <Input v-model="searchQuery" class="max-w-md" placeholder="Search stations by name, code, or network..." />
+        <div class="mt-6 max-w-xl">
+          <Input v-model="searchQuery" placeholder="Search stations by name, code, or network..." />
+        </div>
       </div>
 
       <!-- Table Card -->
       <div
-        class="bg-white dark:bg-[#202020] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+        class="rounded-3xl border border-brand-surface-light-active bg-white/95 shadow-xl shadow-brand-surface-light-active/40 dark:border-brand-surface-dark-hover dark:bg-brand-surface-darker">
         <div class="w-full overflow-x-auto">
-          <table class="table max-md:table-sm">
-            <thead class="bg-gray-100 dark:bg-[#1a1a1a]">
-              <tr class="text-gray-700 dark:text-gray-300">
-                <th class="min-w-[300px] font-semibold">Name</th>
-                <th class="font-semibold">Code</th>
-                <th class="font-semibold">Network</th>
-                <th class="min-w-[200px] font-semibold">Channels</th>
-                <th class="min-w-[200px] font-semibold">Position</th>
-                <th class="font-semibold">Server</th>
-                <th class="font-semibold">Action</th>
+          <table class="w-full table-auto text-left text-sm">
+            <thead class="bg-brand-surface-light-hover/70 text-brand-text-light dark:bg-brand-surface-dark dark:text-brand-text-dark">
+              <tr>
+                <th class="px-6 py-4 font-semibold">Name</th>
+                <th class="px-6 py-4 font-semibold">Code</th>
+                <th class="px-6 py-4 font-semibold">Network</th>
+                <th class="px-6 py-4 font-semibold">Channels</th>
+                <th class="px-6 py-4 font-semibold">Position</th>
+                <th class="px-6 py-4 font-semibold">Server</th>
+                <th class="px-6 py-4 text-center font-semibold">Action</th>
               </tr>
             </thead>
-            <tbody v-if="stations.length" class="text-gray-700 dark:text-gray-300">
+            <tbody v-if="stations.length">
               <tr
                 v-for="station in stations"
                 :key="station._id"
-                class="hover:bg-gray-50 dark:hover:bg-[#252525] transition-colors">
-                <td class="truncate max-w-[300px] font-medium">{{ station.name }}</td>
-                <td>
-                  <span class="badge badge-ghost rounded-md">{{ station.code }}</span>
+                class="border-t border-brand-surface-light-active/60 text-brand-text-light transition hover:bg-brand-surface-light-hover/70 dark:border-brand-surface-dark-hover/40 dark:text-brand-text-dark dark:hover:bg-brand-surface-dark">
+                <td class="px-6 py-4 font-semibold">{{ station.name }}</td>
+                <td class="px-6 py-4">
+                  <span class="rounded-full bg-brand-surface-light px-3 py-1 text-xs font-semibold text-brand-text-light dark:bg-brand-surface-dark-hover dark:text-brand-text-dark">
+                    {{ station.code }}
+                  </span>
                 </td>
-                <td>{{ station.network }}</td>
-                <td class="flex gap-2 flex-wrap max-w-80">
-                  <div
-                    v-for="(channel, idx) in station.channel"
-                    :key="idx"
-                    class="badge badge-success badge-outline rounded-md font-bold">
-                    {{ channel }}
+                <td class="px-6 py-4">{{ station.network }}</td>
+                <td class="px-6 py-4">
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      v-for="(channel, idx) in station.channel"
+                      :key="idx"
+                      class="rounded-lg border border-brand-surface-light-active px-3 py-1 text-xs font-semibold text-brand-text-light dark:border-brand-surface-dark-hover dark:text-brand-text-dark">
+                      {{ channel }}
+                    </span>
                   </div>
                 </td>
-                <td class="text-sm">{{ station.latitude }}, {{ station.longitude }}</td>
-                <td class="text-sm text-blue-600 dark:text-blue-400">{{ station.server_seedlink }}</td>
-                <td class="flex gap-2">
-                  <button
-                    class="btn btn-square btn-sm btn-ghost text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-[#2a2a3a] transition-all"
-                    @click="onEditButtonClick(station)">
-                    <v-icon name="hi-pencil-alt" />
-                  </button>
-                  <button
-                    class="btn btn-square btn-sm btn-ghost text-error hover:bg-red-50 dark:hover:bg-[#3a2a2a] transition-all"
-                    @click="onDeleteButtonClick(station)">
-                    <v-icon name="fa-regular-trash-alt" />
-                  </button>
+                <td class="px-6 py-4 text-sm">
+                  <div class="flex flex-col">
+                    <span>{{ station.latitude }} lat</span>
+                    <span>{{ station.longitude }} lon</span>
+                    <span>{{ station.elevation }} elv</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-sm">
+                  <div class="flex flex-col">
+                    <span>{{ station.server_seedlink }}</span>
+                    <span class="text-brand-text-muted dark:text-brand-text-muted-dark">port {{ station.port }}</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="flex justify-center gap-3">
+                    <button
+                      class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-brand-surface-light-active text-brand-text-light transition hover:border-brand-surface-normal hover:bg-brand-surface-light dark:border-brand-surface-dark-hover dark:text-brand-text-dark"
+                      @click="onEditButtonClick(station)">
+                      <v-icon name="hi-pencil-alt" />
+                    </button>
+                    <button
+                      class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-transparent text-error transition hover:border-error hover:bg-error/10"
+                      @click="onDeleteButtonClick(station)">
+                      <v-icon name="fa-regular-trash-alt" />
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
             <tbody v-else>
               <tr v-if="isDataFetching">
-                <td colspan="7">
-                  <div class="flex items-center justify-center gap-2 w-full py-8">
-                    <div class="loading loading-spinner text-primary" />
-                    <div class="text-gray-600 dark:text-gray-400">Loading stations...</div>
+                <td colspan="7" class="px-6 py-12">
+                  <div class="flex items-center justify-center gap-3 text-brand-text-muted dark:text-brand-text-muted-dark">
+                    <div class="h-6 w-6 animate-spin rounded-full border-2 border-brand-surface-normal border-t-transparent" />
+                    Loading stations...
                   </div>
                 </td>
               </tr>
               <tr v-else>
-                <td colspan="7" class="text-center py-8">
-                  <div class="flex flex-col items-center gap-2">
-                    <v-icon name="gi-radar-dish" scale="2" class="text-gray-400" />
-                    <p class="text-gray-600 dark:text-gray-400">No stations found</p>
+                <td colspan="7" class="px-6 py-12 text-center">
+                  <div class="flex flex-col items-center gap-2 text-brand-text-muted dark:text-brand-text-muted-dark">
+                    <v-icon name="gi-radar-dish" scale="2" />
+                    <p>No stations found</p>
                   </div>
                 </td>
               </tr>
@@ -276,7 +299,7 @@ function showMore(page: number) {
         </div>
 
         <!-- Pagination -->
-        <div class="border-t border-gray-200 dark:border-gray-700 p-4">
+        <div class="border-t border-brand-surface-light-active/60 px-6 py-4 dark:border-brand-surface-dark-hover/40">
           <Pagination
             :max-visible-buttons="5"
             :total-pages="totalPages"
@@ -289,8 +312,7 @@ function showMore(page: number) {
 
       <!-- Station Form Modal -->
       <dialog id="station-form-modal" ref="stationFormModalRef" class="modal">
-        <div
-          class="modal-box max-w-3xl bg-white dark:bg-[#202020] rounded-xl border border-gray-200 dark:border-gray-700">
+        <div class="modal-box max-w-3xl rounded-3xl border border-brand-surface-light-active bg-white/95 text-brand-text-light shadow-xl dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark dark:text-brand-text-dark">
           <StationForm
             :usage="stationFormUsage"
             :station-data="selectedStation"
@@ -308,29 +330,31 @@ function showMore(page: number) {
       </dialog>
 
       <!-- Delete Confirmation Modal -->
-      <dialog id="station-form-modal" ref="stationDeleteModalRef" class="modal">
-        <div class="modal-box bg-white dark:bg-[#202020] rounded-xl border border-gray-200 dark:border-gray-700">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 rounded-full bg-red-100 dark:bg-[#3a2020] flex items-center justify-center">
+      <dialog id="station-delete-modal" ref="stationDeleteModalRef" class="modal">
+        <div class="modal-box rounded-3xl border border-brand-surface-light-active bg-white/95 text-brand-text-light shadow-xl dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark dark:text-brand-text-dark">
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
               <v-icon name="fa-exclamation-triangle" class="text-error" scale="1.2" />
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Delete Station</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">This action cannot be undone</p>
+              <h3 class="text-xl font-bold">Delete Station</h3>
+              <p class="text-sm text-brand-text-muted dark:text-brand-text-muted-dark">This action cannot be undone</p>
             </div>
           </div>
-          <p class="text-gray-700 dark:text-gray-300 mb-6">
+          <p class="mb-6">
             Are you sure you want to delete station
             <span class="font-bold text-error">{{ selectedStation?.name }}</span
             >?
           </p>
           <div class="flex gap-3">
             <button
-              class="btn btn-outline flex-1 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a2a2a] text-gray-700 dark:text-gray-300"
+              class="inline-flex flex-1 items-center justify-center rounded-2xl border border-brand-surface-light-active px-4 py-2 font-semibold text-brand-text-light transition hover:border-brand-surface-normal hover:bg-brand-surface-light dark:border-brand-surface-dark-hover dark:text-brand-text-dark dark:hover:bg-brand-surface-dark-hover"
               @click="onModalDeleteClose">
               Cancel
             </button>
-            <button class="btn btn-error flex-1 rounded-lg hover:shadow-lg" @click="removeStation">
+            <button
+              class="inline-flex flex-1 items-center justify-center rounded-2xl bg-error px-4 py-2 font-semibold text-white shadow-md shadow-error/40 transition hover:bg-error/90"
+              @click="removeStation">
               <div v-if="isDeleting" class="loading loading-spinner" />
               <span v-else>Delete Station</span>
             </button>
@@ -345,3 +369,5 @@ function showMore(page: number) {
     </div>
   </ConfigLayout>
 </template>
+
+

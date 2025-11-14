@@ -39,54 +39,67 @@ watch(
 </script>
 
 <template>
-  <div
-    class="flex justify-between items-center bg-white dark:bg-[#1e1e1e] border-b border-gray-200 dark:border-gray-700 px-4 py-2">
-    <div role="tablist" class="tabs tabs-sm gap-1">
-      <a
+  <div class="flex items-center justify-between bg-base-100 px-4 py-2 dark:border-base-300 dark:bg-[#1b2332]">
+    <div
+      role="tablist"
+      class="tabs tabs-boxed tabs-sm rounded-2xl bg-base-200/70 p-1 shadow-inner dark:border-base-200/60 dark:bg-base-300/40 gap-3 flex">
+      <button
+        type="button"
         role="tab"
-        class="tab px-4 my-1 rounded-lg transition-all"
-        :class="{
-          'bg-primary text-white': status === 'ENABLED',
-          'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700':
-            status !== 'ENABLED'
-        }"
+        class="tab tab-sm flex items-center gap-2 rounded-xl px-3 text-[11px] font-semibold uppercase tracking-[0.18em] transition-all"
+        :class="[
+          status === 'ENABLED'
+            ? 'tab-active border border-primary/40 bg-primary/10 text-primary ring ring-primary/30 dark:border-primary/60 dark:bg-primary/20 dark:text-primary-content dark:ring-primary/40'
+            : 'border border-transparent text-base-content/70 hover:text-base-content'
+        ]"
         @click="$emit('change-status', 'ENABLED')">
-        Enabled ({{ totalEnabled }})
-      </a>
-      <a
+        <span>Enabled</span>
+        <span
+          class="rounded-full px-2 py-0.5 text-[10px] font-bold"
+          :class="[
+            status === 'ENABLED'
+              ? 'bg-primary text-primary-content'
+              : 'bg-base-100 text-base-content/80 dark:bg-base-200/70'
+          ]">
+          {{ totalEnabled }}
+        </span>
+      </button>
+      <button
+        type="button"
         role="tab"
-        class="tab px-4 my-1 rounded-lg transition-all"
-        :class="{
-          'bg-primary text-white': status === 'DISABLED',
-          'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700':
-            status !== 'DISABLED'
-        }"
+        class="tab tab-sm flex items-center gap-2 rounded-xl px-3 text-[11px] font-semibold uppercase tracking-[0.18em] transition-all"
+        :class="[
+          status === 'DISABLED'
+            ? 'tab-active border border-secondary/40 bg-secondary/10 text-secondary ring ring-secondary/30 dark:border-secondary/60 dark:bg-secondary/20 dark:text-secondary-content dark:ring-secondary/40'
+            : 'border border-transparent text-base-content/70 hover:text-base-content'
+        ]"
         @click="$emit('change-status', 'DISABLED')">
-        Disabled ({{ totalDisabled }})
-      </a>
+        <span>Disabled</span>
+        <span
+          class="rounded-full px-2 py-0.5 text-[10px] font-bold"
+          :class="[
+            status === 'DISABLED'
+              ? 'bg-secondary text-secondary-content'
+              : 'bg-base-100 text-base-content/80 dark:bg-base-200/70'
+          ]">
+          {{ totalDisabled }}
+        </span>
+      </button>
     </div>
 
-    <div class="flex gap-2 items-center">
+    <div class="flex items-center gap-2">
       <div class="join">
         <button
-          :class="{
-            'join-item btn btn-sm text-gray-700 dark:text-gray-300': true,
-            'btn-disabled opacity-30 dark:bg-slate-500': !isPrevEnabled,
-            'bg-gray-100 dark:bg-gray-200 hover:bg-primary hover:text-white border-gray-300 dark:text-white-300 dark:border-gray-600':
-              isPrevEnabled
-          }"
+          class="join-item btn btn-sm btn-ghost"
+          :class="{ 'btn-disabled': !isPrevEnabled }"
           @click="$emit('prev-page')">
-          <v-icon name="io-chevron-back-sharp" scale="0.8" class="text-gray-700 dark:text-white" />
+          <v-icon name="io-chevron-back-sharp" scale="0.8" />
         </button>
         <button
-          :class="{
-            'join-item btn btn-sm text-gray-700 dark:text-gray-300': true,
-            'btn-disabled opacity-30 dark:bg-slate-500': !isNextEnabled,
-            'bg-gray-100 dark:bg-gray-200 hover:bg-primary hover:text-white border-gray-300 dark:border-gray-600':
-              isNextEnabled
-          }"
+          class="join-item btn btn-sm btn-ghost"
+          :class="{ 'btn-disabled': !isNextEnabled }"
           @click="$emit('next-page')">
-          <v-icon name="io-chevron-forward-sharp" scale="0.8" class="text-gray-700 dark:text-white" />
+          <v-icon name="io-chevron-forward-sharp" scale="0.8" />
         </button>
       </div>
     </div>

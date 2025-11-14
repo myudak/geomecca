@@ -183,59 +183,55 @@ watch(
 </script>
 
 <template>
-  <div v-if="arrivals.length > 0" class="flex flex-col flex-1 w-full md:h-full">
-    <div class="flex-1 flex flex-col w-full h-full max-h-[265px] md:overflow-y-auto max-md:overflow-x-auto">
-      <table class="table table-sm">
-        <thead class="bg-base-200 sticky top-0">
+  <div v-if="arrivals.length > 0" class="flex flex-col gap-4 text-slate-900 dark:text-slate-100">
+    <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white/90 shadow-sm dark:border-slate-800 dark:bg-slate-900/40">
+      <table class="min-w-full divide-y divide-slate-100 text-sm dark:divide-slate-800">
+        <thead class="bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:bg-slate-900/70 dark:text-slate-400">
           <tr>
-            <th width="30">Used</th>
-            <th width="50">Station</th>
-            <th width="50">Network</th>
-            <th class="text-right">P</th>
-            <th class="text-right">S</th>
+            <th class="px-4 py-3 w-16 text-left">Used</th>
+            <th class="px-4 py-3 text-left">Station</th>
+            <th class="px-4 py-3 text-left">Network</th>
+            <th class="px-4 py-3 text-right">P</th>
+            <th class="px-4 py-3 text-right">S</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
           <tr
             v-for="groupedArrival in groupedArrivals"
             :key="groupedArrival.pick._id"
-            class="cursor-pointer"
+            class="cursor-pointer transition hover:bg-slate-50 dark:hover:bg-slate-800/60"
             @click="toggleSelectedArrival(groupedArrival.pick._id)">
-            <td>
+            <td class="px-4 py-3">
               <input
-                v-if="typeof selectedPicks[groupedArrival.pick._id]?.selected === 'boolean'"
-                :id="groupedArrival.pick._id"
+                v-if="selectedPicks[groupedArrival.pick._id]"
                 v-model="selectedPicks[groupedArrival.pick._id].selected"
                 type="checkbox"
-                class="checkbox checkbox-primary" />
+                class="h-4 w-4 cursor-pointer rounded border-slate-300 text-sky-500 focus:ring-sky-400 dark:border-slate-600"
+                @click.stop />
             </td>
-            <td>{{ groupedArrival.station.code }}</td>
-            <td>{{ groupedArrival.station.network }}</td>
-            <td class="text-right">
-              <div v-if="groupedArrival.phase.p">
-                <div
-                  :class="{
-                    'line-through': !!groupedArrival.phase.p.updated
-                  }">
+            <td class="px-4 py-3 font-semibold text-slate-700 dark:text-slate-100">
+              {{ groupedArrival.station.code }}
+            </td>
+            <td class="px-4 py-3 text-slate-500 dark:text-slate-300">
+              {{ groupedArrival.station.network }}
+            </td>
+            <td class="px-4 py-3 text-right">
+              <div v-if="groupedArrival.phase.p" class="space-y-1 text-xs text-slate-600 dark:text-slate-200">
+                <div :class="groupedArrival.phase.p.updated ? 'line-through text-slate-400 dark:text-slate-500' : ''">
                   {{ formatDate(groupedArrival.phase.p.original) }}
                 </div>
-                <div v-if="groupedArrival.phase.p.updated">
-                  <div className="badge badge-sm badge-warning">changed</div>
-                  {{ formatDate(groupedArrival.phase.p.updated) }}
+                <div v-if="groupedArrival.phase.p.updated" class="rounded-full bg-amber-100/60 px-2 py-0.5 text-amber-700 dark:bg-amber-500/20 dark:text-amber-100">
+                  updated: {{ formatDate(groupedArrival.phase.p.updated) }}
                 </div>
               </div>
             </td>
-            <td class="text-right">
-              <div v-if="groupedArrival.phase.s">
-                <div
-                  :class="{
-                    'line-through': !!groupedArrival.phase.s.updated
-                  }">
+            <td class="px-4 py-3 text-right">
+              <div v-if="groupedArrival.phase.s" class="space-y-1 text-xs text-slate-600 dark:text-slate-200">
+                <div :class="groupedArrival.phase.s.updated ? 'line-through text-slate-400 dark:text-slate-500' : ''">
                   {{ formatDate(groupedArrival.phase.s.original) }}
                 </div>
-                <div v-if="groupedArrival.phase.s.updated">
-                  <div className="badge badge-sm badge-warning">changed</div>
-                  {{ formatDate(groupedArrival.phase.s.updated!) }}
+                <div v-if="groupedArrival.phase.s.updated" class="rounded-full bg-amber-100/60 px-2 py-0.5 text-amber-700 dark:bg-amber-500/20 dark:text-amber-100">
+                  updated: {{ formatDate(groupedArrival.phase.s.updated!) }}
                 </div>
               </div>
             </td>
@@ -243,24 +239,20 @@ watch(
         </tbody>
       </table>
     </div>
-    <div class="flex justify-end items-center gap-2 py-4">
-      <RouterLink :to="`/origin-locator-view/picking/${event._id}/${originId}`" class="btn btn-sm btn-primary"
-        >Picker</RouterLink
-      >
-      <div
-        :class="{
-          'tooltip tooltip-left tooltip-error': selectedPickIds.length < 4
-        }"
-        data-tip="Must be pick at least 4 arrivals">
-        <button
-          class="btn btn-sm btn-success relative -top-0.5"
-          :class="{
-            'btn-disabled btn-outline': selectedPickIds.length < 4
-          }"
-          @click="isConfirmationModalShow = true">
-          Commit
-        </button>
-      </div>
+    <div class="flex flex-wrap items-center justify-end gap-3">
+      <RouterLink
+        :to="`/origin-locator-view/picking/${event._id}/${originId}`"
+        class="rounded-full border border-slate-300 px-6 py-2 text-sm font-semibold text-slate-700 transition hover:border-sky-400 hover:text-sky-600 dark:border-slate-600 dark:text-slate-200 dark:hover:border-sky-500 dark:hover:text-sky-300">
+        Picker
+      </RouterLink>
+      <button
+        class="rounded-full bg-sky-600 px-6 py-2 text-sm font-semibold text-white shadow-lg transition hover:bg-sky-500 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:opacity-70"
+        type="button"
+        :title="selectedPickIds.length < 4 ? 'Pick at least 4 arrivals before committing' : ''"
+        :disabled="selectedPickIds.length < 4"
+        @click="isConfirmationModalShow = true">
+        Commit
+      </button>
     </div>
   </div>
 

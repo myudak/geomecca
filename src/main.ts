@@ -4,10 +4,13 @@ import 'vue3-toastify/dist/index.css'
 import { VueQueryPlugin } from '@tanstack/vue-query'
 import { addIcons, OhVueIcon } from 'oh-vue-icons'
 import {
+  BiGeoAlt,
   BiPinAngle,
   FaCalendar,
+  FaCompass,
   FaDownload,
   FaList,
+  FaLocationArrow,
   FaMap,
   FaRegularTrashAlt,
   FaSearch,
@@ -35,8 +38,11 @@ import App from './App.vue'
 import router from './routes'
 
 addIcons(
+  BiGeoAlt,
   BiPinAngle,
   FaCalendar,
+  FaCompass,
+  FaLocationArrow,
   FaList,
   FaMap,
   FaRegularTrashAlt,

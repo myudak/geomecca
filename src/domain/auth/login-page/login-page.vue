@@ -63,7 +63,7 @@ const quickLinks = [
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-slate-950/70 lg:flex-row">
+  <div class="flex min-h-screen flex-col bg-white text-slate-900 lg:flex-row dark:bg-white dark:text-slate-900">
     <!-- Left Side - Branding -->
     <div class="relative hidden overflow-hidden lg:flex lg:w-[58%]">
       <div class="absolute inset-0 bg-[url('/images/login-bg.jpg')] bg-cover bg-center" aria-hidden="true" />
@@ -145,12 +145,10 @@ const quickLinks = [
     </div>
 
     <!-- Right Side - Login Form -->
-    <div class="flex w-full items-center justify-center bg-white px-6 py-12 dark:bg-slate-950/70 lg:w-[42%]">
-      <div
-        class="w-full max-w-md rounded-3xl border border-slate-200 bg-white/80 p-8 shadow-2xl shadow-slate-900/5 backdrop-blur-lg">
-        <div class="mb-8 text-center lg:text-left">
-          <p class="text-sm uppercase tracking-[0.4em] text-slate-400">Welcome back</p>
-          <h2 class="mt-2 text-3xl font-bold text-slate-900">Geomecca Access</h2>
+    <div class="flex w-full items-center justify-center bg-white px-6 py-16 lg:w-[42%] dark:bg-white">
+      <div class="w-full max-w-md space-y-10">
+        <div class="space-y-3">
+          <h2 class="text-4xl font-bold lg:text-5xl">Login</h2>
           <p class="text-sm text-slate-500">Login to access your Geomecca account</p>
         </div>
         <LoginForm :is-loading="isPending" @submit="login" />

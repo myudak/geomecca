@@ -41,10 +41,16 @@ watch(
 </script>
 
 <template>
-  <div class="flex flex-col gap-4">
-    <DateFilter v-model:range="dateRange" />
-    <div class="w-full overflow-x-auto">
+  <section class="flex flex-col gap-4 rounded-[32px] border border-brand-surface-light-active bg-brand-surface-light p-6 text-brand-text-light shadow dark:border-brand-surface-dark-hover dark:bg-brand-surface-darker dark:text-brand-text-dark">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <p class="text-xs uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500">Event Logs</p>
+        <h2 class="text-xl font-semibold text-slate-900 dark:text-white">All Recorded Events</h2>
+      </div>
+      <DateFilter v-model:range="dateRange" />
+    </div>
+    <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900/40">
       <EventListTable :events="eventList" />
     </div>
-  </div>
+  </section>
 </template>

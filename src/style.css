@@ -1,6 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --brand-surface-bg: #e6f0fb;
+  --brand-card-bg: #ffffff;
+  --brand-muted-bg: #d9e9f1;
+  --brand-border: #b1d1e2;
+  --brand-text: #012538;
+  --brand-text-muted: #024f79;
+  --brand-accent: #0369a1;
+}
+
+.dark {
+  --brand-surface-bg: #012538;
+  --brand-card-bg: #041020;
+  --brand-muted-bg: #023661;
+  --brand-border: #024f79;
+  --brand-text: #e6f0fb;
+  --brand-text-muted: #b1d1e2;
+  --brand-accent: #0f56bf;
+}
+
+.page-shell {
+  background-color: var(--brand-surface-bg);
+  color: var(--brand-text);
+}
+
+.card-shell {
+  background-color: var(--brand-card-bg);
+  color: var(--brand-text);
+  border-color: var(--brand-border);
+}
+
+.card-muted {
+  background-color: var(--brand-muted-bg);
+  color: var(--brand-text);
+  border-color: var(--brand-border);
+}
+
+.mock-bvalue-chart {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.65)),
+    repeating-linear-gradient(
+      0deg,
+      rgba(3, 105, 161, 0.08),
+      rgba(3, 105, 161, 0.08) 12px,
+      transparent 12px,
+      transparent 24px
+    );
+}
 
 /* width */
 ::-webkit-scrollbar {
@@ -158,6 +208,12 @@
 }
 
 @layer base {
+  body {
+    font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+    background-color: var(--brand-surface-bg);
+    color: var(--brand-text);
+  }
+
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;

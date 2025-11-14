@@ -53,23 +53,26 @@ function onSubmitForm() {
 </script>
 
 <template>
-  <div>
-    <div class="mb-6">
-      <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{{ title }}</h3>
-      <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Fill in the user details below</p>
+  <div class="flex flex-col gap-5 rounded-3xl border border-brand-surface-light-active bg-white/95 p-6 shadow-xl shadow-brand-surface-light-active/40 dark:border-brand-surface-dark-hover dark:bg-brand-surface-darker">
+    <div class="mb-2">
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-brand-text-muted dark:text-brand-text-muted-dark">Geomecca</p>
+      <h3 class="text-2xl font-bold text-brand-text-light dark:text-brand-text-dark">{{ title }}</h3>
+      <p class="mt-1 text-sm text-brand-text-muted dark:text-brand-text-muted-dark">Fill in the user details below</p>
     </div>
     <div class="flex flex-col gap-4">
       <Input v-model="username" label="Username" />
       <Input v-model="region" label="Region" />
       <Input v-if="usage !== 'edit'" v-model="password" type="password" label="Password" />
-      <div class="flex gap-3 mt-4">
+      <div class="mt-2 flex gap-3">
         <button
-          class="btn btn-outline flex-1 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2a2a2a] text-gray-700 dark:text-gray-300"
+          class="inline-flex flex-1 items-center justify-center rounded-2xl border border-brand-surface-light-active px-4 py-2 text-sm font-semibold text-brand-text-light transition hover:border-brand-surface-normal hover:bg-brand-surface-light dark:border-brand-surface-dark-hover dark:text-brand-text-dark dark:hover:bg-brand-surface-dark-hover"
           @click="emit('onCancel', null)">
           Cancel
         </button>
-        <button class="btn btn-primary flex-1 rounded-lg hover:shadow-lg" @click="onSubmitForm">
-          <div v-if="isLoading" class="loading loading-spinner" />
+        <button
+          class="inline-flex flex-1 items-center justify-center rounded-2xl bg-brand-surface-normal px-4 py-2 text-sm font-semibold text-white shadow-md shadow-brand-surface-normal/40 transition hover:bg-brand-surface-normal-hover"
+          @click="onSubmitForm">
+          <div v-if="isLoading" class="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
           <span v-else>{{ usage === 'edit' ? 'Update User' : 'Create User' }}</span>
         </button>
       </div>

@@ -105,7 +105,14 @@ const onRefresh = () => {
           <button
             class="p-2.5 bg-gray-50 dark:bg-[#0f1419] border border-gray-300 dark:border-gray-700 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-blue-500 transition-colors"
             @click="onRefresh">
-            <v-icon name="md-refresh" scale="1.2" />
+            <svg width="22" height="22" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M25.25 11.7472C24.8832 9.10258 23.6586 6.65217 21.765 4.77341C19.8713 2.89466 17.4136 1.69179 14.7705 1.3501C12.1274 1.00842 9.44543 1.54686 7.1378 2.8825C4.83017 4.21814 3.02487 6.27688 2 8.74158M1.25 2.73035V8.74158H7.25M1.25 14.7528C1.61684 17.3974 2.8414 19.8478 4.73504 21.7266C6.62869 23.6053 9.08637 24.8082 11.7295 25.1499C14.3726 25.4916 17.0546 24.9531 19.3622 23.6175C21.6698 22.2819 23.4751 20.2231 24.5 17.7584M25.25 23.7696V17.7584H19.25"
+                stroke="#F3F3F3"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
           </button>
         </div>
       </div>

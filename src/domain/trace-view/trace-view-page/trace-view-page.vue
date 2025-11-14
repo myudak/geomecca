@@ -223,7 +223,7 @@ const prevPage = () => {
 
 <template>
   <FullScreenLoading v-if="isLoading || isProfileLoading || !isConnected" />
-  <div v-else class="flex flex-col h-full overflow-hidden bg-gray-50 dark:bg-gray-900">
+  <div v-else class="flex flex-col h-full overflow-hidden page-shell">
     <TraceViewNavigation
       :status="stationStatus"
       :total-enabled="enabledStations.length"
@@ -236,7 +236,7 @@ const prevPage = () => {
       @next-page="nextPage"
       @prev-page="prevPage" />
 
-    <div class="flex-1 w-full h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">
+    <div class="flex-1 w-full h-full overflow-y-auto bg-brand-surface-light dark:bg-[#1b2332]">
       <div class="flex">
         <div v-if="show" id="trace-view-container" ref="traceViewContainer" class="h-full flex-1 overflow-x-hidden">
           <StationWaveItem
@@ -259,18 +259,20 @@ const prevPage = () => {
 
     <!-- Footer with Station Count and Copyright -->
     <div
-      class="bg-white dark:bg-[#1d1d1d] border-t border-gray-200 dark:border-gray-700 px-6 py-3 grid grid-cols-3 items-center gap-4">
+      class="bg-brand-surface-light dark:bg-[#080f1c] border-t border-brand-surface-light-active dark:border-brand-surface-dark-hover px-6 py-3 grid grid-cols-3 items-center gap-4">
       <!-- Left: Active Stations -->
       <div class="flex items-center gap-2 text-sm">
         <div
-          class="flex items-center justify-center w-6 h-6 rounded-full border-2 border-warning text-warning dark:text-white dark:bg-slate-200">
+          class="flex h-6 w-6 items-center justify-center rounded-full border-2 border-brand-numeric-500 text-brand-numeric-500 dark:border-brand-surface-light-active dark:bg-brand-surface-dark dark:text-brand-text-dark">
           <v-icon name="io-checkmark" scale="0.7" />
         </div>
-        <span class="text-gray-700 dark:text-gray-300 font-medium">{{ selectedStations.length }} Active Stations</span>
+        <span class="font-medium text-brand-text-light dark:text-brand-text-dark"
+          >{{ selectedStations.length }} Active Stations</span
+        >
       </div>
 
       <!-- Center: Copyright -->
-      <div class="text-sm text-gray-500 dark:text-gray-400 text-center">
+      <div class="text-center text-sm text-brand-text-muted dark:text-brand-text-dark/70">
         GeoMecca System © {{ new Date().getFullYear() }}
       </div>
 

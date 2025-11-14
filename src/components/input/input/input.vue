@@ -20,18 +20,17 @@ withDefaults(
 </script>
 
 <template>
-  <label class="form-control w-full">
-    <div v-if="!!label" class="label pl-0 font-light pt-0">
-      <span class="label-text">{{ label }}</span>
+  <label class="flex w-full flex-col gap-1 text-sm font-medium text-brand-text-light dark:text-brand-text-dark">
+    <span v-if="!!label">{{ label }}</span>
+    <div
+      class="flex w-full items-center rounded-xl border border-brand-surface-light-active bg-white/90 px-4 py-2 text-brand-text-light shadow-sm transition focus-within:border-brand-surface-normal focus-within:ring-2 focus-within:ring-brand-surface-normal/30 dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark dark:text-brand-text-dark">
+      <input
+        v-model="model"
+        :type="type"
+        class="w-full border-none bg-transparent text-sm text-brand-text-light placeholder:text-brand-text-muted focus:outline-none dark:text-brand-text-dark dark:placeholder:text-brand-text-muted-dark"
+        :disabled="disabled"
+        :placeholder="placeholder" />
     </div>
-    <input
-      v-model="model"
-      :type="type"
-      class="input input-bordered dark:placeholder-white/40 placeholder-black/40"
-      :disabled="disabled"
-      :placeholder="placeholder" />
-    <div v-if="!!error" class="label">
-      <span class="label-text-alt text-error">{{ error }}</span>
-    </div>
+    <span v-if="!!error" class="text-xs font-normal text-error">{{ error }}</span>
   </label>
 </template>

@@ -14,6 +14,13 @@ interface FilterConfig {
   high: number
 }
 
+const PHASE_COLORS = {
+  arrivalS: '#417edb',
+  arrivalP: '#0f56bf',
+  pick: '#0369a1',
+  fallback: '#093474'
+} as const
+
 const props = defineProps<{
   channel: {
     channelName: string
@@ -72,8 +79,10 @@ const drawPick = (
   const x = xScale(position)
 
   const getColor = () => {
-    if (phaseType === 'S') return '#38BDF8'
-    return from === 'PICK' ? '#22c55e' : '#DF2C2C'
+    if (phaseType === 'S') return PHASE_COLORS.arrivalS
+    if (from === 'PICK') return PHASE_COLORS.pick
+    if (phaseType === 'P') return PHASE_COLORS.arrivalP
+    return PHASE_COLORS.fallback
   }
 
   const color = getColor()
@@ -320,7 +329,7 @@ watch(
   <div class="flex items-center h-full w-full relative group" :style="{ height: `${height}px` }">
     <!-- Left Side - Station Info -->
     <div
-      class="flex items-center justify-between px-6 py-3 bg-gray-100 dark:bg-[#202020] backdrop-blur-sm border-r border-gray-200 dark:border-gray-700 min-w-[280px] w-[280px] h-full shrink-0">
+      class="flex items-center justify-between px-6 py-3 bg-brand-surface-light dark:bg-[#1b2332] backdrop-blur-sm border-r border-brand-surface-light-active dark:border-brand-surface-dark-hover min-w-[280px] w-[280px] h-full shrink-0">
       <div class="flex flex-col gap-1">
         <div class="flex items-center gap-2">
           <input
@@ -328,9 +337,9 @@ watch(
             :checked="enabled"
             type="checkbox"
             class="toggle toggle-success rounded-full"
-            style="--tglbg: #10b981; background-color: transparent"
+            style="--tglbg: #0369a1; background-color: transparent"
             @click="$emit('toggle')" />
-          <div class="font-bold text-gray-900 dark:text-white text-sm">{{ channelName }}</div>
+          <div class="text-sm font-bold text-brand-text-light dark:text-brand-text-dark">{{ channelName }}</div>
         </div>
         <div :id="`station-info-${channelName.replace(/\./g, '-')}`" class="flex gap-1 text-xs">
           <div class="text-error font-semibold">
@@ -347,7 +356,7 @@ watch(
 
     <!-- Right Side - Waveform Canvas -->
     <div
-      class="flex-1 h-full bg-white dark:bg-black border-b border-gray-200 dark:border-[#1c1c1c] relative overflow-hidden">
+      class="flex-1 h-full bg-brand-surface-light dark:bg-[#1b2332] border-b border-brand-surface-light-active dark:border-brand-surface-dark-hover relative overflow-hidden">
       <canvas ref="canvas" class="h-full w-full" :style="{ width: `${width - 280}px` }" />
 
       <!-- Hover overlay for better interaction feedback -->

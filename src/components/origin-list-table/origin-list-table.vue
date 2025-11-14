@@ -76,7 +76,7 @@ const formattedOrigins = computed(() =>
             <td>{{ origin.gap }}</td>
             <td>{{ origin.err_epicenter }}</td>
             <td>{{ origin.sub_region }}, {{ origin.region }}</td>
-            <td class="sticky right-0 bg-base-100">
+            <td class="sticky right-0 bg-base-100 dark:bg-[#020617]">
               <RouterLink :to="`/origin-locator-view/location/${eventId}/${origin._id}`" class="btn btn-xs btn-primary"
                 >Open</RouterLink
               >

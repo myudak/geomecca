@@ -11,6 +11,7 @@ import { EventTab } from '../event-tab'
 import { LocationDetail } from '../location-detail'
 import { MagnitudeTab } from '../magnitude-tab'
 import { OriginTab } from '../origin-tab'
+import { NearbyEarthquakeTab } from '../nearby-earthquake-tab'
 import { TabList } from '../tab-list'
 
 const route = useRoute()
@@ -21,6 +22,7 @@ const selectedTab = computed(() => route.params.tab as string)
 const data = ref<EarthQuakeEventDetail | null>(null)
 const isLoading = ref(false)
 const selectedOriginId = ref('')
+const showAnalysisColumn = computed(() => true)
 
 watch(
   id,
@@ -50,27 +52,38 @@ watch(
 </script>
 
 <template>
-  <div class="flex flex-1 h-full max-md:flex-col overflow-y-auto md:overflow-hidden">
-    <div class="w-[300px] p-4 border-r max-md:w-full max-md:border-none max-md:hidden">
-      <EventSummary v-if="!isLoading && !!data" :event="data" :origin-id="selectedOriginId" />
-    </div>
-    <div class="flex flex-col p-4 gap-4 flex-1 w-full h-full md:overflow-y-auto">
-      <div v-if="selectedTab !== 'picking'" class="flex">
+  <div
+    class="flex h-full flex-1 flex-col gap-6 overflow-y-auto bg-slate-50/40 p-4 dark:bg-slate-950 md:flex-row md:overflow-hidden">
+    <aside
+      v-if="showAnalysisColumn"
+      class="flex w-full flex-col gap-4 rounded-3xl md:w-80 md:flex-shrink-0 md:max-h-[calc(100vh-5rem)] md:overflow-y-auto md:pr-1">
+      <div class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-slate-900">
         <TabList :id="id" :selected-tab="selectedTab" :origin-id="selectedOriginId" />
       </div>
+      <div
+        v-if="!isLoading && !!data"
+        class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-slate-900">
+        <EventSummary :event="data" :origin-id="selectedOriginId" />
+      </div>
+    </aside>
 
-      <LocationDetail
-        v-if="!isLoading && selectedTab === 'location' && !!data"
-        :event="data"
-        :origin-id="selectedOriginId" />
-      <MagnitudeTab v-if="!isLoading && selectedTab === 'magnitude'" :origin-id="selectedOriginId" />
-      <PickingPage
-        v-if="!isLoading && selectedTab === 'picking' && !!data"
-        :event="data"
-        :origin-id="selectedOriginId" />
-      <OriginTab v-if="selectedTab === 'origin' && !!data" :event="data" />
-      <EventTab v-if="selectedTab === 'events'" />
-      <FullScreenLoading v-if="isLoading" />
-    </div>
+    <section
+      class="flex-1 rounded-3xl border border-slate-200 bg-white/90 p-0 shadow-sm dark:border-white/10 dark:bg-slate-950/60 md:p-0">
+      <div class="h-full w-full overflow-y-auto rounded-3xl p-4 text-slate-900 dark:text-slate-100">
+        <LocationDetail
+          v-if="!isLoading && selectedTab === 'location' && !!data"
+          :event="data"
+          :origin-id="selectedOriginId" />
+        <MagnitudeTab v-if="!isLoading && selectedTab === 'magnitude'" :origin-id="selectedOriginId" />
+        <PickingPage
+          v-if="!isLoading && selectedTab === 'picking' && !!data"
+          :event="data"
+          :origin-id="selectedOriginId" />
+        <OriginTab v-if="selectedTab === 'origin' && !!data" :event="data" />
+        <EventTab v-if="selectedTab === 'events'" />
+        <NearbyEarthquakeTab v-if="selectedTab === 'nearby'" />
+      </div>
+    </section>
+    <FullScreenLoading v-if="isLoading" />
   </div>
 </template>

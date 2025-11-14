@@ -48,8 +48,12 @@ const additionalInformations = [
 <template>
   <div class="flex gap-4 max-md:flex-col">
     <div class="w-[30%] flex flex-col gap-2 max-md:w-full">
-      <div class="text-white">{{ origin.region }} Region</div>
+      <div class="text-slate-900 dark:text-slate-100">{{ origin.region }} Region</div>
       <div class="relative pb-[100%]">
+        <!-- <img
+          src="/images/b-value.png"
+          alt="B-Value Plot"
+          class="absolute top-0 left-0 w-full h-full object-cover rounded-2xl shadow-md" /> -->
         <MagnitudePreviewMap :origin="origin" :station-magnitudes="stationMagnitudes" />
         <!-- <OLPreviewMap
           v-if="selectedMagnitude"
@@ -79,10 +83,11 @@ const additionalInformations = [
               label: 'Max:',
               value: Math.max(...values)
             }
-          ]" />
+          ]"
+          variant="light" />
       </div>
       <div class="divider" />
-      <InformationList :informations="additionalInformations" />
+      <InformationList :informations="additionalInformations" variant="light" />
     </div>
     <div class="w-[30%] max-md:w-full">
       <MockChart tab="magnitude" />

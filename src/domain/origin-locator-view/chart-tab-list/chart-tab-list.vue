@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import useGetWadatiPlot from '@src/hooks/use-get-wadati-plot'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import VueEasyLightbox from 'vue-easy-lightbox'
 
 import { MockChart } from '../mock-chart'
@@ -11,12 +11,24 @@ const props = defineProps<{
   originId: string
 }>()
 
+const emit = defineEmits<{
+  (e: 'ready', url: string): void
+}>()
+
 const selectedTab = ref('Distance')
 const isImageShow = ref(false)
 
 const { data } = useGetWadatiPlot(props.originId)
 const wadatiImage = computed(() => data?.value?.data.image)
 const wadatiImageUrl = computed(() => (wadatiImage.value ? `data:image/png;base64,${wadatiImage.value}` : ''))
+
+watch(
+  wadatiImageUrl,
+  (url) => {
+    emit('ready', url)
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
