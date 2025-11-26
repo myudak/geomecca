@@ -47,8 +47,8 @@ const onCheckboxClick = (name: SettingName) => {
         aria-label="Close map settings"
         @click="$emit('close')" />
       <div
-        class="relative flex h-full w-80 flex-col border-l border-slate-200 bg-white text-slate-900 shadow-2xl dark:border-white/5 dark:bg-[#070c1b] dark:text-white lg:w-96">
-        <div class="flex items-center justify-between border-b border-slate-200 px-6 py-5 dark:border-white/5">
+        class="relative flex h-full w-80 flex-col border-l border-base-200/80 bg-base-100 text-base-content shadow-2xl dark:border-white/5 dark:bg-[#070c1b] dark:text-white lg:w-96">
+        <div class="flex items-center justify-between border-b border-base-200/80 px-6 py-5 dark:border-white/5">
           <div class="flex items-center gap-3">
             <div
               class="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary dark:bg-primary/15">
@@ -82,7 +82,7 @@ const onCheckboxClick = (name: SettingName) => {
             </div>
           </div>
           <button
-            class="flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-white/60 dark:hover:bg-white/10 dark:hover:text-white"
+            class="flex h-9 w-9 items-center justify-center rounded-full text-base-content/60 transition hover:bg-base-200/70 hover:text-base-content dark:text-white/60 dark:hover:bg-white/10 dark:hover:text-white"
             type="button"
             aria-label="Close settings drawer"
             @click="$emit('close')">
@@ -103,7 +103,7 @@ const onCheckboxClick = (name: SettingName) => {
           </button>
         </div>
         <div
-          class="border-b border-slate-200 px-6 py-3 text-sm text-slate-500 dark:border-white/5 dark:text-white/70">
+          class="border-b border-base-200/80 px-6 py-3 text-sm text-base-content/70 dark:border-white/5 dark:text-white/70">
           Atur lapisan untuk mempermudah analisis awal sebelum melompat ke detail event.
         </div>
 
@@ -111,9 +111,9 @@ const onCheckboxClick = (name: SettingName) => {
           <div
             v-for="option in OPTIONS"
             :key="option.name"
-            class="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm transition hover:border-slate-300 dark:border-white/5 dark:bg-white/5 dark:shadow-[0_8px_30px_rgba(3,8,20,0.35)]">
+            class="flex items-center justify-between rounded-2xl border border-base-200/70 px-4 py-4 shadow-sm transition dark:border-white/5 dark:bg-white/5 dark:shadow-[0_8px_30px_rgba(3,8,20,0.35)]">
             <div class="flex items-center gap-3">
-              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 dark:bg-black/20">
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-base-200/70 dark:bg-black/20">
                 <svg
                   v-if="option.icon === 'trench'"
                   width="24"
@@ -184,7 +184,7 @@ const onCheckboxClick = (name: SettingName) => {
                   </defs>
                 </svg>
               </div>
-              <span class="text-base font-medium text-slate-800 dark:text-white">{{ option.label }}</span>
+              <span class="text-base font-medium text-base-content dark:text-white">{{ option.label }}</span>
             </div>
 
             <label class="relative inline-flex cursor-pointer items-center">
@@ -194,7 +194,7 @@ const onCheckboxClick = (name: SettingName) => {
                 :checked="value[option.name] ?? false"
                 @change="onCheckboxClick(option.name)" />
               <div
-                class="peer h-6 w-11 rounded-full bg-slate-200 transition-colors after:absolute after:left-[3px] after:top-[3px] after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-5 peer-focus:outline-none dark:bg-white/20 dark:after:bg-white"></div>
+                class="peer h-6 w-11 rounded-full bg-base-200/70 transition-colors after:absolute after:left-[3px] after:top-[3px] after:h-5 after:w-5 after:rounded-full after:bg-base-100 after:shadow after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-5 peer-focus:outline-none dark:bg-white/20 dark:after:bg-white"></div>
             </label>
           </div>
         </div>

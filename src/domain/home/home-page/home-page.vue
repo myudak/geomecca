@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import useGetAllEventList from '@src/hooks/use-get-all-event-list'
+import { EarthQuakeEvent } from '@src/types/event'
+import { getDefaultMagnitude } from '@src/utils/string'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -32,45 +35,99 @@ const monitoringCards = [
   }
 ]
 
-// Fetch recent earthquakes - using a 7-day window
-const endDate = Date.now()
-const startDate = endDate - 7 * 24 * 60 * 60 * 1000 // 7 days ago
+const end = new Date()
+const start = new Date(end.getTime() - 30 * 24 * 60 * 60 * 1000)
 
-const { data: eventsData } = useGetAllEventList({
+const { data: eventsData, isFetching: isEventsLoading } = useGetAllEventList({
   page: 1,
   totalPerPage: 10,
-  startDate,
-  endDate
+  startDate: start.toISOString(),
+  endDate: end.toISOString()
 })
+
+const eventList = computed(() => eventsData.value?.data ?? [])
 
 const navigateTo = (route: string) => {
   router.push(route)
 }
 
-const formatDistance = (km: number) => {
+const formatDistance = (km?: number | null) => {
+  if (km === undefined || km === null) return 'Depth unavailable'
   return `${km.toFixed(1)} km`
 }
 
-const formatDateTime = (timestamp: string) => {
-  const date = new Date(timestamp)
-  return date.toLocaleString('en-US', {
+const formatDateTime = (timestamp?: string) => {
+  if (!timestamp) return 'Unknown time'
+  const date = new Date(timestamp.includes('Z') ? timestamp : `${timestamp}Z`)
+  return `${date.toLocaleString('en-US', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
     hour: '2-digit',
     minute: '2-digit',
-    timeZoneName: 'short'
-  })
+    hour12: false,
+    timeZone: 'UTC'
+  })} (UTC)`
 }
 
-const getMagnitudeColor = (magnitude: number) => {
-  if (magnitude >= 7) return 'bg-red-600'
-  if (magnitude >= 6) return 'bg-orange-600'
-  if (magnitude >= 5) return 'bg-yellow-600'
-  return 'bg-green-600'
+const getPreferredMagnitudeValue = (event: EarthQuakeEvent) => {
+  const magnitudes = event?.origins?.magnitudes ?? []
+  const preferredMagnitude = getDefaultMagnitude(magnitudes) ?? magnitudes[0]
+  return preferredMagnitude?.value ?? null
 }
 
-const getMagnitudeText = (magnitude: number) => {
+const formatMagnitudeValue = (event: EarthQuakeEvent) => {
+  const magnitude = getPreferredMagnitudeValue(event)
+  return magnitude !== null ? magnitude.toFixed(1) : '—'
+}
+
+const getLocationLabel = (event: EarthQuakeEvent) => {
+  const { sub_region, region, country } = event.origins ?? {}
+  const parts = [sub_region, region, country].filter(Boolean)
+  return parts.length ? parts.join(', ') : event.name
+}
+
+const getAlertLevel = (magnitude: number | null) => {
+  if (magnitude === null) return 'Unknown'
+  if (magnitude >= 7) return 'Red'
+  if (magnitude >= 6) return 'Orange'
+  if (magnitude >= 5) return 'Yellow'
+  return 'Green'
+}
+
+const getAlertBadgeClass = (magnitude: number | null) => {
+  if (magnitude === null)
+    return 'bg-brand-surface-light-active text-brand-text-muted dark:bg-brand-surface-dark dark:text-brand-text-muted-dark'
+  if (magnitude >= 7)
+    return 'bg-red-50 text-red-700 border border-red-200 dark:bg-red-500/10 dark:text-red-200 dark:border-red-500/40'
+  if (magnitude >= 6)
+    return 'bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-500/10 dark:text-orange-200 dark:border-orange-500/40'
+  if (magnitude >= 5)
+    return 'bg-yellow-50 text-yellow-700 border border-yellow-200 dark:bg-yellow-500/10 dark:text-yellow-200 dark:border-yellow-500/40'
+  return 'bg-green-50 text-green-700 border border-green-200 dark:bg-green-500/10 dark:text-green-200 dark:border-green-500/40'
+}
+
+const getAlertDotClass = (magnitude: number | null) => {
+  if (magnitude === null) return 'bg-brand-text-muted dark:bg-brand-text-muted-dark'
+  if (magnitude >= 7) return 'bg-red-500'
+  if (magnitude >= 6) return 'bg-orange-500'
+  if (magnitude >= 5) return 'bg-yellow-500'
+  return 'bg-green-500'
+}
+
+const getIntensityScale = (magnitude: number | null) => {
+  if (magnitude === null) return '—'
+  if (magnitude >= 7.5) return 'IX'
+  if (magnitude >= 7) return 'VIII'
+  if (magnitude >= 6.5) return 'VII'
+  if (magnitude >= 6) return 'VI'
+  if (magnitude >= 5.5) return 'V'
+  if (magnitude >= 5) return 'IV'
+  return 'III'
+}
+
+const getMagnitudeText = (magnitude: number | null) => {
+  if (magnitude === null) return 'Intensity unavailable'
   if (magnitude >= 7) return 'Very Strong Shaking'
   if (magnitude >= 6) return 'Strong Shaking'
   if (magnitude >= 5) return 'Moderate Shaking'
@@ -89,14 +146,14 @@ const getMagnitudeText = (magnitude: number) => {
     </div>
 
     <!-- Main Content -->
-    <div class="px-6 py-6 pb-20 dark:bg-[#141923]">
+    <div class="px-6 py-6 pb-20 bg-white dark:bg-[#141923]">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Left Section - Monitoring Cards -->
         <div class="lg:col-span-2 flex flex-col gap-6">
           <article
             v-for="card in monitoringCards"
             :key="card.id"
-            class="group card rounded-[28px] border border-brand-surface-light-active bg-brand-surface-light p-5 text-brand-text-light shadow-lg shadow-brand-numeric-200/40 transition-all duration-300 hover:-translate-y-1 hover:border-brand-surface-normal hover:bg-brand-surface-light-hover hover:shadow-2xl hover:shadow-brand-numeric-300/30 dark:border-brand-surface-dark-hover dark:bg-[#1b1f28] dark:text-brand-text-dark lg:p-6">
+            class="group card rounded-[28px] border border-brand-surface-light-active p-5 text-brand-text-light shadow-lg shadow-brand-numeric-200/40 transition-all duration-300 hover:-translate-y-1 hover:border-brand-surface-normal hover:bg-brand-surface-light-hover hover:shadow-2xl hover:shadow-brand-numeric-300/30 dark:border-brand-surface-dark-hover dark:bg-[#1b1f28] dark:text-brand-text-dark lg:p-6 bg-white">
             <div class="flex flex-col gap-5 lg:flex-row">
               <!-- Left Side - Preview Image -->
               <figure
@@ -165,7 +222,7 @@ const getMagnitudeText = (magnitude: number) => {
         <!-- Right Section - Nearby Earthquake -->
         <div class="lg:col-span-1">
           <div
-            class="rounded-[28px] border border-brand-surface-light-active bg-brand-surface-light shadow-lg shadow-brand-numeric-200/40 overflow-hidden sticky top-6 transition-all duration-300 hover:shadow-xl hover:border-brand-surface-normal dark:bg-[#1b1f28]">
+            class="rounded-[28px] border border-brand-surface-light-active shadow-lg shadow-brand-numeric-200/40 overflow-hidden sticky top-6 transition-all duration-300 hover:shadow-xl hover:border-brand-surface-normal dark:bg-[#1b1f28] bg-white">
             <!-- Header -->
             <div class="px-6 py-4 border-b border-brand-surface-light-active dark:border-brand-surface-dark-hover">
               <div class="flex items-center justify-between">
@@ -182,73 +239,90 @@ const getMagnitudeText = (magnitude: number) => {
 
             <!-- Earthquake List -->
             <div class="overflow-y-auto max-h-[calc(100vh-200px)]">
-              <div v-if="!eventsData || eventsData.data.length === 0" class="px-6 py-12 text-center">
+              <div v-if="isEventsLoading" class="px-6 py-12 text-center">
+                <p class="text-sm text-brand-text-muted dark:text-brand-text-muted-dark">Loading nearby earthquakes…</p>
+              </div>
+
+              <div v-else-if="eventList.length === 0" class="px-6 py-12 text-center">
                 <p class="text-sm text-brand-text-muted dark:text-brand-text-muted-dark">No recent earthquakes</p>
               </div>
 
               <div v-else class="divide-y divide-brand-surface-light-active dark:divide-brand-surface-dark-hover">
-                <div
-                  v-for="event in eventsData.data"
-                  :key="event.event_id"
-                  class="px-6 py-4 transition-all duration-200 cursor-pointer border-l-4 border-transparent hover:-translate-y-0.5 hover:bg-brand-surface-light-hover hover:border-brand-surface-normal dark:hover:bg-brand-surface-dark"
-                  @click="navigateTo(`/origin-locator-view/events/${event.event_id}`)">
-                  <!-- Magnitude -->
-                  <div class="flex items-start gap-4">
-                    <div class="text-center min-w-[60px]">
-                      <div class="text-2xl font-bold text-brand-text-light dark:text-brand-text-dark">
-                        {{ event.magnitude?.toFixed(1) || 'N/A' }}
+                <article
+                  v-for="event in eventList"
+                  :key="event._id"
+                  class="px-6 py-5 transition-all duration-200 cursor-pointer border-l-4 border-transparent hover:-translate-y-0.5 hover:bg-brand-surface-light-hover hover:border-brand-surface-normal dark:hover:bg-brand-surface-dark"
+                  @click="navigateTo(`/origin-locator-view/events/${event._id}`)">
+                  <div class="flex flex-col gap-4 sm:flex-row sm:items-start">
+                    <div
+                      class="min-w-[72px] rounded-2xl bg-brand-surface-light-active px-4 py-3 text-center shadow-inner dark:bg-[#1f2430]">
+                      <div class="text-3xl font-bold text-brand-text-light dark:text-brand-text-dark">
+                        {{ formatMagnitudeValue(event) }}
                       </div>
-                      <div class="text-xs text-brand-text-muted dark:text-brand-text-muted-dark">km</div>
+                      <div
+                        class="text-[11px] uppercase tracking-wide text-brand-text-muted dark:text-brand-text-muted-dark">
+                        Mw
+                      </div>
                     </div>
 
-                    <!-- Event Details -->
                     <div class="flex-1 min-w-0">
-                      <!-- Location -->
-                      <div class="flex items-start gap-2 mb-2">
-                        <svg class="w-4 h-4 text-primary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                          <path
-                            fill-rule="evenodd"
-                            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                            clip-rule="evenodd" />
-                        </svg>
-                        <p class="text-sm font-medium text-brand-text-light dark:text-brand-text-dark line-clamp-2">
-                          {{ event.location || 'Unknown location' }}
-                        </p>
-                      </div>
-
-                      <!-- Time -->
-                      <p class="text-xs text-brand-text-muted dark:text-brand-text-muted-dark mb-3">
-                        {{ formatDateTime(event.origin_time) }}
-                      </p>
-
-                      <!-- Alert Level & Distance -->
-                      <div class="flex items-center justify-between">
-                        <div class="space-y-1">
-                          <p class="text-xs text-brand-text-muted dark:text-brand-text-muted-dark">
-                            Pager Alert Level: Green
-                          </p>
-                          <div class="flex items-center gap-2">
-                            <span
-                              :class="[
-                                'px-2 py-0.5 rounded text-xs font-medium text-white',
-                                getMagnitudeColor(event.magnitude || 0)
-                              ]">
-                              VII
-                            </span>
-                            <span class="text-xs text-brand-text-muted dark:text-brand-text-muted-dark">
-                              ({{ getMagnitudeText(event.magnitude || 0) }})
-                            </span>
+                      <div class="flex flex-wrap items-start justify-between gap-3">
+                        <div class="flex items-start gap-2 min-w-0">
+                          <svg
+                            class="w-4 h-4 text-primary flex-shrink-0 mt-0.5"
+                            fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path
+                              fill-rule="evenodd"
+                              d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                              clip-rule="evenodd" />
+                          </svg>
+                          <div class="space-y-1 min-w-0">
+                            <p class="text-sm font-semibold text-primary dark:text-blue-300 line-clamp-2">
+                              {{ getLocationLabel(event) }}
+                            </p>
+                            <p class="text-xs text-brand-text-muted dark:text-brand-text-muted-dark">
+                              {{ formatDateTime(event.origins?.origin_time) }}
+                            </p>
                           </div>
                         </div>
                         <div class="text-right">
+                          <p class="text-xs text-brand-text-muted dark:text-brand-text-muted-dark">Depth</p>
                           <p class="text-sm font-semibold text-brand-text-light dark:text-brand-text-dark">
-                            {{ formatDistance(event.depth || 0) }}
+                            {{ formatDistance(event.origins?.depth) }}
                           </p>
+                        </div>
+                      </div>
+
+                      <div
+                        class="mt-4 flex flex-col gap-3 text-xs text-brand-text-muted dark:text-brand-text-muted-dark sm:flex-row sm:items-center sm:justify-between">
+                        <div class="flex flex-wrap items-center gap-2">
+                          <span>Pager Alert Level:</span>
+                          <span
+                            :class="[
+                              'inline-flex items-center gap-2 rounded-full px-3 py-1 font-semibold',
+                              getAlertBadgeClass(getPreferredMagnitudeValue(event))
+                            ]">
+                            <span
+                              class="w-2 h-2 rounded-full"
+                              :class="getAlertDotClass(getPreferredMagnitudeValue(event))"></span>
+                            {{ getAlertLevel(getPreferredMagnitudeValue(event)) }}
+                          </span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                          <span
+                            :class="[
+                              'inline-flex items-center rounded-lg px-3 py-1 text-xs font-semibold border',
+                              getAlertBadgeClass(getPreferredMagnitudeValue(event))
+                            ]">
+                            {{ getIntensityScale(getPreferredMagnitudeValue(event)) }}
+                          </span>
+                          <span>({{ getMagnitudeText(getPreferredMagnitudeValue(event)) }})</span>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </article>
               </div>
             </div>
           </div>
