@@ -1,5 +1,5 @@
 <script setup lang="ts">
-type SettingName = 'volcanoes' | 'trench' | 'plateBoundaries' | 'pusgen'
+type SettingName = 'volcanoes' | 'trench' | 'plateBoundaries' | 'fault' | 'reservoir' | 'pusgen'
 
 const props = defineProps<{
   value: Record<string, boolean>
@@ -20,6 +20,16 @@ const OPTIONS = [
     label: 'Show Plate Boundaries',
     name: 'plateBoundaries',
     icon: 'plate'
+  },
+  {
+    label: 'Show Reservoir',
+    name: 'reservoir',
+    icon: 'reservoir'
+  },
+  {
+    label: 'Show Patahan',
+    name: 'fault',
+    icon: 'fault'
   },
   {
     label: 'Show Volcanoes',
@@ -135,6 +145,76 @@ const onCheckboxClick = (name: SettingName) => {
                   <path
                     d="M5.52834 2.36719L5.64694 7.05028L10.5835 9.8145L5.52834 2.36719ZM17.7583 3.42628L13.1909 5.11238L14.1724 13.125L17.7583 3.42628ZM23.1593 7.11769L16.8822 9.92719L20.0492 15.5405L20.3143 16.0122L19.7987 16.1749L15.952 17.3833L18.6444 19.6919L19.7577 20.647L18.3031 20.4595L6.38658 18.9213L4.72692 18.7075L6.2782 18.0805L12.2401 15.6737L8.13281 13.8295L0.925781 17.0581V23.1826H23.1592V7.11769H23.1593ZM6.38817 9.48347L1.86333 10.5454L13.4341 13.9365L6.38822 9.48337L6.38817 9.48347Z"
                     fill="#46CF68" />
+                </svg>
+                <svg
+                  v-else-if="option.icon === 'fault'"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M3 19L8 14L11 16L16 10L19 12L23 8"
+                    stroke="#c67b00"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path
+                    d="M1 5H5"
+                    stroke="#c67b00"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path
+                    d="M1 9H9"
+                    stroke="#c67b00"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path
+                    d="M1 13H7"
+                    stroke="#c67b00"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path
+                    d="M1 17H3.5"
+                    stroke="#c67b00"
+                    stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
+                </svg>
+                <svg
+                  v-else-if="option.icon === 'reservoir'"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M3 17C5 17 5 15 7 15C9 15 9 17 11 17C13 17 13 15 15 15C17 15 17 17 19 17C21 17 21 15 23 15"
+                    stroke="#0ea5e9"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path
+                    d="M3 13C5 13 5 11 7 11C9 11 9 13 11 13C13 13 13 11 15 11C17 11 17 13 19 13C21 13 21 11 23 11"
+                    stroke="#0ea5e9"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path
+                    d="M3 9C5 9 5 7 7 7C9 7 9 9 11 9C13 9 13 7 15 7C17 7 17 9 19 9C21 9 21 7 23 7"
+                    stroke="#0ea5e9"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path
+                    d="M3 5C5 5 5 3 7 3C9 3 9 5 11 5C13 5 13 3 15 3C17 3 17 5 19 5C21 5 21 3 23 3"
+                    stroke="#0ea5e9"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
                 </svg>
                 <svg
                   v-else-if="option.icon === 'volcano'"

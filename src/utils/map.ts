@@ -35,10 +35,20 @@ export const createMapCanvas = (id: string, options?: L.MapOptions) => {
 
 export const generateStationIcon = (code: string, hasPick: boolean) => {
   return L.divIcon({
-    iconSize: [26, 30],
-    html: `<div class="station-icon ${hasPick ? 'station-icon-with-pick' : ''}"><div class="station-name">${code}</div></div>`
+    className: '', // remove default leaflet-icon styles
+    iconSize: [29, 40],
+    iconAnchor: [14.5, 26], // center X, tip of triangle Y
+    html: `
+      <div class="station-icon-wrapper ${hasPick ? 'station-icon-with-pick' : ''}">
+        <div class="station-icon-triangle"></div>
+        <div class="station-icon-label">
+          <span class="station-name">${code}</span>
+        </div>
+      </div>
+    `
   })
 }
+
 
 export const createStationMarker = (station: Station, hasPick: boolean) => {
   const lat = Number(station.latitude)

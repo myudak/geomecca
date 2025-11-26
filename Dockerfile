@@ -1,11 +1,20 @@
-# Use Nginx base image for serving the static files
+# Stage 1: build frontend
+FROM node:20-alpine AS build
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build   # produces /app/dist
+
+# Stage 2: serve with nginx
 FROM nginx:alpine
+
 COPY nginx.conf /etc/nginx/nginx.conf
-## Remove default nginx index page
 RUN rm -rf /usr/share/nginx/html/*
-# Copy from the stage 1
-COPY dist /usr/share/nginx/html
-# Expose port 3004
+
+COPY --from=build /app/dist /usr/share/nginx/html
+
 EXPOSE 8004
-# Start Nginx
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

@@ -9,6 +9,8 @@ import { speakAlarm } from '@src/utils/alarm'
 import {
   createEventMarker,
   createOpenLayerMap,
+  createFaultLayer,
+  createReservoirLayer,
   createPlateBoundariesLayers,
   createPusgenLayers,
   createTrenchLayers,
@@ -50,17 +52,23 @@ const layers = reactive<{
   volcanoes: VectorLayer<Feature<Geometry>> | null
   plateBoundaries: VectorLayer<Feature<Geometry>> | null
   trench: VectorLayer<Feature<Geometry>> | null
+  fault: VectorLayer<Feature<Geometry>> | null
+  reservoir: VectorLayer<Feature<Geometry>> | null
   pusgen: VectorLayer<Feature<Geometry>>[]
 }>({
   volcanoes: null,
   plateBoundaries: null,
   trench: null,
+  fault: null,
+  reservoir: null,
   pusgen: []
 })
 const settingsValue = reactive({
   volcanoes: true,
   trench: false,
   plateBoundaries: false,
+  fault: false,
+  reservoir: false,
   pusgen: false
 })
 
@@ -114,6 +122,14 @@ const onSettingValueChange = (name: keyof typeof settingsValue, value: boolean) 
       layers.trench?.setVisible(value)
       break
     }
+    case 'fault': {
+      layers.fault?.setVisible(value)
+      break
+    }
+    case 'reservoir': {
+      layers.reservoir?.setVisible(value)
+      break
+    }
     case 'pusgen': {
       layers.pusgen.forEach((pusgen) => {
         pusgen.setVisible(value)
@@ -129,11 +145,15 @@ onMounted(() => {
   const volcanoLayers = createVolcanoLayers()
   const plateBoundariesLayers = createPlateBoundariesLayers()
   const trenchLayers = createTrenchLayers()
+  const faultLayer = createFaultLayer()
+  const reservoirLayer = createReservoirLayer()
   const pusgenLayers = createPusgenLayers()
 
   createdMap.addLayer(volcanoLayers)
   createdMap.addLayer(plateBoundariesLayers)
   createdMap.addLayer(trenchLayers)
+  createdMap.addLayer(faultLayer)
+  createdMap.addLayer(reservoirLayer)
   createdMap.addLayer(eventLayer)
 
   pusgenLayers.forEach((pusgenLayer) => {
@@ -147,6 +167,8 @@ onMounted(() => {
   layers.volcanoes = volcanoLayers
   layers.plateBoundaries = plateBoundariesLayers
   layers.trench = trenchLayers
+  layers.fault = faultLayer
+  layers.reservoir = reservoirLayer
   layers.pusgen = pusgenLayers
 
   createdMap.on('click', (event) => emit('map-click', event))

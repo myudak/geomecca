@@ -20,7 +20,7 @@ withDefaults(
 </script>
 
 <template>
-  <label class="flex w-full flex-col gap-1 text-sm font-medium text-brand-text-light dark:text-brand-text-dark">
+  <label class="flex w-full flex-col gap-1 text-sm font-medium text-brand-text-light dark:text-brand-text-dark ]">
     <span v-if="!!label">{{ label }}</span>
     <div
       class="flex w-full items-center rounded-xl border border-brand-surface-light-active bg-white/90 px-4 py-2 text-brand-text-light shadow-sm transition focus-within:border-brand-surface-normal focus-within:ring-2 focus-within:ring-brand-surface-normal/30 dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark dark:text-brand-text-dark">

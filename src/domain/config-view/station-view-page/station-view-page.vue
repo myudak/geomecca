@@ -312,7 +312,7 @@ function showMore(page: number) {
 
       <!-- Station Form Modal -->
       <dialog id="station-form-modal" ref="stationFormModalRef" class="modal">
-        <div class="modal-box max-w-3xl rounded-3xl border border-brand-surface-light-active bg-white/95 text-brand-text-light shadow-xl dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark dark:text-brand-text-dark">
+        <div class="modal-box max-w-3xl rounded-3xl border border-brand-surface-light-active bg-white/95 text-brand-text-light shadow-xl dark:border-brand-surface-dark-hover dark:bg-[#080f1c] dark:text-brand-text-dark">
           <StationForm
             :usage="stationFormUsage"
             :station-data="selectedStation"

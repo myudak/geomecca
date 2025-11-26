@@ -204,6 +204,16 @@ const renderStations = async (mapCanvas: Map) => {
 
   clusterLayer.value = createdCluster.clusters
   clusterSource.value = createdCluster.clusterSource
+
+  const baseSource = createdCluster.clusterSource.getSource()
+  if (baseSource && baseSource.getFeatures().length) {
+    const extent = baseSource.getExtent()
+    const maxZoom = mapCanvas.getView().getMaxZoom()
+    mapCanvas.getView().fit(extent, {
+      padding: [100, 100, 100, 100],
+      maxZoom: typeof maxZoom === 'number' ? maxZoom : undefined
+    })
+  }
 }
 
 const getFeatureByStationName = (fullStationName: string): Feature<Point> | null => {

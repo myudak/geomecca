@@ -94,7 +94,7 @@ function removeChannel(index: number) {
 </script>
 
 <template>
-  <div class="flex flex-col gap-5 rounded-3xl border border-brand-surface-light-active bg-white/95 p-6 shadow-xl shadow-brand-surface-light-active/40 dark:border-brand-surface-dark-hover dark:bg-brand-surface-darker">
+  <div class="flex flex-col gap-5 rounded-3xl border border-brand-surface-light-active bg-white/95 p-6 shadow-xl shadow-brand-surface-light-active/40 dark:border-brand-surface-dark-hover dark:bg-[#080f1c]">
     <div class="mb-2">
       <p class="text-xs font-semibold uppercase tracking-[0.3em] text-brand-text-muted dark:text-brand-text-muted-dark">Geomecca</p>
       <h3 class="text-2xl font-bold text-brand-text-light dark:text-brand-text-dark">{{ title }}</h3>
