@@ -6,6 +6,8 @@ import pusgenKalimantanJson from '@src/geo-json/pusgen-kalimantan.json'
 import pusgenMalukuJson from '@src/geo-json/pusgen-maluku.json'
 import pusgenSulawesiJson from '@src/geo-json/pusgen-sulawesi.json'
 import pusgenSumJson from '@src/geo-json/pusgen-sum.json'
+import reservoirJson from '@src/geo-json/reservoir_merged.json'
+import sesarJson from '@src/geo-json/Sesar1.json'
 import trenchJson from '@src/geo-json/trench.json'
 import volcanoesJson from '@src/geo-json/volcanoes.json'
 import { Magnitude } from '@src/types/magnitude'
@@ -37,7 +39,10 @@ import Text from 'ol/style/Text'
 import { hexToRGB } from './color'
 import { getDepthColor, getMagnitudeWidth } from './event'
 
-const BASE_LAYER = 'https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}'
+const BASE_LAYER =
+  'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+const HILL_SHADE_LAYER =
+  'https://services.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}'
 // const BASE_LAYER =
 //   'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}'
 // const LABEL_LAYER =
@@ -80,6 +85,21 @@ const styles = {
     })
   }),
 
+  FaultLine: new Style({
+    stroke: new Stroke({
+      color: '#c67b00',
+      width: 2,
+      lineDash: [8, 6]
+    })
+  }),
+
+  ReservoirLine: new Style({
+    stroke: new Stroke({
+      color: '#0ea5e9',
+      width: 2
+    })
+  }),
+
   PusgenLine: new Style({
     stroke: new Stroke({
       color: 'red',
@@ -102,23 +122,125 @@ const styles = {
   })
 }
 
+const UTM_ZONE = 48
+const isNorthernHemisphere = false
+
+const utmToLonLat = (easting: number, northing: number): [number, number] => {
+  const a = 6378137.0
+  const e = 0.081819191
+  const e1sq = 0.006739497
+  const k0 = 0.9996
+
+  const x = easting - 500_000.0
+  let y = northing
+
+  if (!isNorthernHemisphere) {
+    y -= 10_000_000.0
+  }
+
+  const m = y / k0
+  const mu =
+    m / (a * (1 - Math.pow(e, 2) / 4 - (3 * Math.pow(e, 4)) / 64 - (5 * Math.pow(e, 6)) / 256))
+
+  const e1 = (1 - Math.sqrt(1 - Math.pow(e, 2))) / (1 + Math.sqrt(1 - Math.pow(e, 2)))
+
+  const j1 = (3 * e1) / 2 - (27 * Math.pow(e1, 3)) / 32
+  const j2 = (21 * Math.pow(e1, 2)) / 16 - (55 * Math.pow(e1, 4)) / 32
+  const j3 = (151 * Math.pow(e1, 3)) / 96
+  const j4 = (1097 * Math.pow(e1, 4)) / 512
+
+  const fp =
+    mu +
+    j1 * Math.sin(2 * mu) +
+    j2 * Math.sin(4 * mu) +
+    j3 * Math.sin(6 * mu) +
+    j4 * Math.sin(8 * mu)
+
+  const c1 = e1sq * Math.pow(Math.cos(fp), 2)
+  const t1 = Math.pow(Math.tan(fp), 2)
+  const r1 =
+    (a * (1 - Math.pow(e, 2))) / Math.pow(1 - Math.pow(e, 2) * Math.pow(Math.sin(fp), 2), 1.5)
+  const n1 = a / Math.sqrt(1 - Math.pow(e, 2) * Math.pow(Math.sin(fp), 2))
+  const d = x / (n1 * k0)
+
+  const q1 = (n1 * Math.tan(fp)) / r1
+  const q2 = (Math.pow(d, 2) / 2)
+  const q3 = ((5 + 3 * t1 + 10 * c1 - 4 * Math.pow(c1, 2) - 9 * e1sq) * Math.pow(d, 4)) / 24
+  const q4 =
+    ((61 + 90 * t1 + 298 * c1 + 45 * Math.pow(t1, 2) - 252 * e1sq - 3 * Math.pow(c1, 2)) *
+      Math.pow(d, 6)) /
+    720
+
+  const lat = fp - q1 * (q2 - q3 + q4)
+
+  const q5 = d
+  const q6 = ((1 + 2 * t1 + c1) * Math.pow(d, 3)) / 6
+  const q7 =
+    ((5 - 2 * c1 + 28 * t1 - 3 * Math.pow(c1, 2) + 8 * e1sq + 24 * Math.pow(t1, 2)) *
+      Math.pow(d, 5)) /
+    120
+  const lon =
+    ((UTM_ZONE - 1) * 6 - 180 + 3) * (Math.PI / 180) + (q5 - q6 + q7) / Math.cos(fp)
+
+  return [lon * (180 / Math.PI), lat * (180 / Math.PI)]
+}
+
+const convertSesarCoordinatesToLonLat = (geometry: any) => {
+  if (!geometry || !geometry.coordinates) return geometry
+
+  if (geometry.type === 'LineString') {
+    return geometry.coordinates.map(([x, y]: [number, number]) => utmToLonLat(x, y))
+  }
+
+  if (geometry.type === 'MultiLineString') {
+    return geometry.coordinates.map((line: [number, number][]) =>
+      line.map(([x, y]) => utmToLonLat(x, y))
+    )
+  }
+
+  return geometry.coordinates
+}
+
+const getSesarGeoJSON = () => {
+  return {
+    ...sesarJson,
+    features: sesarJson.features.map((feature) => ({
+      ...feature,
+      geometry: feature.geometry
+        ? {
+            ...feature.geometry,
+            coordinates: convertSesarCoordinatesToLonLat(feature.geometry)
+          }
+        : feature.geometry
+    }))
+  }
+}
+
 export const createStationIcon = (text: string, hasPick = false) => {
+  const baseColor = '#14AE5C'
+  const strokeColor = hasPick ? '#E0C300' : baseColor
+
   return new Style({
+    // Draw a downward-facing triangle to match the Leaflet marker shape.
     image: new RegularShape({
-      points: 6,
+      points: 3,
       radius: 16,
-      fill: new Fill({ color: 'green' }),
+      fill: new Fill({ color: baseColor }),
       stroke: new Stroke({
-        color: hasPick ? 'yellow' : 'green',
-        width: 4
+        color: strokeColor,
+        width: 3
       }),
-      rotation: 0,
+      rotation: Math.PI, // point down
       angle: 0
     }),
     text: new Text({
       text,
+      offsetY: 18, // place label under the triangle
+      backgroundFill: new Fill({ color: '#ffffff' }),
+      backgroundStroke: new Stroke({ color: strokeColor, width: 2 }),
+      padding: [2, 8, 2, 8],
       fill: new Fill({
-        color: '#fff'
+        color: baseColor
       })
     })
   })
@@ -213,6 +335,51 @@ export const createPusgenLayers = () => {
   })
 }
 
+export const createFaultLayer = () => {
+  const sesarGeoJSON = getSesarGeoJSON()
+  const vectorSource = new VectorSource({
+    features: new GeoJSON().readFeatures(sesarGeoJSON, {
+      dataProjection: 'EPSG:4326',
+      featureProjection: 'EPSG:3857'
+    })
+  })
+
+  const styleFunction: StyleFunction = (feature) => {
+    const type = feature.getGeometry()?.getType()
+    return type === 'LineString' || type === 'MultiLineString' ? styles.FaultLine : undefined
+  }
+
+  const vectorLayer = new VectorLayer({
+    source: vectorSource,
+    visible: false,
+    style: styleFunction
+  })
+
+  return vectorLayer
+}
+
+export const createReservoirLayer = () => {
+  const vectorSource = new VectorSource({
+    features: new GeoJSON().readFeatures(reservoirJson, {
+      dataProjection: 'EPSG:4326',
+      featureProjection: 'EPSG:3857'
+    })
+  })
+
+  const styleFunction: StyleFunction = (feature) => {
+    const type = feature.getGeometry()?.getType()
+    return type === 'LineString' || type === 'MultiLineString' ? styles.ReservoirLine : undefined
+  }
+
+  const vectorLayer = new VectorLayer({
+    source: vectorSource,
+    visible: false,
+    style: styleFunction
+  })
+
+  return vectorLayer
+}
+
 export const createEventMarker = (event: WSEvent) => {
   const origin = event.preferred_origin
   const feature = new Feature(new Point(transform([origin.longitude, origin.latitude], 'EPSG:4326', 'EPSG:3857')))
@@ -234,9 +401,10 @@ export const createEventMarker = (event: WSEvent) => {
 
 export const createStationCluster = (stations: Station[]) => {
   const features = stations.map((station) => {
+    const stationName = `${station.network}-${station.code}`
     const feature = new Feature(new Point(transform([station.longitude, station.latitude], 'EPSG:4326', 'EPSG:3857')))
-    feature.setProperties({ station })
-    feature.setId(`${station.network}-${station.code}`)
+    feature.setProperties({ station, station_name: stationName })
+    feature.setId(stationName)
     return feature
   })
 
@@ -326,7 +494,15 @@ const mapOnPointerMove = (event: MapBrowserEvent<any>, map: Map) => {
 }
 
 export const createOpenLayerMap = (target: HTMLDivElement) => {
-  const tileLayer = new TileLayer({ source: new XYZ({ url: BASE_LAYER }) })
+  const tileLayer = new TileLayer({
+    source: new XYZ({ url: BASE_LAYER }),
+    zIndex: 0
+  })
+  const hillshadeLayer = new TileLayer({
+    source: new XYZ({ url: HILL_SHADE_LAYER }),
+    opacity: 0.35,
+    zIndex: 1
+  })
   // const labeLayer = new TileLayer({ source: new XYZ({ url: LABEL_LAYER }) })
   const graticuleLayer = new Graticule({
     strokeStyle: new Stroke({
@@ -343,12 +519,19 @@ export const createOpenLayerMap = (target: HTMLDivElement) => {
     className: 'ol-overviewmap ol-custom-overviewmap top-1 left-1 bg-transparent',
     layers: [
       new TileLayer({
-        source: new XYZ({ url: BASE_LAYER })
+        source: new XYZ({ url: BASE_LAYER }),
+        zIndex: 0
+      }),
+      new TileLayer({
+        source: new XYZ({ url: HILL_SHADE_LAYER }),
+        opacity: 0.35,
+        zIndex: 1
       })
     ]
   })
 
-  const layers = [tileLayer /*labeLayer*/, graticuleLayer]
+  // Layer order keeps base darkest, hillshade adding relief, then overlays like graticule.
+  const layers = [tileLayer, hillshadeLayer /*labeLayer*/, graticuleLayer]
   const defaultView = new View({
     center: fromLonLat([118.0149, -2.5489]),
     zoom: DEFAULT_MAP_ZOOM,
@@ -367,7 +550,7 @@ export const createOpenLayerMap = (target: HTMLDivElement) => {
   // map.getControls().clear()
   map.on('pointermove', (event) => mapOnPointerMove(event, map))
 
-  return { tileLayer, map }
+  return { tileLayer, hillshadeLayer, map }
 }
 
 export const flashEventMarker = (feature: Feature<Geometry>, tileLayer: TileLayer<XYZ>, map: Map) => {
