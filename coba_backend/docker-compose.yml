@@ -1,0 +1,92 @@
+services:
+  api:
+    build: .
+    container_name: tews-api
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - MONGODB_URI=mongodb://mongo:27017/tews
+      - JWT_SECRET=change-me
+      - DEFAULT_ADMIN_USERNAME=user_bmkg
+      - DEFAULT_ADMIN_PASSWORD=superadmin123
+      - DEFAULT_ADMIN_REGION=central
+      - KAFKA_BROKERS=kafka:9092
+      - KAFKA_CLIENT_ID=tews-backend
+      - KAFKA_GROUP_ID=tews-backend-consumer
+      - SEEDLINK_HOST=seedlink
+      - SEEDLINK_PORT=18000
+    depends_on:
+      - mongo
+      - kafka
+    networks:
+      - tews-net
+
+  mongo:
+    image: mongo:7
+    container_name: tews-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - tews-net
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.3
+    container_name: tews-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - tews-net
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.3
+    container_name: tews-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,OUTSIDE://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,OUTSIDE://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - tews-net
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: tews-kafka-ui
+    depends_on:
+      - kafka
+    ports:
+      - "8080:8080"
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092,localhost:29092
+    networks:
+      - tews-net
+
+  seedlink:
+    build:
+      context: .
+      dockerfile: seedlink-mock/Dockerfile
+    container_name: tews-seedlink
+    ports:
+      - "18000:18000"
+    command: ["python", "/app/seedlink_mock.py", "--host", "0.0.0.0", "--port", "18000", "--network", "PP", "--station", "PPL01", "--channel", "DPZ", "--loop", "--realtime"]
+    networks:
+      - tews-net
+
+volumes:
+  mongo-data:
+
+networks:
+  tews-net:
+    driver: bridge

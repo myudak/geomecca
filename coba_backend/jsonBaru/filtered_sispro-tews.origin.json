@@ -1,0 +1,886 @@
+[
+  {
+    "_id": {
+      "$oid": "68bc63fa5b29e7c6f85291f1"
+    },
+    "name": "Origin 2025-09-06 16:37:58.178288",
+    "origin_time": {
+      "$date": "2025-09-06T16:37:58.178Z"
+    },
+    "arrival_ids": [
+      {
+        "$oid": "68bc63d4a929f93f683a0834"
+      },
+      {
+        "$oid": "68bc63a8a929f93f683a0831"
+      },
+      {
+        "$oid": "68bc63a9ad3e27a0030b793c"
+      },
+      {
+        "$oid": "68bc63f93eb0ac92bd0ca651"
+      },
+      {
+        "$oid": "68bc63d4a929f93f683a0835"
+      },
+      {
+        "$oid": "68bc63a8a929f93f683a0832"
+      },
+      {
+        "$oid": "68bc63a9ad3e27a0030b793d"
+      },
+      {
+        "$oid": "68bc63f93eb0ac92bd0ca652"
+      }
+    ],
+    "longitude": 107.420508,
+    "latitude": -7.180244,
+    "depth": 0.355655,
+    "err_epicenter": 14.4757,
+    "rms": 0.021826,
+    "gap": 161.3494,
+    "region": "Sumatera",
+    "sub_region": "West Java",
+    "terrain": "Land",
+    "country": "Indonesia",
+    "magnitude_ids": [
+      {
+        "$oid": "68bc63fa5b29e7c6f85291ed"
+      },
+      {
+        "$oid": "68bc63fa5b29e7c6f85291ee"
+      },
+      {
+        "$oid": "68bc63fa38edcc1fd0b8de39"
+      }
+    ],
+    "station_magnitude_ids_per_type": [
+      {
+        "type": "MLv",
+        "station_magnitude_ids": [
+          {
+            "$oid": "68bc63fa5b29e7c6f85291ef"
+          },
+          {
+            "$oid": "68bc63fa5b29e7c6f85291f0"
+          }
+        ]
+      },
+      {
+        "type": "M100",
+        "station_magnitude_ids": [
+          {
+            "$oid": "68bc63fa38edcc1fd0b8de3a"
+          },
+          {
+            "$oid": "68bc63fa38edcc1fd0b8de3b"
+          }
+        ]
+      }
+    ],
+    "modified_by": null,
+    "auto_origin_ref_id": null,
+    "created_at": {
+      "$date": "2025-09-06T16:40:26.595Z"
+    },
+    "modified_at": null
+  },
+  {
+    "_id": {
+      "$oid": "66c36351a33e3edef4b427b6"
+    },
+    "name": "Origin 2024-08-19T15:18:39.772000Z",
+    "arrival_ids": [
+      {
+        "$oid": "66c3632446514c8eb126d828"
+      },
+      {
+        "$oid": "66c3628c46514c8eb126d81e"
+      },
+      {
+        "$oid": "66c36343d92f66634be43aa2"
+      },
+      {
+        "$oid": "66c363508f9f1150c93f4b8c"
+      },
+      {
+        "$oid": "66c3632a46514c8eb126d82b"
+      },
+      {
+        "$oid": "66c3632446514c8eb126d829"
+      },
+      {
+        "$oid": "66c3628c46514c8eb126d81f"
+      },
+      {
+        "$oid": "66c36343d92f66634be43aa3"
+      },
+      {
+        "$oid": "66c363508f9f1150c93f4b8d"
+      },
+      {
+        "$oid": "66c3632a46514c8eb126d82c"
+      }
+    ],
+    "longitude": 107.408218,
+    "latitude": -7.179746,
+    "depth": -0.072173,
+    "region": "Jawa",
+    "sub_region": "West Java",
+    "terrain": "Land",
+    "country": "Indonesia",
+    "magnitude_ids": [
+      {
+        "$oid": "66c36351a33e3edef4b427b5"
+      }
+    ],
+    "modified_by": null,
+    "event_auto_ref_id": null,
+    "created_at": {
+      "$date": "2024-08-19T15:22:57.275Z"
+    },
+    "station_magnitude_ids_per_type": [],
+    "origin_time": {
+      "$date": "2024-08-19T15:18:39.772Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67c4afc25b29e7c6f8515781"
+    },
+    "name": "Origin 2025-03-02 19:16:45.601807",
+    "origin_time": {
+      "$date": "2025-03-02T19:16:45.601Z"
+    },
+    "arrival_ids": [
+      {
+        "$oid": "67c4afbc1eb1056b912d10f3"
+      },
+      {
+        "$oid": "67c4afa21eb1056b912d10ef"
+      },
+      {
+        "$oid": "67c4afb22fb0bf58a5440c0a"
+      },
+      {
+        "$oid": "67c4afc127d5494b7e68de50"
+      },
+      {
+        "$oid": "67c4afbc1eb1056b912d10f4"
+      },
+      {
+        "$oid": "67c4afa21eb1056b912d10f0"
+      },
+      {
+        "$oid": "67c4afb22fb0bf58a5440c0b"
+      },
+      {
+        "$oid": "67c4afc127d5494b7e68de51"
+      }
+    ],
+    "longitude": 107.456691,
+    "latitude": -7.173173,
+    "depth": -2.040179,
+    "err_epicenter": 25.1665,
+    "rms": 0.009581,
+    "gap": 161.9882,
+    "region": "Sulawesi",
+    "sub_region": "West Java",
+    "terrain": "Land",
+    "country": "Indonesia",
+    "magnitude_ids": [
+      {
+        "$oid": "67c4afc25b29e7c6f8515780"
+      }
+    ],
+    "station_magnitude_ids_per_type": [],
+    "modified_by": null,
+    "auto_origin_ref_id": null,
+    "created_at": {
+      "$date": "2025-03-02T19:21:38.803Z"
+    },
+    "modified_at": null
+  },
+  {
+    "_id": {
+      "$oid": "68e865f95b29e7c6f852c244"
+    },
+    "name": "Origin 2025-10-10 01:45:13.061400",
+    "origin_time": {
+      "$date": "2025-10-10T01:45:13.061Z"
+    },
+    "arrival_ids": [
+      {
+        "$oid": "68e865f5590973b64fb77f21"
+      },
+      {
+        "$oid": "68e86565e725982f5a5935d9"
+      },
+      {
+        "$oid": "68e865c2590973b64fb77f14"
+      },
+      {
+        "$oid": "68e86597588d0d451689cc98"
+      },
+      {
+        "$oid": "68e865f5590973b64fb77f22"
+      },
+      {
+        "$oid": "68e86565e725982f5a5935da"
+      },
+      {
+        "$oid": "68e865c2590973b64fb77f15"
+      },
+      {
+        "$oid": "68e86597588d0d451689cc99"
+      }
+    ],
+    "longitude": 107.437732,
+    "latitude": -7.175303,
+    "depth": -0.622768,
+    "err_epicenter": 36.4137,
+    "rms": 0.060579,
+    "gap": 185.7124,
+    "region": "Maluku",
+    "sub_region": "West Java",
+    "terrain": "Land",
+    "country": "Indonesia",
+    "magnitude_ids": [
+      {
+        "$oid": "68e865f95b29e7c6f852c243"
+      }
+    ],
+    "station_magnitude_ids_per_type": [],
+    "modified_by": null,
+    "auto_origin_ref_id": null,
+    "created_at": {
+      "$date": "2025-10-10T01:48:41.519Z"
+    },
+    "modified_at": null
+  },
+  {
+    "_id": {
+      "$oid": "673493d2798d574a1d80caba"
+    },
+    "name": "Origin 2024-11-13 11:49:19.564796",
+    "origin_time": {
+      "$date": "2024-11-13T11:49:19.564Z"
+    },
+    "arrival_ids": [
+      {
+        "$oid": "673493d0cc8961078d4a57e0"
+      },
+      {
+        "$oid": "673493d1039bbaa6b8322149"
+      },
+      {
+        "$oid": "673493a61d76e5b885690052"
+      },
+      {
+        "$oid": "67349384567aa6811a1af98f"
+      },
+      {
+        "$oid": "673493d0cc8961078d4a57e1"
+      },
+      {
+        "$oid": "673493d1039bbaa6b832214a"
+      },
+      {
+        "$oid": "673493a61d76e5b885690053"
+      },
+      {
+        "$oid": "67349384567aa6811a1af990"
+      }
+    ],
+    "longitude": 107.444081,
+    "latitude": -7.161932,
+    "depth": 0.058036,
+    "region": "Maluku",
+    "sub_region": "West Java",
+    "terrain": "Land",
+    "country": "Indonesia",
+    "magnitude_ids": [
+      {
+        "$oid": "673493d2798d574a1d80cab6"
+      },
+      {
+        "$oid": "673493d2798d574a1d80cab7"
+      }
+    ],
+    "station_magnitude_ids_per_type": [
+      {
+        "type": "MLv",
+        "station_magnitude_ids": [
+          {
+            "$oid": "673493d2798d574a1d80cab8"
+          },
+          {
+            "$oid": "673493d2798d574a1d80cab9"
+          }
+        ]
+      }
+    ],
+    "modified_by": null,
+    "auto_origin_ref_id": null,
+    "created_at": {
+      "$date": "2024-10-30T06:07:00.943Z"
+    },
+    "modified_at": null
+  },
+  {
+    "_id": {
+      "$oid": "67526c4f798d574a1d80e83c"
+    },
+    "name": "Origin 2024-12-06 03:09:59.364483",
+    "origin_time": {
+      "$date": "2024-12-06T03:09:59.364Z"
+    },
+    "arrival_ids": [
+      {
+        "$oid": "67526b694bfd4ce4332d592b"
+      },
+      {
+        "$oid": "67526bf9f6feab1fa76ab702"
+      },
+      {
+        "$oid": "67526c4e9a83ed0b97314dc0"
+      },
+      {
+        "$oid": "67526c20566e90251434bfe6"
+      },
+      {
+        "$oid": "67526b694bfd4ce4332d592c"
+      },
+      {
+        "$oid": "67526bf9f6feab1fa76ab703"
+      },
+      {
+        "$oid": "67526c4e9a83ed0b97314dc1"
+      },
+      {
+        "$oid": "67526c20566e90251434bfe7"
+      }
+    ],
+    "longitude": 107.425031,
+    "latitude": -7.173944,
+    "depth": -0.124256,
+    "region": "Jawa",
+    "sub_region": "West Java",
+    "terrain": "Land",
+    "country": "Indonesia",
+    "magnitude_ids": [
+      {
+        "$oid": "67526c4f798d574a1d80e838"
+      },
+      {
+        "$oid": "67526c4f798d574a1d80e839"
+      }
+    ],
+    "station_magnitude_ids_per_type": [
+      {
+        "type": "MLv",
+        "station_magnitude_ids": [
+          {
+            "$oid": "67526c4f798d574a1d80e83a"
+          },
+          {
+            "$oid": "67526c4f798d574a1d80e83b"
+          }
+        ]
+      }
+    ],
+    "modified_by": null,
+    "auto_origin_ref_id": null,
+    "created_at": {
+      "$date": "2024-10-30T06:07:00.943Z"
+    },
+    "modified_at": null
+  },
+  {
+    "_id": {
+      "$oid": "66bcf2428c5830e75e954934"
+    },
+    "name": "Origin 2024-08-14T17:55:50.822000Z",
+    "arrival_ids": [
+      {
+        "$oid": "66bcf23c0b098e27ff46b8f1"
+      },
+      {
+        "$oid": "66bcf23c0b098e27ff46b8f1"
+      },
+      {
+        "$oid": "66bcf23c0b098e27ff46b8f1"
+      },
+      {
+        "$oid": "66bcf2426909a35a86d60974"
+      },
+      {
+        "$oid": "66bcf2400b098e27ff46b8f5"
+      },
+      {
+        "$oid": "66bcf23d85c6d1750e601c5d"
+      },
+      {
+        "$oid": "66bcf23d85c6d1750e601c5d"
+      },
+      {
+        "$oid": "66bcf23c0b098e27ff46b8f2"
+      },
+      {
+        "$oid": "66bcf23c0b098e27ff46b8f2"
+      },
+      {
+        "$oid": "66bcf23c0b098e27ff46b8f2"
+      },
+      {
+        "$oid": "66bcf2426909a35a86d60975"
+      },
+      {
+        "$oid": "66bcf2400b098e27ff46b8f6"
+      },
+      {
+        "$oid": "66bcf23d85c6d1750e601c5e"
+      },
+      {
+        "$oid": "66bcf23d85c6d1750e601c5e"
+      }
+    ],
+    "longitude": 107.413929,
+    "latitude": -7.181513,
+    "depth": -1.058036,
+    "region": "Jawa",
+    "sub_region": "West Java",
+    "terrain": "Land",
+    "country": "Indonesia",
+    "magnitude_ids": [
+      {
+        "$oid": "66bcf2428c5830e75e954933"
+      }
+    ],
+    "modified_by": null,
+    "event_auto_ref_id": null,
+    "created_at": {
+      "$date": "2024-08-14T18:06:58.981Z"
+    },
+    "station_magnitude_ids_per_type": [],
+    "origin_time": {
+      "$date": "2024-08-14T17:55:50.822Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66cb928aeb0b8c999d9b2dee"
+    },
+    "name": "Origin 2024-08-25T20:11:57.772000Z",
+    "arrival_ids": [
+      {
+        "$oid": "66cb9289313189154e0bcd18"
+      },
+      {
+        "$oid": "66cb92508977bea4b28ee535"
+      },
+      {
+        "$oid": "66cb924f313189154e0bcd00"
+      },
+      {
+        "$oid": "66cb92578977bea4b28ee53c"
+      },
+      {
+        "$oid": "66cb9289313189154e0bcd19"
+      },
+      {
+        "$oid": "66cb92508977bea4b28ee536"
+      },
+      {
+        "$oid": "66cb924f313189154e0bcd01"
+      },
+      {
+        "$oid": "66cb92578977bea4b28ee53d"
+      }
+    ],
+    "longitude": 107.446687,
+    "latitude": -7.18029,
+    "depth": 0.098958,
+    "region": "Maluku",
+    "sub_region": "West Java",
+    "terrain": "Land",
+    "country": "Indonesia",
+    "magnitude_ids": [
+      {
+        "$oid": "66cb928aeb0b8c999d9b2ded"
+      }
+    ],
+    "modified_by": null,
+    "event_auto_ref_id": null,
+    "created_at": {
+      "$date": "2024-08-25T20:22:34.728Z"
+    },
+    "station_magnitude_ids_per_type": [],
+    "origin_time": {
+      "$date": "2024-08-25T20:11:57.772Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67be4f235b29e7c6f851497a"
+    },
+    "name": "Origin 2025-02-25 23:11:13.981203",
+    "origin_time": {
+      "$date": "2025-02-25T23:11:13.981Z"
+    },
+    "arrival_ids": [
+      {
+        "$oid": "67be4f1c43df77c3f411cb54"
+      },
+      {
+        "$oid": "67be4efd45631775ea53f266"
+      },
+      {
+        "$oid": "67be4e91226ca63b603f0de5"
+      },
+      {
+        "$oid": "67be4f2269e5e65f2d057ca2"
+      },
+      {
+        "$oid": "67be4f1c43df77c3f411cb55"
+      },
+      {
+        "$oid": "67be4efd45631775ea53f267"
+      },
+      {
+        "$oid": "67be4e91226ca63b603f0de6"
+      },
+      {
+        "$oid": "67be4f2269e5e65f2d057ca3"
+      }
+    ],
+    "longitude": 107.440887,
+    "latitude": -7.214785,
+    "depth": 5.854167,
+    "err_epicenter": 106.2171,
+    "rms": 0.362374,
+    "gap": 269.0809,
+    "region": "Maluku",
+    "sub_region": "West Java",
+    "terrain": "Land",
+    "country": "Indonesia",
+    "magnitude_ids": [
+      {
+        "$oid": "67be4f235b29e7c6f8514977"
+      },
+      {
+        "$oid": "67be4f235b29e7c6f8514978"
+      },
+      {
+        "$oid": "67be4f2438edcc1fd0b80658"
+      }
+    ],
+    "station_magnitude_ids_per_type": [
+      {
+        "type": "MLv",
+        "station_magnitude_ids": [
+          {
+            "$oid": "67be4f235b29e7c6f8514979"
+          }
+        ]
+      },
+      {
+        "type": "M100",
+        "station_magnitude_ids": [
+          {
+            "$oid": "67be4f2438edcc1fd0b80659"
+          }
+        ]
+      }
+    ],
+    "modified_by": null,
+    "auto_origin_ref_id": null,
+    "created_at": {
+      "$date": "2025-02-25T23:15:47.949Z"
+    },
+    "modified_at": null
+  },
+  {
+    "_id": {
+      "$oid": "67f624275b29e7c6f851a10f"
+    },
+    "name": "Origin 2025-04-09 07:34:53.148026",
+    "origin_time": {
+      "$date": "2025-04-09T07:34:53.148Z"
+    },
+    "arrival_ids": [
+      {
+        "$oid": "67f624265daafe0759f4d145"
+      },
+      {
+        "$oid": "67f6238871857c32d9c822ee"
+      },
+      {
+        "$oid": "67f623a0e50c56782795b941"
+      },
+      {
+        "$oid": "67f623cf72b4cbe2856220dd"
+      },
+      {
+        "$oid": "67f624265daafe0759f4d146"
+      },
+      {
+        "$oid": "67f6238871857c32d9c822ef"
+      },
+      {
+        "$oid": "67f623a0e50c56782795b942"
+      },
+      {
+        "$oid": "67f623cf72b4cbe2856220de"
+      }
+    ],
+    "longitude": 107.413746,
+    "latitude": -7.180788,
+    "depth": 0.102679,
+    "err_epicenter": 89.9938,
+    "rms": 0.157693,
+    "gap": 236.6443,
+    "region": "Sumatera",
+    "sub_region": "West Java",
+    "terrain": "Land",
+    "country": "Indonesia",
+    "magnitude_ids": [
+      {
+        "$oid": "67f624275b29e7c6f851a10b"
+      },
+      {
+        "$oid": "67f624275b29e7c6f851a10c"
+      },
+      {
+        "$oid": "67f6242738edcc1fd0b840a0"
+      }
+    ],
+    "station_magnitude_ids_per_type": [
+      {
+        "type": "MLv",
+        "station_magnitude_ids": [
+          {
+            "$oid": "67f624275b29e7c6f851a10d"
+          },
+          {
+            "$oid": "67f624275b29e7c6f851a10e"
+          }
+        ]
+      },
+      {
+        "type": "M100",
+        "station_magnitude_ids": [
+          {
+            "$oid": "67f6242738edcc1fd0b840a1"
+          },
+          {
+            "$oid": "67f6242738edcc1fd0b840a2"
+          }
+        ]
+      }
+    ],
+    "modified_by": null,
+    "auto_origin_ref_id": null,
+    "created_at": {
+      "$date": "2025-04-09T07:39:19.740Z"
+    },
+    "modified_at": null
+  },
+  {
+    "_id": {
+      "$oid": "675a8e5b798d574a1d80f103"
+    },
+    "name": "Origin 2024-12-12 07:15:51.568916",
+    "origin_time": {
+      "$date": "2024-12-12T07:15:51.568Z"
+    },
+    "arrival_ids": [
+      {
+        "$oid": "675a8dd75eb1e915c15ea0c6"
+      },
+      {
+        "$oid": "675a8e5a3cbde8e487d3958d"
+      },
+      {
+        "$oid": "675a8e0f026b70c0940103a6"
+      },
+      {
+        "$oid": "675a8e16040235c5ea2c3aa0"
+      },
+      {
+        "$oid": "675a8dd75eb1e915c15ea0c7"
+      },
+      {
+        "$oid": "675a8e5a3cbde8e487d3958e"
+      },
+      {
+        "$oid": "675a8e0f026b70c0940103a7"
+      },
+      {
+        "$oid": "675a8e16040235c5ea2c3aa1"
+      }
+    ],
+    "longitude": 107.417493,
+    "latitude": -7.179972,
+    "depth": -0.03869,
+    "region": "Sumatera",
+    "sub_region": "West Java",
+    "terrain": "Land",
+    "country": "Indonesia",
+    "magnitude_ids": [
+      {
+        "$oid": "675a8e5b798d574a1d80f0ff"
+      },
+      {
+        "$oid": "675a8e5b798d574a1d80f100"
+      }
+    ],
+    "station_magnitude_ids_per_type": [
+      {
+        "type": "MLv",
+        "station_magnitude_ids": [
+          {
+            "$oid": "675a8e5b798d574a1d80f101"
+          },
+          {
+            "$oid": "675a8e5b798d574a1d80f102"
+          }
+        ]
+      }
+    ],
+    "modified_by": null,
+    "auto_origin_ref_id": null,
+    "created_at": {
+      "$date": "2024-10-30T06:07:00.943Z"
+    },
+    "modified_at": null
+  },
+  {
+    "_id": {
+      "$oid": "672031806a27f0dbf898098c"
+    },
+    "name": "Origin 2024-10-29 00:46:40.691883",
+    "origin_time": {
+      "$date": "2024-10-29T00:46:40.691Z"
+    },
+    "arrival_ids": [
+      {
+        "$oid": "672030e5884ec44bd71628c8"
+      },
+      {
+        "$oid": "672030d5ba6a403b18cad18a"
+      },
+      {
+        "$oid": "6720317fd659e42827829751"
+      },
+      {
+        "$oid": "672031533ca430892254478f"
+      },
+      {
+        "$oid": "672030e5884ec44bd71628c9"
+      },
+      {
+        "$oid": "672030d5ba6a403b18cad18b"
+      },
+      {
+        "$oid": "6720317fd659e42827829752"
+      },
+      {
+        "$oid": "672031533ca4308922544790"
+      }
+    ],
+    "longitude": 107.418087,
+    "latitude": -7.181196,
+    "depth": -0.265625,
+    "region": "Jawa",
+    "sub_region": "West Java",
+    "terrain": "Land",
+    "country": "Indonesia",
+    "magnitude_ids": [
+      {
+        "$oid": "672031806a27f0dbf8980988"
+      },
+      {
+        "$oid": "672031806a27f0dbf8980989"
+      }
+    ],
+    "station_magnitude_ids_per_type": [
+      {
+        "type": "MLv",
+        "station_magnitude_ids": [
+          {
+            "$oid": "672031806a27f0dbf898098a"
+          },
+          {
+            "$oid": "672031806a27f0dbf898098b"
+          }
+        ]
+      }
+    ],
+    "modified_by": null,
+    "auto_origin_ref_id": null,
+    "created_at": {
+      "$date": "2024-10-26T04:47:22.045Z"
+    },
+    "modified_at": null
+  },
+  {
+    "_id": {
+      "$oid": "66f8b1b70ddd01770ba8c1d4"
+    },
+    "name": "Origin 2024-09-29T01:42:55.700000Z",
+    "arrival_ids": [
+      {
+        "$oid": "66f8b1ad52e6d1152dac6ad0"
+      },
+      {
+        "$oid": "66f8b0f1c19c5f7ab59bc8ed"
+      },
+      {
+        "$oid": "66f8b1b660d1784b8ce3d2fd"
+      },
+      {
+        "$oid": "66f8b0fc52e6d1152dac6aca"
+      },
+      {
+        "$oid": "66f8b1b6c19c5f7ab59bc8f8"
+      },
+      {
+        "$oid": "66f8b1ad52e6d1152dac6ad1"
+      },
+      {
+        "$oid": "66f8b0f1c19c5f7ab59bc8ee"
+      },
+      {
+        "$oid": "66f8b1b660d1784b8ce3d2fe"
+      },
+      {
+        "$oid": "66f8b0fc52e6d1152dac6acb"
+      },
+      {
+        "$oid": "66f8b1b6c19c5f7ab59bc8f9"
+      }
+    ],
+    "longitude": 107.43563,
+    "latitude": -7.176119,
+    "depth": -0.258185,
+    "region": "Sulawesi",
+    "sub_region": "West Java",
+    "terrain": "Land",
+    "country": "Indonesia",
+    "magnitude_ids": [
+      {
+        "$oid": "66f8b1b70ddd01770ba8c1d3"
+      }
+    ],
+    "modified_by": null,
+    "event_auto_ref_id": null,
+    "created_at": {
+      "$date": "2024-09-29T01:47:35.733Z"
+    },
+    "station_magnitude_ids_per_type": [],
+    "origin_time": {
+      "$date": "2024-09-29T01:42:55.700Z"
+    }
+  }
+]

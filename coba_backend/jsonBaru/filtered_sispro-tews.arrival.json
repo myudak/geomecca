@@ -1,0 +1,2070 @@
+[
+  {
+    "_id": {
+      "$oid": "68bc63d4a929f93f683a0834"
+    },
+    "pick_source_id": {
+      "$oid": "68bc63d4a929f93f683a0833"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68bc63a8a929f93f683a0831"
+    },
+    "pick_source_id": {
+      "$oid": "68bc63a7a929f93f683a0830"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68bc63a9ad3e27a0030b793c"
+    },
+    "pick_source_id": {
+      "$oid": "68bc63a9ad3e27a0030b793b"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68bc63f93eb0ac92bd0ca651"
+    },
+    "pick_source_id": {
+      "$oid": "68bc63f93eb0ac92bd0ca650"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68bc63d4a929f93f683a0835"
+    },
+    "pick_source_id": {
+      "$oid": "68bc63d4a929f93f683a0833"
+    },
+    "station_id": "TCH02",
+    "timestamp": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68bc63a8a929f93f683a0832"
+    },
+    "pick_source_id": {
+      "$oid": "68bc63a7a929f93f683a0830"
+    },
+    "station_id": "TCH02",
+    "timestamp": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68bc63a9ad3e27a0030b793d"
+    },
+    "pick_source_id": {
+      "$oid": "68bc63a9ad3e27a0030b793b"
+    },
+    "station_id": "PPL01",
+    "timestamp": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68bc63f93eb0ac92bd0ca652"
+    },
+    "pick_source_id": {
+      "$oid": "68bc63f93eb0ac92bd0ca650"
+    },
+    "station_id": "PPL01",
+    "timestamp": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-10T23:03:53.235Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66c3632446514c8eb126d828"
+    },
+    "pick_source_id": {
+      "$oid": "66c3632446514c8eb126d827"
+    },
+    "station_id": "TCH14",
+    "timestamp": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66c3628c46514c8eb126d81e"
+    },
+    "pick_source_id": {
+      "$oid": "66c3628b46514c8eb126d81d"
+    },
+    "station_id": "TCH14",
+    "timestamp": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66c36343d92f66634be43aa2"
+    },
+    "pick_source_id": {
+      "$oid": "66c36342d92f66634be43aa1"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66c363508f9f1150c93f4b8c"
+    },
+    "pick_source_id": {
+      "$oid": "66c363508f9f1150c93f4b8b"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66c3632a46514c8eb126d82b"
+    },
+    "pick_source_id": {
+      "$oid": "66c3632a46514c8eb126d82a"
+    },
+    "station_id": "TCH17",
+    "timestamp": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66c3632446514c8eb126d829"
+    },
+    "pick_source_id": {
+      "$oid": "66c3632446514c8eb126d827"
+    },
+    "station_id": "TCH17",
+    "timestamp": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66c3628c46514c8eb126d81f"
+    },
+    "pick_source_id": {
+      "$oid": "66c3628b46514c8eb126d81d"
+    },
+    "station_id": {
+      "$oid": "665d9a35f9201df92c94597d"
+    },
+    "timestamp": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66c36343d92f66634be43aa3"
+    },
+    "pick_source_id": {
+      "$oid": "66c36342d92f66634be43aa1"
+    },
+    "station_id": {
+      "$oid": "665d9a35f9201df92c94597d"
+    },
+    "timestamp": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66c363508f9f1150c93f4b8d"
+    },
+    "pick_source_id": {
+      "$oid": "66c363508f9f1150c93f4b8b"
+    },
+    "station_id": {
+      "$oid": "665d9a35f9201df92c945995"
+    },
+    "timestamp": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66c3632a46514c8eb126d82c"
+    },
+    "pick_source_id": {
+      "$oid": "66c3632a46514c8eb126d82a"
+    },
+    "station_id": {
+      "$oid": "665d9a35f9201df92c945986"
+    },
+    "timestamp": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-11T17:34:38.576Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "67c4afbc1eb1056b912d10f3"
+    },
+    "pick_source_id": {
+      "$oid": "67c4afbb1eb1056b912d10f2"
+    },
+    "station_id": "PPL01",
+    "timestamp": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67c4afa21eb1056b912d10ef"
+    },
+    "pick_source_id": {
+      "$oid": "67c4afa21eb1056b912d10ee"
+    },
+    "station_id": "PPL01",
+    "timestamp": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67c4afb22fb0bf58a5440c0a"
+    },
+    "pick_source_id": {
+      "$oid": "67c4afb22fb0bf58a5440c09"
+    },
+    "station_id": "PPL05",
+    "timestamp": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67c4afc127d5494b7e68de50"
+    },
+    "pick_source_id": {
+      "$oid": "67c4afc127d5494b7e68de4f"
+    },
+    "station_id": "PPL05",
+    "timestamp": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67c4afbc1eb1056b912d10f4"
+    },
+    "pick_source_id": {
+      "$oid": "67c4afbb1eb1056b912d10f2"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67c4afa21eb1056b912d10f0"
+    },
+    "pick_source_id": {
+      "$oid": "67c4afa21eb1056b912d10ee"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67c4afb22fb0bf58a5440c0b"
+    },
+    "pick_source_id": {
+      "$oid": "67c4afb22fb0bf58a5440c09"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67c4afc127d5494b7e68de51"
+    },
+    "pick_source_id": {
+      "$oid": "67c4afc127d5494b7e68de4f"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T05:28:55.324Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e865f5590973b64fb77f21"
+    },
+    "pick_source_id": {
+      "$oid": "68e865f5590973b64fb77f20"
+    },
+    "station_id": "PPL05",
+    "timestamp": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e86565e725982f5a5935d9"
+    },
+    "pick_source_id": {
+      "$oid": "68e86565e725982f5a5935d8"
+    },
+    "station_id": "PPL05",
+    "timestamp": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e865c2590973b64fb77f14"
+    },
+    "pick_source_id": {
+      "$oid": "68e865c2590973b64fb77f13"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e86597588d0d451689cc98"
+    },
+    "pick_source_id": {
+      "$oid": "68e86597588d0d451689cc97"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e865f5590973b64fb77f22"
+    },
+    "pick_source_id": {
+      "$oid": "68e865f5590973b64fb77f20"
+    },
+    "station_id": "TCH02",
+    "timestamp": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e86565e725982f5a5935da"
+    },
+    "pick_source_id": {
+      "$oid": "68e86565e725982f5a5935d8"
+    },
+    "station_id": "TCH02",
+    "timestamp": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e865c2590973b64fb77f15"
+    },
+    "pick_source_id": {
+      "$oid": "68e865c2590973b64fb77f13"
+    },
+    "station_id": "PPL01",
+    "timestamp": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e86597588d0d451689cc99"
+    },
+    "pick_source_id": {
+      "$oid": "68e86597588d0d451689cc97"
+    },
+    "station_id": "PPL01",
+    "timestamp": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T07:35:16.036Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "673493d0cc8961078d4a57e0"
+    },
+    "pick_source_id": {
+      "$oid": "673493d0cc8961078d4a57df"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "673493d1039bbaa6b8322149"
+    },
+    "pick_source_id": {
+      "$oid": "673493d0039bbaa6b8322148"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "673493a61d76e5b885690052"
+    },
+    "pick_source_id": {
+      "$oid": "673493a51d76e5b885690051"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67349384567aa6811a1af98f"
+    },
+    "pick_source_id": {
+      "$oid": "67349384567aa6811a1af98e"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "673493d0cc8961078d4a57e1"
+    },
+    "pick_source_id": {
+      "$oid": "673493d0cc8961078d4a57df"
+    },
+    "station_id": "TCH04",
+    "timestamp": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "673493d1039bbaa6b832214a"
+    },
+    "pick_source_id": {
+      "$oid": "673493d0039bbaa6b8322148"
+    },
+    "station_id": "TCH04",
+    "timestamp": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "673493a61d76e5b885690053"
+    },
+    "pick_source_id": {
+      "$oid": "673493a51d76e5b885690051"
+    },
+    "station_id": "TCH17",
+    "timestamp": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67349384567aa6811a1af990"
+    },
+    "pick_source_id": {
+      "$oid": "67349384567aa6811a1af98e"
+    },
+    "station_id": "TCH17",
+    "timestamp": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:23:11.283Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67526b694bfd4ce4332d592b"
+    },
+    "pick_source_id": {
+      "$oid": "67526b684bfd4ce4332d592a"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67526bf9f6feab1fa76ab702"
+    },
+    "pick_source_id": {
+      "$oid": "67526bf9f6feab1fa76ab701"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67526c4e9a83ed0b97314dc0"
+    },
+    "pick_source_id": {
+      "$oid": "67526c4d9a83ed0b97314dbf"
+    },
+    "station_id": "TCH02",
+    "timestamp": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67526c20566e90251434bfe6"
+    },
+    "pick_source_id": {
+      "$oid": "67526c1f566e90251434bfe5"
+    },
+    "station_id": "TCH02",
+    "timestamp": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67526b694bfd4ce4332d592c"
+    },
+    "pick_source_id": {
+      "$oid": "67526b684bfd4ce4332d592a"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67526bf9f6feab1fa76ab703"
+    },
+    "pick_source_id": {
+      "$oid": "67526bf9f6feab1fa76ab701"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67526c4e9a83ed0b97314dc1"
+    },
+    "pick_source_id": {
+      "$oid": "67526c4d9a83ed0b97314dbf"
+    },
+    "station_id": "PPL05",
+    "timestamp": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67526c20566e90251434bfe7"
+    },
+    "pick_source_id": {
+      "$oid": "67526c1f566e90251434bfe5"
+    },
+    "station_id": "PPL05",
+    "timestamp": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-14T17:27:13.355Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66bcf23c0b098e27ff46b8f1"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf23c0b098e27ff46b8f0"
+    },
+    "station_id": "TCH14",
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66bcf23c0b098e27ff46b8f1"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf23c0b098e27ff46b8f0"
+    },
+    "station_id": "TCH14",
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66bcf23c0b098e27ff46b8f1"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf23c0b098e27ff46b8f0"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66bcf2426909a35a86d60974"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf2426909a35a86d60973"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66bcf2400b098e27ff46b8f5"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf2400b098e27ff46b8f4"
+    },
+    "station_id": "TCH17",
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66bcf23d85c6d1750e601c5d"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf23d85c6d1750e601c5c"
+    },
+    "station_id": "TCH17",
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66bcf23d85c6d1750e601c5d"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf23d85c6d1750e601c5c"
+    },
+    "station_id": "PPL08",
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66bcf23c0b098e27ff46b8f2"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf23c0b098e27ff46b8f0"
+    },
+    "station_id": "PPL08",
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66bcf23c0b098e27ff46b8f2"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf23c0b098e27ff46b8f0"
+    },
+    "station_id": "TCH04",
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66bcf23c0b098e27ff46b8f2"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf23c0b098e27ff46b8f0"
+    },
+    "station_id": "TCH04",
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66bcf2426909a35a86d60975"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf2426909a35a86d60973"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66bcf2400b098e27ff46b8f6"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf2400b098e27ff46b8f4"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66bcf23d85c6d1750e601c5e"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf23d85c6d1750e601c5c"
+    },
+    "station_id": {
+      "$oid": "665d9a35f9201df92c94597f"
+    },
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66bcf23d85c6d1750e601c5e"
+    },
+    "pick_source_id": {
+      "$oid": "66bcf23d85c6d1750e601c5c"
+    },
+    "station_id": {
+      "$oid": "665d9a35f9201df92c94597f"
+    },
+    "timestamp": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T00:16:18.759Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66cb9289313189154e0bcd18"
+    },
+    "pick_source_id": {
+      "$oid": "66cb9289313189154e0bcd17"
+    },
+    "station_id": "PPL05",
+    "timestamp": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66cb92508977bea4b28ee535"
+    },
+    "pick_source_id": {
+      "$oid": "66cb92508977bea4b28ee534"
+    },
+    "station_id": "PPL05",
+    "timestamp": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66cb924f313189154e0bcd00"
+    },
+    "pick_source_id": {
+      "$oid": "66cb924f313189154e0bccff"
+    },
+    "station_id": "PPL01",
+    "timestamp": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66cb92578977bea4b28ee53c"
+    },
+    "pick_source_id": {
+      "$oid": "66cb92578977bea4b28ee53b"
+    },
+    "station_id": "PPL01",
+    "timestamp": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66cb9289313189154e0bcd19"
+    },
+    "pick_source_id": {
+      "$oid": "66cb9289313189154e0bcd17"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66cb92508977bea4b28ee536"
+    },
+    "pick_source_id": {
+      "$oid": "66cb92508977bea4b28ee534"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66cb924f313189154e0bcd01"
+    },
+    "pick_source_id": {
+      "$oid": "66cb924f313189154e0bccff"
+    },
+    "station_id": "TCH02",
+    "timestamp": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66cb92578977bea4b28ee53d"
+    },
+    "pick_source_id": {
+      "$oid": "66cb92578977bea4b28ee53b"
+    },
+    "station_id": "TCH02",
+    "timestamp": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T07:52:33.610Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "67be4f1c43df77c3f411cb54"
+    },
+    "pick_source_id": {
+      "$oid": "67be4f1c43df77c3f411cb53"
+    },
+    "station_id": "PPL01",
+    "timestamp": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67be4efd45631775ea53f266"
+    },
+    "pick_source_id": {
+      "$oid": "67be4efd45631775ea53f265"
+    },
+    "station_id": "TCH04",
+    "timestamp": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67be4e91226ca63b603f0de5"
+    },
+    "pick_source_id": {
+      "$oid": "67be4e91226ca63b603f0de4"
+    },
+    "station_id": "PPL05",
+    "timestamp": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67be4f2269e5e65f2d057ca2"
+    },
+    "pick_source_id": {
+      "$oid": "67be4f2269e5e65f2d057ca1"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67be4f1c43df77c3f411cb55"
+    },
+    "pick_source_id": {
+      "$oid": "67be4f1c43df77c3f411cb53"
+    },
+    "station_id": "TCH02",
+    "timestamp": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67be4efd45631775ea53f267"
+    },
+    "pick_source_id": {
+      "$oid": "67be4efd45631775ea53f265"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67be4e91226ca63b603f0de6"
+    },
+    "pick_source_id": {
+      "$oid": "67be4e91226ca63b603f0de4"
+    },
+    "station_id": {
+      "$oid": "665d9a35f9201df92c945a05"
+    },
+    "timestamp": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67be4f2269e5e65f2d057ca3"
+    },
+    "pick_source_id": {
+      "$oid": "67be4f2269e5e65f2d057ca1"
+    },
+    "station_id": {
+      "$oid": "665d9a35f9201df92c945991"
+    },
+    "timestamp": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-15T19:38:59.865Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67f624265daafe0759f4d145"
+    },
+    "pick_source_id": {
+      "$oid": "67f624265daafe0759f4d144"
+    },
+    "station_id": "TCH14",
+    "timestamp": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67f6238871857c32d9c822ee"
+    },
+    "pick_source_id": {
+      "$oid": "67f6238871857c32d9c822ed"
+    },
+    "station_id": "TCH14",
+    "timestamp": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67f623a0e50c56782795b941"
+    },
+    "pick_source_id": {
+      "$oid": "67f623a0e50c56782795b940"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67f623cf72b4cbe2856220dd"
+    },
+    "pick_source_id": {
+      "$oid": "67f623cf72b4cbe2856220dc"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67f624265daafe0759f4d146"
+    },
+    "pick_source_id": {
+      "$oid": "67f624265daafe0759f4d144"
+    },
+    "station_id": "PPL08",
+    "timestamp": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67f6238871857c32d9c822ef"
+    },
+    "pick_source_id": {
+      "$oid": "67f6238871857c32d9c822ed"
+    },
+    "station_id": "PPL08",
+    "timestamp": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67f623a0e50c56782795b942"
+    },
+    "pick_source_id": {
+      "$oid": "67f623a0e50c56782795b940"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67f623cf72b4cbe2856220de"
+    },
+    "pick_source_id": {
+      "$oid": "67f623cf72b4cbe2856220dc"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-18T16:51:22.936Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "675a8dd75eb1e915c15ea0c6"
+    },
+    "pick_source_id": {
+      "$oid": "675a8dd75eb1e915c15ea0c5"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "675a8e5a3cbde8e487d3958d"
+    },
+    "pick_source_id": {
+      "$oid": "675a8e593cbde8e487d3958c"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "675a8e0f026b70c0940103a6"
+    },
+    "pick_source_id": {
+      "$oid": "675a8e0f026b70c0940103a5"
+    },
+    "station_id": "TCH04",
+    "timestamp": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "675a8e16040235c5ea2c3aa0"
+    },
+    "pick_source_id": {
+      "$oid": "675a8e16040235c5ea2c3a9f"
+    },
+    "station_id": "TCH04",
+    "timestamp": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "675a8dd75eb1e915c15ea0c7"
+    },
+    "pick_source_id": {
+      "$oid": "675a8dd75eb1e915c15ea0c5"
+    },
+    "station_id": "PPL08",
+    "timestamp": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "675a8e5a3cbde8e487d3958e"
+    },
+    "pick_source_id": {
+      "$oid": "675a8e593cbde8e487d3958c"
+    },
+    "station_id": "PPL08",
+    "timestamp": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "675a8e0f026b70c0940103a7"
+    },
+    "pick_source_id": {
+      "$oid": "675a8e0f026b70c0940103a5"
+    },
+    "station_id": "TCH17",
+    "timestamp": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "675a8e16040235c5ea2c3aa1"
+    },
+    "pick_source_id": {
+      "$oid": "675a8e16040235c5ea2c3a9f"
+    },
+    "station_id": "TCH17",
+    "timestamp": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:27:26.142Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "672030e5884ec44bd71628c8"
+    },
+    "pick_source_id": {
+      "$oid": "672030e4884ec44bd71628c7"
+    },
+    "station_id": "TCH14",
+    "timestamp": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "672030d5ba6a403b18cad18a"
+    },
+    "pick_source_id": {
+      "$oid": "672030d5ba6a403b18cad189"
+    },
+    "station_id": "TCH14",
+    "timestamp": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6720317fd659e42827829751"
+    },
+    "pick_source_id": {
+      "$oid": "6720317fd659e42827829750"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "672031533ca430892254478f"
+    },
+    "pick_source_id": {
+      "$oid": "672031533ca430892254478e"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "672030e5884ec44bd71628c9"
+    },
+    "pick_source_id": {
+      "$oid": "672030e4884ec44bd71628c7"
+    },
+    "station_id": "TCH04",
+    "timestamp": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "672030d5ba6a403b18cad18b"
+    },
+    "pick_source_id": {
+      "$oid": "672030d5ba6a403b18cad189"
+    },
+    "station_id": "TCH04",
+    "timestamp": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6720317fd659e42827829752"
+    },
+    "pick_source_id": {
+      "$oid": "6720317fd659e42827829750"
+    },
+    "station_id": "TCH02",
+    "timestamp": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    },
+    "phase_type": "P",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "672031533ca4308922544790"
+    },
+    "pick_source_id": {
+      "$oid": "672031533ca430892254478e"
+    },
+    "station_id": "TCH02",
+    "timestamp": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    },
+    "phase_type": "S",
+    "checked": true,
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-20T07:32:01.813Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66f8b1ad52e6d1152dac6ad0"
+    },
+    "pick_source_id": {
+      "$oid": "66f8b1ad52e6d1152dac6acf"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66f8b0f1c19c5f7ab59bc8ed"
+    },
+    "pick_source_id": {
+      "$oid": "66f8b0f0c19c5f7ab59bc8ec"
+    },
+    "station_id": "PPL03",
+    "timestamp": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66f8b1b660d1784b8ce3d2fd"
+    },
+    "pick_source_id": {
+      "$oid": "66f8b1b660d1784b8ce3d2fc"
+    },
+    "station_id": "TCH02",
+    "timestamp": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66f8b0fc52e6d1152dac6aca"
+    },
+    "pick_source_id": {
+      "$oid": "66f8b0fc52e6d1152dac6ac9"
+    },
+    "station_id": "TCH02",
+    "timestamp": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66f8b1b6c19c5f7ab59bc8f8"
+    },
+    "pick_source_id": {
+      "$oid": "66f8b1b6c19c5f7ab59bc8f7"
+    },
+    "station_id": "PPL01",
+    "timestamp": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66f8b1ad52e6d1152dac6ad1"
+    },
+    "pick_source_id": {
+      "$oid": "66f8b1ad52e6d1152dac6acf"
+    },
+    "station_id": "PPL01",
+    "timestamp": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66f8b0f1c19c5f7ab59bc8ee"
+    },
+    "pick_source_id": {
+      "$oid": "66f8b0f0c19c5f7ab59bc8ec"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66f8b1b660d1784b8ce3d2fe"
+    },
+    "pick_source_id": {
+      "$oid": "66f8b1b660d1784b8ce3d2fc"
+    },
+    "station_id": "PPL04",
+    "timestamp": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66f8b0fc52e6d1152dac6acb"
+    },
+    "pick_source_id": {
+      "$oid": "66f8b0fc52e6d1152dac6ac9"
+    },
+    "station_id": "TCH04",
+    "timestamp": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "phase_type": "P",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "checked": true
+  },
+  {
+    "_id": {
+      "$oid": "66f8b1b6c19c5f7ab59bc8f9"
+    },
+    "pick_source_id": {
+      "$oid": "66f8b1b6c19c5f7ab59bc8f7"
+    },
+    "station_id": "TCH04",
+    "timestamp": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "phase_type": "S",
+    "modified_by": null,
+    "created_at": {
+      "$date": "2024-01-21T10:55:19.223Z"
+    },
+    "checked": true
+  }
+]
