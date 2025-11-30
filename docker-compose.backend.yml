@@ -29,7 +29,7 @@ services:
       - SEEDLINK_PORT=18000
     volumes:
       # Mount MiniSEED archive read-only
-      - ./coba_backend/Trim_100%_select_merged(2) (1)/Trim_100%_select_merged(2):/data/mseed:ro
+      - ./coba_backend/data/mseed:/data/mseed:ro
     ports:
       - "4000:4000"
     depends_on:
@@ -37,4 +37,3 @@ services:
 
 volumes:
   mongo_data:
-

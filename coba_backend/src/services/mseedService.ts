@@ -42,7 +42,7 @@ class MseedService {
   private indexBuilt: boolean = false
   private waveformCache: Map<string, Promise<WaveformData | null>> = new Map()
 
-  constructor(dataPath: string = env.mseedPath ?? path.join(__dirname, '../../Trim_100%_select_merged(2) (1)/Trim_100%_select_merged(2)')) {
+  constructor(dataPath: string = env.mseedPath ?? path.join(process.cwd(), 'data', 'mseed')) {
     this.dataPath = dataPath
   }
 

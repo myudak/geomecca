@@ -1,18 +1,42 @@
-# Vue 3 + TypeScript + Vite
+# GeoMecca – Frontend + Backend
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This repo includes a Vue 3 frontend (Vite) and a Node/Express backend (`coba_backend`). You can run them locally with npm or via Docker.
 
-## Recommended IDE Setup
+## Prerequisites
+- Node 20+
+- npm
+- MongoDB (local or via Docker)
+- MiniSEED archive (read-only), placed at `coba_backend/data/mseed` (or set `MSEED_PATH`)
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Environment
+- Frontend: copy `.env.example` → `.env` (set API/Socket URLs).
+- Backend: copy `coba_backend/.env.example` → `coba_backend/.env`. Key vars:
+  - `PORT` (default 4000)
+  - `MONGODB_URI` (e.g., `mongodb://localhost:27017/tews`)
+  - `MSEED_PATH` (default `coba_backend/data/mseed`)
+  - JWT/admin defaults as needed
 
-## Type Support For `.vue` Imports in TS
+## Run locally (npm)
+### Backend
+```bash
+cd coba_backend
+npm install
+npm run dev    # runs src/index.ts with tsx watch on port 4000
+```
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+### Frontend
+```bash
+cd frontend   # repo root
+npm install
+npm run dev   # Vite dev server
+```
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## Run via Docker
+```bash
+docker-compose -f docker-compose.backend.yml up --build
+```
+This starts Mongo + backend. The MiniSEED archive is mounted read-only to `/data/mseed` in the container (adjust the host path in the compose file if needed).
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Notes
+- `/recordstream` and waveform features read from the MiniSEED archive; stations without data will show empty traces.
+- Picks/arrivals live in Mongo; import scripts are under `coba_backend/scripts` (e.g., `npm run import:picks`, `npm run import:full`).
