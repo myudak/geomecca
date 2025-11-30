@@ -1,4 +1,4 @@
-export const getMagnitudeWidth = (magnitude: number) => magnitude * 5
+export const getMagnitudeWidth = (magnitude: number) => Math.max(3, Math.abs(magnitude) * 5)
 
 export const getDepthColor = (depth: number) => {
   if (depth < 50) return '#FF0000'

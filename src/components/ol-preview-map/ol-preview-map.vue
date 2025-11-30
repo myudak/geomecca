@@ -26,9 +26,19 @@ const {
 const mapRef = ref<HTMLDivElement | null>(null)
 
 onMounted(() => {
-  const latLng = transform([origin.longitude, origin.latitude], 'EPSG:4326', 'EPSG:3857')
-  const feature = createMagnitudeFeature(origin, magnitude)
-  feature.setProperties({ event })
+  console.log('[OLPreviewMap] Component mounted')
+  console.log('[OLPreviewMap] Origin:', origin)
+  console.log('[OLPreviewMap] Magnitude:', magnitude)
+  console.log('[OLPreviewMap] mapRef:', mapRef.value)
+
+  try {
+    const latLng = transform([origin.longitude, origin.latitude], 'EPSG:4326', 'EPSG:3857')
+    console.log('[OLPreviewMap] Transformed coordinates:', latLng)
+
+    const feature = createMagnitudeFeature(origin, magnitude)
+    console.log('[OLPreviewMap] Feature created:', feature)
+
+    feature.setProperties({ origin, magnitude })
 
   const eventSource = new VectorSource({
     features: [feature]
@@ -62,13 +72,46 @@ onMounted(() => {
     map.addLayer(circleVector)
   }
 
-  map.addLayer(linesLayer)
-  map.addLayer(eventLayer)
-  map.addLayer(stationsLayer)
-  map.getControls().clear()
-  view.setCenter(latLng)
-  view.setMinZoom(6)
-  view.setZoom(7)
+    map.addLayer(linesLayer)
+    map.addLayer(eventLayer)
+    map.addLayer(stationsLayer)
+    map.getControls().clear()
+
+    // Calculate extent of all features (event + stations)
+    const allFeatures = [
+      ...eventSource.getFeatures(),
+      ...stationsSource.getFeatures()
+    ]
+
+    if (allFeatures.length > 0) {
+      const extent = eventSource.getExtent()
+      stationsSource.getFeatures().forEach(feature => {
+        const featureExtent = feature.getGeometry()?.getExtent()
+        if (featureExtent) {
+          extent[0] = Math.min(extent[0], featureExtent[0])
+          extent[1] = Math.min(extent[1], featureExtent[1])
+          extent[2] = Math.max(extent[2], featureExtent[2])
+          extent[3] = Math.max(extent[3], featureExtent[3])
+        }
+      })
+
+      // Fit view to extent with padding
+      view.fit(extent, {
+        padding: [50, 50, 50, 50],
+        maxZoom: 12,
+        duration: 0
+      })
+    } else {
+      // Fallback if no stations
+      view.setCenter(latLng)
+      view.setZoom(7)
+    }
+    view.setMinZoom(6)
+
+    console.log('[OLPreviewMap] Map initialization complete')
+  } catch (error) {
+    console.error('[OLPreviewMap] Error during map initialization:', error)
+  }
 })
 </script>
 

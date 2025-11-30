@@ -9,7 +9,7 @@ const defaultStations = [
   {
     name: 'PTH01',
     code: 'PPL01',
-    network: 'PP',
+    network: 'PPL',
     channel: ['DPZ', 'DPN', 'DPE', 'BHZ'],
     latitude: -7.186050842,
     longitude: 107.4445627,
@@ -20,7 +20,7 @@ const defaultStations = [
   {
     name: 'PTH02',
     code: 'PPL02',
-    network: 'PP',
+    network: 'PPL',
     channel: ['DPZ', 'DPN', 'DPE', 'BHZ'],
     latitude: -7.181019827,
     longitude: 107.4184103,
@@ -31,7 +31,7 @@ const defaultStations = [
   {
     name: 'PTH03',
     code: 'PPL03',
-    network: 'PP',
+    network: 'PPL',
     channel: ['DPZ', 'DPN', 'DPE', 'BHZ'],
     latitude: -7.177826467,
     longitude: 107.4343474,
@@ -42,7 +42,7 @@ const defaultStations = [
   {
     name: 'PTH04',
     code: 'PPL04',
-    network: 'PP',
+    network: 'PPL',
     channel: ['DPZ', 'DPN', 'DPE', 'BHZ'],
     latitude: -7.171208157,
     longitude: 107.4194353,
@@ -53,7 +53,7 @@ const defaultStations = [
   {
     name: 'PTH05',
     code: 'PPL05',
-    network: 'PP',
+    network: 'PPL',
     channel: ['DPZ', 'DPN', 'DPE', 'BHZ'],
     latitude: -7.1799,
     longitude: 107.4396613,
@@ -64,7 +64,7 @@ const defaultStations = [
   {
     name: 'PTH07',
     code: 'PPL07',
-    network: 'PP',
+    network: 'PPL',
     channel: ['DPZ', 'DPN', 'DPE', 'BHZ'],
     latitude: -7.179869852,
     longitude: 107.4273722,
@@ -75,7 +75,7 @@ const defaultStations = [
   {
     name: 'PTH08',
     code: 'PPL08',
-    network: 'PP',
+    network: 'PPL',
     channel: ['DPZ', 'DPN', 'DPE', 'BHZ'],
     latitude: -7.172022105,
     longitude: 107.4021192,
@@ -86,7 +86,7 @@ const defaultStations = [
   {
     name: 'PTHC02',
     code: 'TCH02',
-    network: 'PP',
+    network: 'PPL',
     channel: ['DPZ', 'DPN', 'DPE', 'BHZ'],
     latitude: -7.166270213,
     longitude: 107.432,
@@ -97,7 +97,7 @@ const defaultStations = [
   {
     name: 'PTHC04',
     code: 'TCH04',
-    network: 'PP',
+    network: 'PPL',
     channel: ['DPZ', 'DPN', 'DPE', 'BHZ'],
     latitude: -7.193306305,
     longitude: 107.4279413,
@@ -108,7 +108,7 @@ const defaultStations = [
   {
     name: 'PTHC14',
     code: 'TCH14',
-    network: 'PP',
+    network: 'PPL',
     channel: ['DPZ', 'DPN', 'DPE', 'BHZ'],
     latitude: -7.184191504,
     longitude: 107.4099567,
@@ -119,7 +119,7 @@ const defaultStations = [
   {
     name: 'PTHC17',
     code: 'TCH17',
-    network: 'PP',
+    network: 'PPL',
     channel: ['DPZ', 'DPN', 'DPE', 'BHZ'],
     latitude: -7.1594,
     longitude: 107.4074102,

@@ -25,8 +25,6 @@ const stationMagnitudePerTypes = computed(() => originDetail.value?.station_magn
 const magnitudeTypes = computed(() => stationMagnitudePerTypes.value.map((m) => m.type))
 const selectedMagnitudes = computed(() => stationMagnitudePerTypes.value[selectedMagnitudeIndex.value])
 
-const logEquation = computed(() => 'log₁₀ N = 2.962 – 1.944 M')
-const bValue = computed(() => 1.944)
 const now = new Date()
 const dateRange = ref({
   start: new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000),
@@ -40,7 +38,7 @@ const formattedRange = computed(
 
 <template>
   <div class="flex flex-col gap-6">
-    <MagnitudeEstimationCard :b-value="bValue" :equation="logEquation">
+    <MagnitudeEstimationCard :origin-id="originId">
       <template #range>
         <DateFilter v-model:range="dateRange" variant="subtle" />
       </template>

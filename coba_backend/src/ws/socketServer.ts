@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto'
 import { Server as HTTPServer } from 'http'
 import { Server as IOServer } from 'socket.io'
 import { WebSocketServer, WebSocket } from 'ws'
+import { mseedService } from '../services/mseedService'
 
 interface StationWaveForm {
   date: string
@@ -18,31 +19,154 @@ interface StationWaveForm {
   waveform: number[]
 }
 
-const generateWaveform = (channelName: string): StationWaveForm[] => {
-  const [network, station, channel] = channelName.split('.')
-  const now = new Date()
-  const start = new Date(now.getTime() - 30_000)
-  const end = now
-  const samplingRate = 50
-  const points = samplingRate * 30
-  const waveform = Array.from({ length: points }, (_, i) => Math.sin(i / 10) * 100 + Math.random() * 5)
+interface SimulatedWaveformState {
+  station: string
+  network: string
+  channel: string
+  location: string
+  sampling_rate: number
+  delta: number
+  npts: number
+  waveform: number[]
+  originalStart: Date
+  originalEnd: Date
+  windowSamples: number
+  lastIndex: number
+  lastTimestamp: number
+}
 
-  return [
-    {
-      date: start.toISOString(),
-      starttime: start.toISOString(),
-      endtime: end.toISOString(),
-      sampling_rate: samplingRate,
-      delta: 1 / samplingRate,
-      location: '00',
-      npts: points,
-      station: station ?? 'PPL01',
-      network: network ?? 'PP',
-      channel: channel ?? 'DPZ',
-      expiration_timestamp: Math.floor(Date.now() / 1000) + 30,
-      waveform
+const WINDOW_SECONDS = 30 * 60 // 30 minutes
+const simulationStates = new Map<string, SimulatedWaveformState>()
+
+const parseChannelName = (channelName: string) => {
+  const parts = channelName.split('.')
+
+  const network = parts[0] || 'PPL'
+  const station = parts[1] || 'PPL01'
+  const location = parts[2] || '00'
+  // Typical format: NETWORK.STATION.LOCATION.CHANNEL
+  const channel = parts[3] || parts[2] || 'DPZ'
+
+  return { network, station, location, channel }
+}
+
+const getOrCreateSimulationState = async (
+  key: string,
+  network: string,
+  station: string,
+  channel: string,
+  location: string
+): Promise<SimulatedWaveformState | null> => {
+  if (simulationStates.has(key)) {
+    return simulationStates.get(key)!
+  }
+
+  try {
+    // Local MiniSEED archive stores vertical component as DPZ; map BHZ/SHZ -> DPZ.
+    const effectiveChannel = channel.endsWith('HZ') ? 'DPZ' : channel
+
+    const waveformData = await mseedService.getWaveformData(network, station, effectiveChannel)
+
+    if (!waveformData) {
+      console.log(`[SocketServer] No MiniSEED data found for ${key}, returning empty waveform`)
+      return null
     }
-  ]
+
+    const { waveform, delta, sampling_rate, npts, starttime, endtime } = waveformData
+
+    if (!waveform.length || !npts) {
+      console.log(`[SocketServer] MiniSEED for ${key} has no samples, returning empty waveform`)
+      return null
+    }
+
+    const windowSamples = Math.max(1, Math.min(npts, Math.floor(WINDOW_SECONDS / delta)))
+    const now = Date.now()
+
+    const state: SimulatedWaveformState = {
+      station,
+      network,
+      channel: effectiveChannel,
+      location,
+      sampling_rate,
+      delta,
+      npts,
+      waveform,
+      originalStart: starttime,
+      originalEnd: endtime,
+      windowSamples,
+      lastIndex: windowSamples - 1,
+      lastTimestamp: now
+    }
+
+    simulationStates.set(key, state)
+    console.log(`[SocketServer] Initialized simulation state for ${key} with ${npts} samples`)
+
+    return state
+  } catch (error) {
+    console.error(`[SocketServer] Error initializing simulation state for ${key}:`, error)
+    return null
+  }
+}
+
+const buildRealtimeWindow = (state: SimulatedWaveformState): StationWaveForm => {
+  const nowMs = Date.now()
+  const dtSec = (nowMs - state.lastTimestamp) / 1000
+
+  if (dtSec > 0) {
+    const stepSamples = Math.floor(dtSec / state.delta)
+    if (stepSamples > 0) {
+      state.lastIndex = (state.lastIndex + stepSamples) % state.npts
+      state.lastTimestamp = state.lastTimestamp + stepSamples * state.delta * 1000
+    }
+  }
+
+  const values: number[] = new Array(state.windowSamples)
+  const n = state.npts
+  const windowStartIndex = state.lastIndex - (state.windowSamples - 1)
+
+  for (let i = 0; i < state.windowSamples; i++) {
+    let idx = windowStartIndex + i
+    if (idx < 0) {
+      idx = (idx % n) + n
+    } else {
+      idx = idx % n
+    }
+    values[i] = state.waveform[idx]
+  }
+
+  const endTimeMs = nowMs
+  const startTimeMs = endTimeMs - state.windowSamples * state.delta * 1000
+
+  const starttime = new Date(startTimeMs)
+  const endtime = new Date(endTimeMs)
+
+  return {
+    date: starttime.toISOString(),
+    starttime: starttime.toISOString(),
+    endtime: endtime.toISOString(),
+    sampling_rate: state.sampling_rate,
+    delta: state.delta,
+    location: state.location,
+    npts: values.length,
+    station: state.station,
+    network: state.network,
+    channel: state.channel,
+    expiration_timestamp: Math.floor(endTimeMs / 1000) + 60,
+    waveform: values
+  }
+}
+
+const generateWaveform = async (channelName: string): Promise<StationWaveForm[]> => {
+  const { network, station, location, channel } = parseChannelName(channelName)
+  const key = `${network}.${station}.${channel}`
+
+  const state = await getOrCreateSimulationState(key, network, station, channel, location)
+  if (!state) {
+    return []
+  }
+
+  const frame = buildRealtimeWindow(state)
+  return [frame]
 }
 
 const sendPeriodic = (ws: WebSocket, build: () => any, intervalMs: number) => {
@@ -57,14 +181,45 @@ const sendPeriodic = (ws: WebSocket, build: () => any, intervalMs: number) => {
 }
 
 export const startSocketServer = (server: HTTPServer) => {
+  // Initialize MiniSEED service on startup
+  mseedService.buildIndex().then(() => {
+    console.log('[SocketServer] MiniSEED index built successfully')
+  }).catch((error) => {
+    console.error('[SocketServer] Failed to build MiniSEED index:', error)
+  })
+
   const io = new IOServer(server, {
     cors: { origin: '*', methods: ['GET', 'POST'] }
   })
 
+  const waveformIntervals = new Map<string, Map<string, NodeJS.Timeout>>()
+
   io.on('connection', (socket) => {
-    socket.on('waveform', (channelName: string) => {
+    waveformIntervals.set(socket.id, new Map())
+
+    socket.on('waveform', async (channelName: string) => {
       const eventName = `data-${channelName}`
-      socket.emit(eventName, generateWaveform(channelName))
+      const sendWaveform = async () => {
+        const waveformData = await generateWaveform(channelName)
+        socket.emit(eventName, waveformData)
+      }
+
+      const clientIntervals = waveformIntervals.get(socket.id)!
+      if (clientIntervals.has(channelName)) {
+        clearInterval(clientIntervals.get(channelName)!)
+      }
+
+      await sendWaveform()
+      const intervalId = setInterval(sendWaveform, 3000)
+      clientIntervals.set(channelName, intervalId)
+    })
+
+    socket.on('disconnect', () => {
+      const clientIntervals = waveformIntervals.get(socket.id)
+      if (clientIntervals) {
+        clientIntervals.forEach((intervalId) => clearInterval(intervalId))
+        waveformIntervals.delete(socket.id)
+      }
     })
   })
 

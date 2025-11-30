@@ -21,7 +21,29 @@ originsRouter.get('/getdetail', requireAuth, async (req, res) => {
   const origin = await OriginModel.findById(originId)
   if (!origin) return res.status(404).json({ status: false, message: 'origin not found' })
 
-  return res.json({ data: [origin] })
+  const { ArrivalModel } = await import('../models/Arrival')
+  const { StationModel } = await import('../models/Station')
+
+  const arrivals = await ArrivalModel.find({ _id: { $in: origin.arrival_ids } })
+
+  // Populate station details for each arrival
+  const arrivalsWithStations = await Promise.all(
+    arrivals.map(async (arrival) => {
+      const station = await StationModel.findOne({ code: arrival.station_id })
+      return {
+        ...arrival.toObject(),
+        station_details: station ? {
+          code: station.code,
+          longitude: station.longitude,
+          latitude: station.latitude,
+          elevation: station.elevation,
+          name: station.name
+        } : null
+      }
+    })
+  )
+
+  return res.json({ data: [{ ...origin.toObject(), arrivals: arrivalsWithStations }] })
 })
 
 originsRouter.post('/psteoritical', requireAuth, async (req, res) => {

@@ -13,8 +13,16 @@ const { event, originId } = defineProps<{
   originId?: string
 }>()
 
-const preferredOrigin = computed(() => getPreferredOrigin(event, originId))
-const magnitude = computed(() => getDefaultMagnitude(preferredOrigin.value?.magnitudes ?? []))
+const preferredOrigin = computed(() => {
+  const origin = getPreferredOrigin(event, originId)
+  console.log('[LocationDetail] Preferred origin:', origin)
+  return origin
+})
+const magnitude = computed(() => {
+  const mag = getDefaultMagnitude(preferredOrigin.value?.magnitudes ?? [])
+  console.log('[LocationDetail] Magnitude:', mag)
+  return mag
+})
 const totalStations = computed(() => preferredOrigin.value?.arrivals?.length ?? 0)
 
 const wadatiImageUrl = ref('')
@@ -80,7 +88,9 @@ const downloadWadati = () => {
 }
 
 const handleWadatiReady = (url: string) => {
+  console.log('[LocationDetail] handleWadatiReady called with URL:', url ? `${url.substring(0, 50)}...` : 'EMPTY')
   wadatiImageUrl.value = url
+  console.log('[LocationDetail] wadatiImageUrl set to:', wadatiImageUrl.value ? `${wadatiImageUrl.value.substring(0, 50)}...` : 'EMPTY')
 }
 </script>
 

@@ -21,7 +21,12 @@ usersRouter.post('/login', async (req, res) => {
   const token = signToken({ sub: user.id, username: user.username, role: user.role })
   return res.json({
     status: true,
-    data: { access_token: token, user: { _id: user.id, username: user.username, role: user.role, region: user.region } }
+    data: {
+      id: user.id,
+      username: user.username,
+      region: user.region,
+      access_token: token
+    }
   })
 })
 

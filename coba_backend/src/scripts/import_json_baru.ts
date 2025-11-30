@@ -1,12 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 import 'dotenv/config'
-import { connectMongo } from '../config/mongo.ts'
-import { ArrivalModel } from '../models/Arrival.ts'
-import { EventModel } from '../models/Event.ts'
-import { OriginModel } from '../models/Origin.ts'
-import { PickModel } from '../models/Pick.ts'
-import { logger } from '../config/logger.ts'
+import { connectMongo } from '../config/mongo'
+import { ArrivalModel } from '../models/Arrival'
+import { EventModel } from '../models/Event'
+import { OriginModel } from '../models/Origin'
+import { PickModel } from '../models/Pick'
+import { logger } from '../config/logger'
 
 const DATA_DIR = path.join(process.cwd(), 'jsonBaru')
 
@@ -17,11 +17,20 @@ const readJson = (filename: string) => {
 }
 
 const unwrap = (value: any): any => {
-  if (value && typeof value === 'object') {
-    if ('$oid' in value) return String(value.$oid)
-    if ('$date' in value) return new Date(value.$date)
+  if (!value || typeof value !== 'object') return value
+
+  if ('$oid' in value) return String(value.$oid)
+  if ('$date' in value) return new Date(value.$date)
+
+  if (Array.isArray(value)) {
+    return value.map(unwrap)
   }
-  return value
+
+  const result: any = {}
+  for (const key in value) {
+    result[key] = unwrap(value[key])
+  }
+  return result
 }
 
 const main = async () => {
@@ -47,7 +56,7 @@ const main = async () => {
 
   for (const arrival of arrivalsRaw) {
     const pickId = unwrap(arrival.pick_source_id)
-    const stationId = arrival.station_id
+    const stationId = typeof arrival.station_id === 'string' ? arrival.station_id : unwrap(arrival.station_id)
     const timestamp = unwrap(arrival.timestamp)
     if (!pickId || !stationId || !timestamp) continue
     const existing = await PickModel.findById(pickId)
@@ -59,7 +68,7 @@ const main = async () => {
   for (const arrival of arrivalsRaw) {
     const id = unwrap(arrival._id)
     const pickId = unwrap(arrival.pick_source_id)
-    const stationId = arrival.station_id
+    const stationId = typeof arrival.station_id === 'string' ? arrival.station_id : unwrap(arrival.station_id)
     const timestamp = unwrap(arrival.timestamp)
     const phaseType = arrival.phase_type
     if (!id || !pickId || !stationId || !timestamp || !phaseType) continue
@@ -81,7 +90,7 @@ const main = async () => {
     if (!id) continue
     const arrivalIds = (origin.arrival_ids ?? []).map(unwrap).filter(Boolean)
     const magnitudeIds = (origin.magnitude_ids ?? []).map(unwrap).filter(Boolean)
-    const magnitudes = magnitudeIds.map((mid) => magnitudeMap.get(mid)).filter(Boolean)
+    const magnitudes = magnitudeIds.map((mid: string) => magnitudeMap.get(mid)).filter(Boolean)
 
     await OriginModel.findByIdAndUpdate(
       id,
@@ -98,7 +107,7 @@ const main = async () => {
         terrain: origin.terrain,
         country: origin.country,
         magnitude_ids: magnitudeIds,
-        station_magnitude_ids_per_type: origin.station_magnitude_ids_per_type ?? [],
+        station_magnitude_ids_per_type: unwrap(origin.station_magnitude_ids_per_type) ?? [],
         magnitudes,
         err_epicenter: origin.err_epicenter,
         gap: origin.gap,

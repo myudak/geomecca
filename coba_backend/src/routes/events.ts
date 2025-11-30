@@ -85,7 +85,82 @@ eventsRouter.get('/getdetail', requireAuth, async (req, res) => {
   if (!event) return res.status(404).json({ status: false, message: 'event not found' })
 
   const origins = await OriginModel.find({ _id: { $in: event.origin_ids } })
-  return res.json({ data: { _id: event.id, name: event.name, origin_ids: event.origin_ids, preferred_origin_id: event.preferred_origin_id, origins, created_at: event.createdAt } })
+
+  // Import StationModel and PickModel lazily to avoid circular deps
+  const { StationModel } = await import('../models/Station')
+  const { PickModel } = await import('../models/Pick')
+
+  // Populate arrivals for each origin with station details
+  const originsWithArrivals = await Promise.all(
+    origins.map(async (origin) => {
+      const arrivals = await ArrivalModel.find({ _id: { $in: origin.arrival_ids } })
+
+      // Populate station and pick details for each arrival
+      const arrivalsWithStations = await Promise.all(
+        arrivals.map(async (arrival) => {
+          const station = await StationModel.findOne({ code: arrival.station_id })
+          const pick = arrival.pick_source_id ? await PickModel.findById(arrival.pick_source_id) : null
+
+          const stationDetails = station
+            ? {
+                _id: station.id,
+                name: station.name,
+                code: station.code,
+                network: station.network,
+                location: station.location ?? '00',
+                channel: station.channel ?? [],
+                longitude: station.longitude,
+                latitude: station.latitude,
+                elevation: station.elevation,
+                server_seedlink: station.server_seedlink ?? '',
+                server_fdsn: station.server_fdsn ?? '',
+                status: station.status
+              }
+            : null
+
+          const pickDetails = pick
+            ? {
+                _id: pick.id,
+                station_id: pick.station_id,
+                timestamp: pick.timestamp,
+                created_at: pick.createdAt,
+                channel: station?.channel?.[0] ?? 'DPZ'
+              }
+            : arrival.pick_source_id
+            ? {
+                _id: arrival.pick_source_id,
+                station_id: arrival.station_id,
+                timestamp: arrival.timestamp,
+                created_at: arrival.createdAt ?? arrival.timestamp,
+                channel: station?.channel?.[0] ?? 'DPZ'
+              }
+            : null
+
+          return {
+            ...arrival.toObject(),
+            station_details: stationDetails,
+            pick_details: pickDetails
+          }
+        })
+      )
+
+      return {
+        ...origin.toObject(),
+        arrivals: arrivalsWithStations
+      }
+    })
+  )
+
+  return res.json({
+    data: {
+      _id: event.id,
+      name: event.name,
+      origin_ids: event.origin_ids,
+      preferred_origin_id: event.preferred_origin_id,
+      origins: originsWithArrivals,
+      created_at: event.createdAt
+    }
+  })
 })
 
 eventsRouter.put('/commit', requireAuth, async (req, res) => {

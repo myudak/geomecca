@@ -81,6 +81,11 @@ const drawChart = (
 
   canvasContextRef.value = canvasContext
 
+  if (!newData.waveform || newData.waveform.length === 0) {
+    canvasContext.clearRect(0, 0, width, height)
+    return
+  }
+
   const filledWaveform = newData.waveform.map((waveform, index) => {
     if (waveform === null) {
       return newData.waveform[index - 1] ?? 0

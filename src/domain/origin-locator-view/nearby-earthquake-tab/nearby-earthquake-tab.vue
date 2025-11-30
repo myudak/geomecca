@@ -106,6 +106,22 @@ const syncEventFeatures = () => {
     if (event.origins.latitude === undefined || event.origins.longitude === undefined) return
     eventSource.addFeature(createEventFeature(event))
   })
+  zoomToFitEvents()
+}
+
+const zoomToFitEvents = () => {
+  if (!map.value) return
+  const features = eventSource.getFeatures()
+  if (features.length === 0) return
+
+  const extent = eventSource.getExtent()
+  const view = map.value.getView()
+
+  view.fit(extent, {
+    padding: [80, 80, 80, 80],
+    maxZoom: 10,
+    duration: 600
+  })
 }
 
 watch(filteredEvents, () => {

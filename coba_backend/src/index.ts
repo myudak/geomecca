@@ -12,7 +12,11 @@ import { eventsRouter } from './routes/events'
 import { originsRouter } from './routes/origins'
 import { arrivalsRouter } from './routes/arrivals'
 import { picksRouter } from './routes/picks'
+import { recordStreamRouter } from './routes/recordstream'
 import { arrivalCatalogRouter } from './routes/arrivalCatalog'
+import { wadatiRouter } from './routes/wadati'
+import { magnitudeRouter } from './routes/magnitude'
+import { dashboardRouter } from './routes/dashboard'
 import { ensureDefaultAdmin, ensureDefaultAdminStations } from './utils/seedAdmin'
 import { startKafka } from './kafka/client'
 import { ensureDefaultStations } from './utils/seedStations'
@@ -31,7 +35,11 @@ app.use('/event', eventsRouter)
 app.use('/origin', originsRouter)
 app.use('/arrival', arrivalsRouter)
 app.use('/pick', picksRouter)
+app.use('/recordstream', recordStreamRouter)
 app.use('/arrivalkatalog', arrivalCatalogRouter)
+app.use('/wadati', wadatiRouter)
+app.use('/magnitude', magnitudeRouter)
+app.use('/dashboard', dashboardRouter)
 
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   logger.error({ err }, 'unhandled error')

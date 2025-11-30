@@ -4,7 +4,7 @@ import { InformationList } from '@src/components/information-list'
 import { formatDate } from '@src/utils/string'
 import { ref, watch } from 'vue'
 
-import { MockChart } from '../mock-chart'
+import { BValueChart } from '../b-value-chart'
 import MagnitudePreviewMap from './magnitude-preview-map.vue'
 
 const props = defineProps<{
@@ -90,7 +90,7 @@ const additionalInformations = [
       <InformationList :informations="additionalInformations" variant="light" />
     </div>
     <div class="w-[30%] max-md:w-full">
-      <MockChart tab="magnitude" />
+      <BValueChart :origin-id="origin._id" />
     </div>
   </div>
 </template>

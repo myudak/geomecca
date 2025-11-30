@@ -41,7 +41,7 @@ defineEmits<{
   (e: 'toggle'): void
 }>()
 
-const { channel, socket, startTime } = props
+const { channel, socket } = props
 const waveforms = ref<StationWaveForm[]>([])
 const canvas = ref<HTMLCanvasElement | null>(null)
 const lastReceiveTime = ref<number | null>(null)
@@ -58,13 +58,15 @@ const updateInfo = (max: number | null, avg: number | null) => {
   if (!stationInfo) return
 
   const maxInfo = stationInfo.querySelector('.info-max')
-  if (maxInfo && max) {
-    maxInfo.textContent = Math.round(max).toString()
+  if (maxInfo) {
+    maxInfo.textContent =
+      max !== null && Number.isFinite(max) ? Math.round(max).toString() : '-'
   }
 
   const avgInfo = stationInfo.querySelector('.info-avg')
-  if (avgInfo && avg) {
-    avgInfo.textContent = parseFloat(avg.toFixed(2)).toString()
+  if (avgInfo) {
+    avgInfo.textContent =
+      avg !== null && Number.isFinite(avg) ? parseFloat(avg.toFixed(2)).toString() : '-'
   }
 }
 
@@ -135,6 +137,20 @@ const drawAllArrivals = (
   })
 }
 
+const getWaveformTimeRange = (data: StationWaveForm[]) => {
+  if (!data.length) return null
+
+  const first = data[0]
+  const last = data[data.length - 1]
+
+  const start = new Date(first.starttime).getTime()
+  const explicitEnd = new Date(last.endtime).getTime()
+  const computedEnd = addSeconds(new Date(last.starttime), last.delta * last.waveform.length).getTime()
+  const end = explicitEnd > start ? explicitEnd : computedEnd
+
+  return end > start ? { start, end } : null
+}
+
 const createLine = (props: {
   data: StationWaveForm[]
   canvasCtx: CanvasRenderingContext2D
@@ -145,22 +161,24 @@ const createLine = (props: {
   newXScale: d3.ScaleTime<number, number, never>
   newFilterConfig?: FilterConfig
 }) => {
-  const { data, canvasCtx, newStartTime, newWidth, newHeight, newXScale, newFilterConfig } = props
+  const { data, canvasCtx, newWidth, newHeight, newXScale, newFilterConfig } = props
 
-  const { min, max } = data.reduce(
-    (curr, waveform) => {
-      const startIndex = getStartIndex(waveform, startTime)
-      const waveformValues = waveform.waveform.slice(startIndex)
-      return {
-        min: Math.min(curr.min, ...waveformValues),
-        max: Math.max(curr.max, ...waveformValues)
-      }
-    },
-    {
-      min: Infinity,
-      max: -Infinity
+  let min = Infinity
+  let max = -Infinity
+
+  data.forEach((waveform) => {
+    const values = waveform.waveform
+    for (let i = 0; i < values.length; i += 1) {
+      const v = values[i]
+      if (v < min) min = v
+      if (v > max) max = v
     }
-  )
+  })
+
+  if (!Number.isFinite(min) || !Number.isFinite(max) || min === max) {
+    min = -1
+    max = 1
+  }
   const yScale = d3.scaleLinear().domain([min, max]).range([newHeight, 0])
 
   const buffer = document.createElement('canvas')
@@ -176,12 +194,11 @@ const createLine = (props: {
 
   data.forEach((d) => {
     const { starttime: start_time, delta, waveform: wv, sampling_rate } = d
-    const startIndex = getStartIndex(d, newStartTime)
     const filteredWaveform = newFilterConfig
       ? bandpassFilter(wv, sampling_rate, newFilterConfig.low, newFilterConfig.high)
       : wv
 
-    for (let index = startIndex; index < wv.length; index++) {
+    for (let index = 0; index < wv.length; index++) {
       const w = filteredWaveform[index]
       const time = addSeconds(new Date(start_time), delta * index).getTime()
 
@@ -198,7 +215,7 @@ const createLine = (props: {
       total += w
     }
 
-    length += wv.length - startIndex + 1
+    length += wv.length
   })
 
   updateInfo(max, total / length)
@@ -224,6 +241,11 @@ const drawChart = (
 ) => {
   if (!canvas.value) return
 
+  const range = getWaveformTimeRange(data)
+  const effectiveXScale = range
+    ? d3.scaleTime().domain([range.start, range.end]).range([0, newWidth])
+    : newXScale
+
   const canvasContext = d3
     .select(canvas.value)
     .attr('width', newWidth)
@@ -232,6 +254,7 @@ const drawChart = (
     .getContext('2d')!
 
   if (!data.length) {
+    updateInfo(null, null)
     const buffer = document.createElement('canvas')
     buffer.width = newWidth
     buffer.height = newHeight
@@ -254,7 +277,7 @@ const drawChart = (
       newWidth,
       newHeight,
       canvasCtx: canvasContext,
-      newXScale,
+      newXScale: effectiveXScale,
       newFilterConfig
     })
   )
@@ -265,6 +288,7 @@ const onEventReceived = (event: StationWaveForm[]) => {
 
   if (event.length === 0) {
     waveforms.value = []
+    updateInfo(null, null)
     return
   }
 
@@ -316,10 +340,8 @@ watch(
     () => props.xScale,
     () => props.filterConfig
   ],
-  ([newStartTime, newEndTime, newWaveforms, newWidth, newHeight, newXScale, newFilterConfig], [oldStartTime]) => {
-    if (newStartTime !== oldStartTime) {
-      drawChart(newWaveforms, newStartTime, newEndTime, newWidth, newHeight, newXScale, newFilterConfig)
-    }
+  ([newStartTime, newEndTime, newWaveforms, newWidth, newHeight, newXScale, newFilterConfig]) => {
+    drawChart(newWaveforms, newStartTime, newEndTime, newWidth, newHeight, newXScale, newFilterConfig)
   },
   { immediate: true }
 )
@@ -344,11 +366,11 @@ watch(
         <div :id="`station-info-${channelName.replace(/\./g, '-')}`" class="flex gap-1 text-xs">
           <div class="text-error font-semibold">
             <span class="text-error/70">Max: </span>
-            <span class="info-max">5805</span>
+            <span class="info-max">-</span>
           </div>
           <div class="text-error font-semibold">
-            <span class="text-error/70"> avg: -</span>
-            <span class="info-avg">204.00</span>
+            <span class="text-error/70"> avg: </span>
+            <span class="info-avg">-</span>
           </div>
         </div>
       </div>

@@ -1,6 +1,20 @@
 node_modules
-dist
-# optional
-.git
-.DS_Store
 npm-debug.log
+dist
+.env
+.git
+.gitignore
+*.md
+coba_backend/node_modules
+coba_backend/dist
+coba_backend/data
+coba_backend/original_Dataset
+coba_backend/Trim_100__selected
+coba_backend/p-pick_module_EXAMPLE
+coba_backend/*.ipynb
+coba_backend/.ipynb_checkpoints
+coba_backend/nul
+.husky
+.vscode
+coverage
+*.log

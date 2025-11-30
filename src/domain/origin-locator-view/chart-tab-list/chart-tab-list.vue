@@ -19,12 +19,20 @@ const selectedTab = ref('Distance')
 const isImageShow = ref(false)
 
 const { data } = useGetWadatiPlot(props.originId)
-const wadatiImage = computed(() => data?.value?.data.image)
-const wadatiImageUrl = computed(() => (wadatiImage.value ? `data:image/png;base64,${wadatiImage.value}` : ''))
+const wadatiImage = computed(() => {
+  console.log('[ChartTabList] Wadati data:', data?.value)
+  return data?.value?.data.image
+})
+const wadatiImageUrl = computed(() => {
+  const url = wadatiImage.value ? `data:image/png;base64,${wadatiImage.value}` : ''
+  console.log('[ChartTabList] Wadati image URL:', url ? `${url.substring(0, 50)}...` : 'EMPTY')
+  return url
+})
 
 watch(
   wadatiImageUrl,
   (url) => {
+    console.log('[ChartTabList] Emitting ready event with URL:', url ? `${url.substring(0, 50)}...` : 'EMPTY')
     emit('ready', url)
   },
   { immediate: true }

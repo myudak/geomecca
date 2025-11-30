@@ -26,9 +26,18 @@ const arrivals = computed(() => preferredOrigin?.value?.arrivals ?? [])
 
 const mappedArrival = computed(() =>
   arrivals.value.reduce<Record<string, { station: Station; arrivals: Arrival[]; channelName: string }>>(
-    (curr, arrival) => {
-      const pickId = arrival.pick_details._id
-      const channelName = getChannelFullName(arrival.station_details, arrival.pick_details.channel)
+    (curr, arrival, index) => {
+      if (!arrival.pick_details || !arrival.station_details) {
+        return curr
+      }
+
+      const pickId = arrival.pick_details._id ?? `pick-${index}`
+      const channel =
+        arrival.pick_details.channel ??
+        arrival.station_details.channel?.[0] ??
+        arrival.station_details.channel?.at?.(0) ??
+        'DPZ'
+      const channelName = getChannelFullName(arrival.station_details, channel)
 
       if (!curr[pickId]) {
         curr[pickId] = {
@@ -128,6 +137,9 @@ watch(
             v-else-if="!!originTime && !!endTime && !!startTime && !!width && !!xScale && !!preferredOrigin"
             class="flex flex-col h-full">
             <div class="flex-1 h-full overflow-y-auto px-4 pb-4 space-y-3">
+              <div v-if="Object.values(mappedArrival).length === 0" class="text-xs text-gray-500 dark:text-gray-400">
+                No arrivals available for this event.
+              </div>
               <div
                 v-for="(arrival, index) in Object.values(mappedArrival)"
                 :key="index"

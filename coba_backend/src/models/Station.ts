@@ -21,7 +21,7 @@ const stationSchema = new Schema<IStation>(
     name: { type: String, required: true },
     code: { type: String, required: true, unique: true, index: true },
     network: { type: String, required: true },
-    location: { type: String },
+    location: { type: String, default: '00' },
     channel: { type: [String], default: [] },
     longitude: { type: Number, required: true },
     latitude: { type: Number, required: true },

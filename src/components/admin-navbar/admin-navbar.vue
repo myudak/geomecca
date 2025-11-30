@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import useGetProfile from '@src/hooks/use-get-profile'
+import { getLatestEvent, getGlobalBValue } from '@src/api-service/dashboard'
 import Cookies from 'js-cookie'
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import Avatar from 'vue-boring-avatars'
 import { RouterLink } from 'vue-router'
 
@@ -9,16 +10,36 @@ import { AdminMenu } from './admin-menu'
 
 const { data: profile } = useGetProfile()
 
-const latestEvent = {
-  time: '02:55 WIB',
-  magnitude: 'M2.8',
-  location: 'Serang',
-  depth: 'Depth 9 km'
-}
+const latestEvent = ref({
+  time: 'Loading...',
+  magnitude: '...',
+  location: 'Loading...',
+  depth: '...'
+})
 
-const bValue = '1.12'
+const bValue = ref('0.00')
 const profileColors: string[] = ['#0A0310', '#49007E', '#FF005B', '#FF7D10', '#FFB238']
 const profileName = computed(() => profile.value?.username ?? 'Analyst')
+
+const fetchDashboardData = async () => {
+  try {
+    const [eventData, bValueData] = await Promise.all([
+      getLatestEvent(),
+      getGlobalBValue()
+    ])
+
+    latestEvent.value = eventData.data
+    bValue.value = bValueData.data.b_value.toFixed(2)
+
+    console.log('[Navbar] Dashboard data loaded:', { latestEvent: eventData.data, bValue: bValueData.data })
+  } catch (error) {
+    console.error('[Navbar] Failed to load dashboard data:', error)
+  }
+}
+
+onMounted(() => {
+  fetchDashboardData()
+})
 
 const logout = () => {
   Cookies.remove('access_token')

@@ -16,5 +16,5 @@ authRouter.post('/login', async (req, res) => {
   if (!ok) return res.status(401).json({ status: false, message: 'invalid credentials' })
 
   const token = signToken({ sub: user.id, username: user.username, role: user.role })
-  return res.json({ status: true, data: { token, user: { _id: user.id, username: user.username, role: user.role, region: user.region } } })
+  return res.json({ status: true, data: { access_token: token, user: { _id: user.id, username: user.username, role: user.role, region: user.region } } })
 })

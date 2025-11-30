@@ -445,26 +445,30 @@ export const createStationCluster = (stations: Station[]) => {
 }
 
 export const createSelectedEventStationFeatures = (origin: Origin) => {
-  const features = origin.arrivals.map((arrival) => {
-    const station = arrival.station_details
-    const latLng = transform([station.longitude, station.latitude], 'EPSG:4326', 'EPSG:3857')
-    const feature = new Feature(new Point(latLng))
+  const features = origin.arrivals
+    .filter((arrival) => arrival.station_details !== null)  // Filter out null stations
+    .map((arrival) => {
+      const station = arrival.station_details!
+      const latLng = transform([station.longitude, station.latitude], 'EPSG:4326', 'EPSG:3857')
+      const feature = new Feature(new Point(latLng))
 
-    feature.setStyle(createStationIcon(station.code))
-    return feature
-  })
+      feature.setStyle(createStationIcon(station.code))
+      return feature
+    })
   return features
 }
 
 export const createEventStationLine = (origin: Origin) => {
   const eventLatLng = transform([origin.longitude, origin.latitude], 'EPSG:4326', 'EPSG:3857')
-  const features = origin.arrivals.map((arrival) => {
-    const station = arrival.station_details
-    const latLng = transform([station.longitude, station.latitude], 'EPSG:4326', 'EPSG:3857')
-    const coordinates = [eventLatLng, latLng]
-    const feature = new Feature(new LineString(coordinates))
-    return feature
-  })
+  const features = origin.arrivals
+    .filter((arrival) => arrival.station_details !== null)  // Filter out null stations
+    .map((arrival) => {
+      const station = arrival.station_details!
+      const latLng = transform([station.longitude, station.latitude], 'EPSG:4326', 'EPSG:3857')
+      const coordinates = [eventLatLng, latLng]
+      const feature = new Feature(new LineString(coordinates))
+      return feature
+    })
   return features
 }
 

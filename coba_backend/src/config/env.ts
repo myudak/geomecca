@@ -12,10 +12,12 @@ export const env = {
   mongoUri: process.env.MONGODB_URI ?? 'mongodb://localhost:27017/tews',
   jwtSecret: process.env.JWT_SECRET ?? 'change-me',
   mseedPath:
-    process.env.MSEED_PATH ??
-    path.join(process.cwd(), 'Trim_100%_select_merged(2) (1)', 'Trim_100%_select_merged(2)'),
+    process.env.MSEED_PATH ?
+      path.join(process.cwd(), process.env.MSEED_PATH) :
+    path.join(process.cwd(), 'Trim_100%_select_merged(2) (1)', 'Trim_100%_select_merged(2)')
+    ,
   defaultAdmin: {
-    username: process.env.DEFAULT_ADMIN_USERNAME ?? 'user_bmkg',
+    username: process.env.DEFAULT_ADMIN_USERNAME ?? 'user_geomecca',
     password: process.env.DEFAULT_ADMIN_PASSWORD ?? 'superadmin123',
     region: process.env.DEFAULT_ADMIN_REGION ?? 'central'
   },

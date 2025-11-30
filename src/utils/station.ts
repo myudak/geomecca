@@ -17,7 +17,8 @@ export const getStationByChannel = (stations: Station[], channels: string[]) => 
 }
 
 export const getChannelFullName = (station: Station, channelName: string) => {
-  return `${station.network}.${station.code}.${station.location}.${channelName}`
+  const location = station.location || '00'
+  return `${station.network}.${station.code}.${location}.${channelName}`
 }
 
 export const sortStationChannelByPriority = (arr: string[]) => {
