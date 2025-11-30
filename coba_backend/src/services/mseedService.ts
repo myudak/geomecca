@@ -42,8 +42,16 @@ class MseedService {
   private indexBuilt: boolean = false
   private waveformCache: Map<string, Promise<WaveformData | null>> = new Map()
 
-  constructor(dataPath: string = env.mseedPath ?? path.join(process.cwd(), 'data', 'mseed')) {
-    this.dataPath = dataPath
+  constructor(dataPath?: string) {
+    // Prefer explicit env, then a mounted /data/mseed, then local data/mseed
+    const fallbackMounted = '/data/mseed'
+    const fallbackLocal = path.join(process.cwd(), 'data', 'mseed')
+    const resolvedPath =
+      dataPath ??
+      env.mseedPath ??
+      (fs.existsSync(fallbackMounted) ? fallbackMounted : fallbackLocal)
+
+    this.dataPath = resolvedPath
   }
 
   /**
