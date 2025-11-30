@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: tews-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: .
+      dockerfile: coba_backend/Dockerfile
+    container_name: tews-backend
+    environment:
+      - PORT=4000
+      - MONGODB_URI=mongodb://mongo:27017/tews
+      - MSEED_PATH=/data/mseed
+      - JWT_SECRET=change-me
+      - DEFAULT_ADMIN_USERNAME=user_bmkg
+      - DEFAULT_ADMIN_PASSWORD=superadmin123
+      - DEFAULT_ADMIN_REGION=central
+      - KAFKA_BROKERS=localhost:9092
+      - KAFKA_CLIENT_ID=tews-backend
+      - KAFKA_GROUP_ID=tews-backend-consumer
+      - SEEDLINK_HOST=seedlink
+      - SEEDLINK_PORT=18000
+    volumes:
+      # Mount MiniSEED archive read-only
+      - ./coba_backend/Trim_100%_select_merged(2) (1)/Trim_100%_select_merged(2):/data/mseed:ro
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:
+

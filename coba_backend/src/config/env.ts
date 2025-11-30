@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import path from 'path'
 
 const numberFromEnv = (value: string | undefined, fallback: number) => {
   if (!value) return fallback
@@ -10,6 +11,9 @@ export const env = {
   port: numberFromEnv(process.env.PORT, 4000),
   mongoUri: process.env.MONGODB_URI ?? 'mongodb://localhost:27017/tews',
   jwtSecret: process.env.JWT_SECRET ?? 'change-me',
+  mseedPath:
+    process.env.MSEED_PATH ??
+    path.join(process.cwd(), 'Trim_100%_select_merged(2) (1)', 'Trim_100%_select_merged(2)'),
   defaultAdmin: {
     username: process.env.DEFAULT_ADMIN_USERNAME ?? 'user_bmkg',
     password: process.env.DEFAULT_ADMIN_PASSWORD ?? 'superadmin123',

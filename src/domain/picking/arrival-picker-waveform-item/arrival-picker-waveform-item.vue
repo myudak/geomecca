@@ -104,6 +104,12 @@ const drawWaveform = (drawWaveformProps: {
   const { canvasContext, channelWaveform, yStart, newXScale, strokeColor = '#75ecb8' } = drawWaveformProps
 
   const filledWaveform = channelWaveform.waveform as number[]
+
+  if (!filledWaveform.length) {
+    canvasContext.clearRect(0, yStart, width, WAVEFORM_HEIGHT)
+    return
+  }
+
   const min = channelWaveform.min!
   const max = channelWaveform.max!
 

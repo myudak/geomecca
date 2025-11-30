@@ -216,13 +216,19 @@ watch(
 watch(
   arrivalByPickId,
   (newArrivalByPickId) => {
-    if (!selectedArrivalByPickId.value) {
-      const keys = Object.keys(newArrivalByPickId)
-      if (keys.length > 0) {
-        selectedArrivalByPickId.value = newArrivalByPickId[keys[0]]
-        selectedPickId.value = keys[0]
-      }
-    }
+    if (selectedArrivalByPickId.value) return
+
+    const keys = Object.keys(newArrivalByPickId)
+    if (!keys.length) return
+
+    // Prefer stations that we know have MiniSEED data (PPL04, TCH02, TCH04)
+    const preferredStations = ['PPL04', 'TCH02', 'TCH04']
+
+    const preferredKey =
+      keys.find((key) => preferredStations.includes(newArrivalByPickId[key].station.code)) ?? keys[0]
+
+    selectedArrivalByPickId.value = newArrivalByPickId[preferredKey]
+    selectedPickId.value = preferredKey
   },
   { immediate: true }
 )

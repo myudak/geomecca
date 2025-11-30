@@ -1,20 +1,16 @@
-FROM node:20-alpine AS build
+FROM node:20-alpine AS base
 WORKDIR /app
-ENV NODE_ENV=development
 
-COPY package*.json tsconfig.json ./
-RUN npm ci --include=dev
+# Install dependencies first (better layer caching)
+COPY coba_backend/package*.json ./
+RUN npm install
 
-COPY src ./src
+# Copy source
+COPY coba_backend/. .
+
+# Build
 RUN npm run build
-
-FROM node:20-alpine
-WORKDIR /app
-ENV NODE_ENV=production
-
-COPY --from=build /app/dist ./dist
-COPY package*.json ./
-RUN npm ci --omit=dev
 
 EXPOSE 4000
 CMD ["node", "dist/index.js"]
+
