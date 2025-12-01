@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongo:
+    image: mongo:7
+    container_name: tews-mongo-new
+    ports:
+      - "27018:27017"  # Using port 27018 externally to avoid conflict
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - tews-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API
+  backend:
+    build:
+      context: .
+      dockerfile: coba_backend/Dockerfile
+    container_name: tews-backend
+    environment:
+      - PORT=4000
+      - MONGODB_URI=mongodb://mongo:27017/tews
+      - MSEED_PATH=/data/mseed
+      - JWT_SECRET=change-me-in-production
+      - DEFAULT_ADMIN_USERNAME=user_geomecca
+      - DEFAULT_ADMIN_PASSWORD=superadmin123
+      - DEFAULT_ADMIN_REGION=central
+      - KAFKA_BROKERS=localhost:9092
+      - KAFKA_CLIENT_ID=tews-backend
+      - KAFKA_GROUP_ID=tews-backend-consumer
+      - SEEDLINK_HOST=localhost
+      - SEEDLINK_PORT=18000
+    volumes:
+      # Mount MiniSEED archive read-only
+      - ./coba_backend/data/mseed:/app/data/mseed:ro
+      # Mount data directories for import scripts
+      - ./coba_backend/jsonBaru:/app/jsonBaru:ro
+      - ./coba_backend/original_Dataset:/app/original_Dataset:ro
+    ports:
+      - "4002:4000"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - tews-network
+    restart: unless-stopped
+
+  # Frontend UI
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Build-time environment variables for Vite (point to backend service)
+        - VITE_API_BASE_URL=http://localhost:4002
+        - VITE_SOCKET_IO_BASE_URL=http://localhost:4002
+        - VITE_SOCKET_BASE_URL=ws://localhost:4002
+        - VITE_SOCKET_ALTERNATIVE_BASE_URL=http://localhost:4002
+        - VITE_API_BFF_URL=http://localhost:4002
+        - VITE_API_STREAM_URL=http://localhost:4002
+    container_name: tews-frontend-new
+    ports:
+      - "8006:8004"  # Using port 8006 externally to avoid conflict
+    depends_on:
+      - backend
+    networks:
+      - tews-network
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+    driver: local
+
+networks:
+  tews-network:
+    driver: bridge
