@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { StationModel } from '../models/Station'
-import { requireAuth } from '../middleware/auth'
+import { AuthRequest, requireAuth } from '../middleware/auth'
+import { UserModel } from '../models/User'
 
 export const stationsRouter = Router()
 
@@ -33,7 +34,7 @@ stationsRouter.post('/', requireAuth, async (req, res) => {
   return res.status(201).json({ status: true, data: station })
 })
 
-stationsRouter.put('/updatestatus', requireAuth, async (req, res) => {
+stationsRouter.put('/updatestatus', requireAuth, async (req: AuthRequest, res) => {
   const { station_id, status } = req.body
   if (!station_id || !status) return res.status(400).json({ status: false, message: 'station_id and status required' })
 
@@ -43,6 +44,23 @@ stationsRouter.put('/updatestatus', requireAuth, async (req, res) => {
 
   const station = await StationModel.findByIdAndUpdate(station_id, { status: normalizedStatus }, { new: true })
   if (!station) return res.status(404).json({ status: false, message: 'station not found' })
+
+  // Also update the current user's disable_stations list so frontend profile reflects the change
+  const userId = req.user?.sub
+  if (userId) {
+    const user = await UserModel.findById(userId)
+    if (user) {
+      const disabled = new Set(user.disable_stations.map((s) => s.toString()))
+      if (normalizedStatus === 'disabled') {
+        disabled.add(station_id)
+      } else {
+        disabled.delete(station_id)
+      }
+      user.disable_stations = Array.from(disabled)
+      await user.save()
+    }
+  }
+
   return res.json({ status: true, data: station })
 })
 
