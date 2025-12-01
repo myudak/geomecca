@@ -139,7 +139,7 @@ class MseedService {
     const files = this.fileIndex.get(key)
 
     if (!files || files.length === 0) {
-      console.log(`[MseedService] No files found for ${key}`)
+      console.log(`[MseedService] No files found for key=${key} under ${this.dataPath}`)
       return null
     }
 

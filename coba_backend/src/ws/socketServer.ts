@@ -162,6 +162,7 @@ const generateWaveform = async (channelName: string): Promise<StationWaveForm[]>
 
   const state = await getOrCreateSimulationState(key, network, station, channel, location)
   if (!state) {
+    console.log(`[SocketServer] No MiniSEED data found for ${channelName} (key=${key}) under ${mseedService['dataPath']}`)
     return []
   }
 
