@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     fontconfig \
     fonts-dejavu \
+    netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies first (better layer caching)
@@ -20,5 +21,8 @@ COPY coba_backend/. .
 # Ensure mount point exists (will be overridden by volume if provided)
 RUN mkdir -p /data/mseed
 
+# Startup script seeds data then starts the server
+RUN chmod +x /app/start.sh
+
 EXPOSE 4000
-CMD ["npx", "tsx", "src/index.ts"]
+CMD ["/app/start.sh"]

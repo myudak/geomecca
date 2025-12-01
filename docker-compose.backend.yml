@@ -27,6 +27,7 @@ services:
       - KAFKA_GROUP_ID=tews-backend-consumer
       - SEEDLINK_HOST=seedlink
       - SEEDLINK_PORT=18000
+      - AUTO_IMPORT=1
     volumes:
       # Mount MiniSEED archive read-only
       - ./coba_backend/data/mseed:/data/mseed:ro
