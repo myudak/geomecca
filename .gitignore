@@ -11,6 +11,26 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+
+# Backend build/output
+coba_backend/dist
+coba_backend/node_modules
+coba_backend/data/mseed
+coba_backend/data/**/*
+coba_backend/original_Dataset/
+coba_backend/jsonBaru/
+coba_backend/*.ipynb
+coba_backend/_*/ 
+coba_backend/Trim_100__selected/
+coba_backend/Trim_100%_select_merged(2) (1)/
+
+# Generated lockfiles in backend copies
+coba_backend/package-lock.json
+
+# Nul/temp artifacts
+coba_backend/nul
+nul
 
 # Editor directories and files
 .vscode/*
