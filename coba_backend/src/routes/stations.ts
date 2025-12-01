@@ -51,7 +51,11 @@ stationsRouter.put('/updatestatus', requireAuth, async (req, res) => {
   const { station_id, status } = req.body
   if (!station_id || !status) return res.status(400).json({ status: false, message: 'station_id and status required' })
 
-  const station = await StationModel.findByIdAndUpdate(station_id, { status }, { new: true })
+  // Normalize status from frontend ('enable'/'disable' or 'enabled'/'disabled')
+  const normalizedStatus =
+    typeof status === 'string' && status.toLowerCase().startsWith('enable') ? 'enabled' : 'disabled'
+
+  const station = await StationModel.findByIdAndUpdate(station_id, { status: normalizedStatus }, { new: true })
   if (!station) return res.status(404).json({ status: false, message: 'station not found' })
   return res.json({ status: true, data: station })
 })
