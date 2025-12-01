@@ -1,51 +1,54 @@
-# GeoMecca – Frontend + Backend
+# GeoMecca Frontend + Backend
 
-This repo includes a Vue 3 frontend (Vite) and a Node/Express backend (`coba_backend`). You can run them locally with npm or via Docker.
+![GeoMecca mockup](mockup.png)
+
+Vue 3 (Vite) frontend plus Node/Express backend (`coba_backend`). You can run locally with npm or via Docker.
 
 ## Prerequisites
 - Node 20+
 - npm
-- MongoDB (local or via Docker)
-- MiniSEED archive (read-only), placed at `coba_backend/data/mseed` (or set `MSEED_PATH`/`MSEED_HOST_PATH`)
+- MongoDB (local or Docker)
+- MiniSEED archive at `coba_backend/data/mseed` (or set `MSEED_PATH` / `MSEED_HOST_PATH`)
 
 ## Environment
-- Frontend: copy `.env.example` → `.env` (set API/Socket URLs).
-- Backend: copy `coba_backend/.env.example` → `coba_backend/.env`. Key vars:
+- Frontend: copy `.env.example` to `.env`; set API and socket URLs.
+- Backend: copy `coba_backend/.env.example` to `coba_backend/.env`. Key vars:
   - `PORT` (default 4000)
   - `MONGODB_URI` (e.g., `mongodb://localhost:27017/tews`)
   - `MSEED_PATH` (default `coba_backend/data/mseed`)
   - JWT/admin defaults as needed
 
 ## Run locally (npm)
-### Backend
+Backend:
 ```bash
 cd coba_backend
 npm install
-npm run dev    # runs src/index.ts with tsx watch on port 4000
+npm run dev
 ```
-
-### Frontend
+Frontend:
 ```bash
 npm install
-npm run dev   # Vite dev server (repo root)
+npm run dev
 ```
 
 ## Run via Docker
-### Backend only
+Backend only:
 ```bash
 docker compose -f docker-compose.backend.yml up --build
 ```
-### Full stack (Mongo + backend + frontend)
+Full stack (Mongo + backend + frontend):
 ```bash
 docker compose -f docker-compose.full.yml up --build
 ```
 
 Notes for Docker:
-- MiniSEED is mounted read-only to `/data/mseed` inside the backend. Set `MSEED_HOST_PATH` to an absolute host path if the default relative path isn’t accessible to Docker (Windows users may need to share the drive and use a `/mnt/...` path).
-- Backend published ports: 4002 (full compose) or 4000/4001 in other files as configured.
-- Mongo published port: 27018 in the full compose.
-- Frontend published port: 8006 in the full compose.
+- MiniSEED mounts read-only to `/data/mseed` in the backend. If the default relative path is not accessible, set `MSEED_HOST_PATH` to an absolute path (share the drive on Windows).
+- Ports (full compose): backend 4002, Mongo 27018, frontend 8006.
+- Auto import: `AUTO_IMPORT=1` (already set in the compose) runs the Mongo import scripts before the backend starts.
 
 ## Data
-- Waveforms: read from the MiniSEED archive; stations without data will show empty traces.
+- Waveforms: read from the MiniSEED archive; stations without data return empty traces.
 - Picks/arrivals: stored in Mongo; import scripts live in `coba_backend/scripts` (e.g., `npm run import:picks`, `npm run import:full`).
+
+## Docs
+- User guide: `PANDUAN_GEO_MECCA.md`.
