@@ -17,5 +17,8 @@ RUN npm install
 # Copy source
 COPY coba_backend/. .
 
+# Ensure mount point exists (will be overridden by volume if provided)
+RUN mkdir -p /data/mseed
+
 EXPOSE 4000
 CMD ["npx", "tsx", "src/index.ts"]

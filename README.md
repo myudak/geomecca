@@ -6,7 +6,7 @@ This repo includes a Vue 3 frontend (Vite) and a Node/Express backend (`coba_bac
 - Node 20+
 - npm
 - MongoDB (local or via Docker)
-- MiniSEED archive (read-only), placed at `coba_backend/data/mseed` (or set `MSEED_PATH`)
+- MiniSEED archive (read-only), placed at `coba_backend/data/mseed` (or set `MSEED_PATH`/`MSEED_HOST_PATH`)
 
 ## Environment
 - Frontend: copy `.env.example` → `.env` (set API/Socket URLs).
@@ -26,17 +26,26 @@ npm run dev    # runs src/index.ts with tsx watch on port 4000
 
 ### Frontend
 ```bash
-cd frontend   # repo root
 npm install
-npm run dev   # Vite dev server
+npm run dev   # Vite dev server (repo root)
 ```
 
 ## Run via Docker
+### Backend only
 ```bash
-docker-compose -f docker-compose.backend.yml up --build
+docker compose -f docker-compose.backend.yml up --build
 ```
-This starts Mongo + backend. The MiniSEED archive is mounted read-only to `/data/mseed` in the container (adjust the host path in the compose file if needed).
+### Full stack (Mongo + backend + frontend)
+```bash
+docker compose -f docker-compose.full.yml up --build
+```
 
-## Notes
-- `/recordstream` and waveform features read from the MiniSEED archive; stations without data will show empty traces.
-- Picks/arrivals live in Mongo; import scripts are under `coba_backend/scripts` (e.g., `npm run import:picks`, `npm run import:full`).
+Notes for Docker:
+- MiniSEED is mounted read-only to `/data/mseed` inside the backend. Set `MSEED_HOST_PATH` to an absolute host path if the default relative path isn’t accessible to Docker (Windows users may need to share the drive and use a `/mnt/...` path).
+- Backend published ports: 4002 (full compose) or 4000/4001 in other files as configured.
+- Mongo published port: 27018 in the full compose.
+- Frontend published port: 8006 in the full compose.
+
+## Data
+- Waveforms: read from the MiniSEED archive; stations without data will show empty traces.
+- Picks/arrivals: stored in Mongo; import scripts live in `coba_backend/scripts` (e.g., `npm run import:picks`, `npm run import:full`).
