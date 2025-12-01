@@ -33,6 +33,19 @@ stationsRouter.post('/', requireAuth, async (req, res) => {
   return res.status(201).json({ status: true, data: station })
 })
 
+stationsRouter.put('/updatestatus', requireAuth, async (req, res) => {
+  const { station_id, status } = req.body
+  if (!station_id || !status) return res.status(400).json({ status: false, message: 'station_id and status required' })
+
+  // Normalize status from frontend ('enable'/'disable' or 'enabled'/'disabled')
+  const normalizedStatus =
+    typeof status === 'string' && status.toLowerCase().startsWith('enable') ? 'enabled' : 'disabled'
+
+  const station = await StationModel.findByIdAndUpdate(station_id, { status: normalizedStatus }, { new: true })
+  if (!station) return res.status(404).json({ status: false, message: 'station not found' })
+  return res.json({ status: true, data: station })
+})
+
 stationsRouter.put('/:id', requireAuth, async (req, res) => {
   const { id } = req.params
   const station = await StationModel.findByIdAndUpdate(id, req.body, { new: true })
@@ -45,19 +58,6 @@ stationsRouter.delete('/:id', requireAuth, async (req, res) => {
   const station = await StationModel.findByIdAndDelete(id)
   if (!station) return res.status(404).json({ status: false, message: 'station not found' })
   return res.json({ status: true })
-})
-
-stationsRouter.put('/updatestatus', requireAuth, async (req, res) => {
-  const { station_id, status } = req.body
-  if (!station_id || !status) return res.status(400).json({ status: false, message: 'station_id and status required' })
-
-  // Normalize status from frontend ('enable'/'disable' or 'enabled'/'disabled')
-  const normalizedStatus =
-    typeof status === 'string' && status.toLowerCase().startsWith('enable') ? 'enabled' : 'disabled'
-
-  const station = await StationModel.findByIdAndUpdate(station_id, { status: normalizedStatus }, { new: true })
-  if (!station) return res.status(404).json({ status: false, message: 'station not found' })
-  return res.json({ status: true, data: station })
 })
 
 stationsRouter.get('/getwaveformstatus', requireAuth, async (req, res) => {
