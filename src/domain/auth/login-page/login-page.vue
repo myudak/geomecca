@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { LoginResponse } from '@src/types/auth'
+import { isFrontendOnly } from '@src/constants/env'
+import { frontendOnlyLoginResponse } from '@src/mocks/frontend-only'
 import api from '@src/utils/api'
 import { useMutation } from '@tanstack/vue-query'
 import Cookies from 'js-cookie'
@@ -21,11 +23,13 @@ const onLoginSuccess = (data: LoginResponse) => {
 
 const { isPending, mutate: login } = useMutation({
   mutationFn: (data: LoginSchema) =>
-    api<LoginResponse>({
-      method: 'POST',
-      url: '/user/login',
-      data
-    }),
+    isFrontendOnly
+      ? Promise.resolve({ data: frontendOnlyLoginResponse })
+      : api<LoginResponse>({
+          method: 'POST',
+          url: '/user/login',
+          data
+        }),
   onSuccess({ data }) {
     if (data) onLoginSuccess(data)
   },

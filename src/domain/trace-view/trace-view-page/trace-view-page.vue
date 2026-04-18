@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { FullScreenLoading } from '@src/components/full-screen-loading'
+import { isFrontendOnly } from '@src/constants/env'
 import useArrivalSocket from '@src/hooks/use-arrival-socket'
 import useGetProfile from '@src/hooks/use-get-profile'
 import useGetStationList from '@src/hooks/use-get-station-list'
@@ -13,6 +14,7 @@ import { io } from 'socket.io-client'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { toast } from 'vue3-toastify'
+import { createSocketStub } from '@src/utils/frontend-only'
 
 import { SOCKET_IO_BASE_URL } from '../../../constants/env'
 import { TRACEVIEW_FILTERED_CHANNEL } from '../../../constants/waveform'
@@ -28,16 +30,18 @@ const WRAPPER_HEIGHT = window.innerHeight - TAB_HEIGHT - TIMESTAMP_HEIGHT
 const CHANNEL_NAME_WIDTH = 280 // Width of left station info panel
 const MIN_ROW_HEIGHT = 40
 
-const socket = io(SOCKET_IO_BASE_URL, {
-  transports: ['websocket'],
-  autoConnect: true,
-  reconnectionDelayMax: 2000
-})
+const socket = (isFrontendOnly
+  ? createSocketStub()
+  : io(SOCKET_IO_BASE_URL, {
+      transports: ['websocket'],
+      autoConnect: true,
+      reconnectionDelayMax: 2000
+    })) as ReturnType<typeof io>
 
 usePickingSocket()
 useArrivalSocket()
 
-const isConnected = ref(false)
+const isConnected = ref(isFrontendOnly)
 const width = ref(window.innerWidth - CHANNEL_NAME_WIDTH)
 const endDate = ref(new Date())
 const startDate = ref(subMinutes(endDate.value, 30))

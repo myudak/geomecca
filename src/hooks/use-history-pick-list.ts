@@ -1,5 +1,7 @@
+import { isFrontendOnly } from '@src/constants/env'
 import { RealtimeArrival, RealtimePick } from '@src/types/waveform'
 import api from '@src/utils/api'
+import { seedFrontendOnlyStationChannel } from '@src/utils/frontend-only'
 import { newISODate } from '@src/utils/string'
 import { useQuery } from '@tanstack/vue-query'
 import { subMinutes } from 'date-fns'
@@ -16,6 +18,7 @@ const useHistoryPickList = (stationId: string, channelName: string) => {
   }
 
   const { data: arrivalListData } = useQuery({
+    enabled: !isFrontendOnly,
     queryKey: ['history-arrival-list', stationId],
     queryFn: async () => {
       const { data } = await api.get<{ data: RealtimeArrival[] }>('/arrival/getbystation', {
@@ -78,6 +81,10 @@ const useHistoryPickList = (stationId: string, channelName: string) => {
       }
     }
   })
+
+  if (isFrontendOnly) {
+    seedFrontendOnlyStationChannel(channelName)
+  }
 }
 
 export default useHistoryPickList

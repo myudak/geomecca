@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SOCKET_IO_BASE_URL } from '@src/constants/env'
+import { SOCKET_IO_BASE_URL, isFrontendOnly } from '@src/constants/env'
 import useArrivalSocket from '@src/hooks/use-arrival-socket'
 import { Station } from '@src/types/station'
 import { getChannelFullName } from '@src/utils/station'
@@ -7,6 +7,7 @@ import * as d3 from 'd3'
 import { addMinutes, subMinutes } from 'date-fns'
 import { io } from 'socket.io-client'
 import { defineProps, onMounted, onUnmounted, ref, watch } from 'vue'
+import { createSocketStub } from '@src/utils/frontend-only'
 
 import { StationWaveItem } from '../../trace-view/station-wave-item'
 
@@ -14,16 +15,18 @@ const { station } = defineProps<{
   station: Station
 }>()
 
-const socket = io(SOCKET_IO_BASE_URL, {
-  transports: ['websocket'],
-  autoConnect: true
-})
+const socket = (isFrontendOnly
+  ? createSocketStub()
+  : io(SOCKET_IO_BASE_URL, {
+      transports: ['websocket'],
+      autoConnect: true
+    })) as ReturnType<typeof io>
 
 useArrivalSocket()
 
 const CHANNEL_NAME_WIDTH = 50
 
-const isConnected = ref(false)
+const isConnected = ref(isFrontendOnly)
 const width = ref(100)
 const endDate = ref(new Date())
 const startDate = ref(subMinutes(endDate.value, 30))

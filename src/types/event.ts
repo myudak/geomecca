@@ -15,4 +15,5 @@ export interface EarthQuakeEventDetail extends Omit<EarthQuakeEvent, 'origins'> 
 
 export interface EventCommitResponse {
   _id: string
+  updated_origin_id?: string
 }

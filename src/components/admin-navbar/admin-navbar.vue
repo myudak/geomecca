@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import useGetProfile from '@src/hooks/use-get-profile'
 import { getLatestEvent, getGlobalBValue } from '@src/api-service/dashboard'
+import { isFrontendOnly } from '@src/constants/env'
 import Cookies from 'js-cookie'
 import { computed, onMounted, ref } from 'vue'
 import Avatar from 'vue-boring-avatars'
 import { RouterLink } from 'vue-router'
 
 import { AdminMenu } from './admin-menu'
+import { showFrontendOnlyToast } from '@src/utils/frontend-only'
 
 const { data: profile } = useGetProfile()
 

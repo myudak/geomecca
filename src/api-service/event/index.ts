@@ -1,10 +1,25 @@
 import { EarthQuakeEvent, EarthQuakeEventDetail, EventCommitResponse } from '@src/types/event'
 import { Origin } from '@src/types/origin'
 import api from '@src/utils/api'
+import { isFrontendOnly } from '@src/constants/env'
+import {
+  getFrontendOnlyCommitResponse,
+  getFrontendOnlyEventDetail,
+  getFrontendOnlyEvents
+} from '@src/mocks/frontend-only'
+import { showFrontendOnlyToast } from '@src/utils/frontend-only'
 
 import { GetAllEventListQuery, PutEventCommitAPIArrival } from './types'
 
 export const getEventListByDateAPI = async (startTime: number, endTime: number) => {
+  if (isFrontendOnly) {
+    return getFrontendOnlyEvents({
+      page: 1,
+      totalPerPage: 1000,
+      startDate: new Date(startTime).toISOString(),
+      endDate: new Date(endTime).toISOString()
+    }).data
+  }
   const { data } = await api.get<{ data: EarthQuakeEvent[] }>('/event/getbybetweendate', {
     params: {
       start_date: startTime,
@@ -15,6 +30,9 @@ export const getEventListByDateAPI = async (startTime: number, endTime: number) 
 }
 
 export const getAllEventListAPI = async (params: GetAllEventListQuery) => {
+  if (isFrontendOnly) {
+    return getFrontendOnlyEvents(params)
+  }
   const { data } = await api.get<{ data: EarthQuakeEvent[]; total: number }>('/event/getall', {
     params: {
       page: params.page,
@@ -30,6 +48,9 @@ export const getAllEventListAPI = async (params: GetAllEventListQuery) => {
 }
 
 export const getEventDetailAPI = async (eventId: string): Promise<EarthQuakeEventDetail> => {
+  if (isFrontendOnly) {
+    return getFrontendOnlyEventDetail(eventId)
+  }
   const { data } = await api.get<{ data: EarthQuakeEventDetail }>('/event/getdetail', {
     params: {
       event_id: eventId
@@ -53,6 +74,10 @@ export const getEventDetailAPI = async (eventId: string): Promise<EarthQuakeEven
 }
 
 export const putEventCommitAPI = async (eventId: string, originId: string, arrivals: PutEventCommitAPIArrival[]) => {
+  if (isFrontendOnly) {
+    showFrontendOnlyToast()
+    return getFrontendOnlyCommitResponse(eventId, originId)
+  }
   const { data } = await api.put<{ status: boolean; data: EventCommitResponse }>('/event/commit', {
     origin_id: originId,
     event_id: eventId,

@@ -1,5 +1,6 @@
-import { SOCKET_BASE_URL } from '@src/constants/env'
+import { SOCKET_BASE_URL, isFrontendOnly } from '@src/constants/env'
 import { WebsocketPickingResponse } from '@src/types/waveform'
+import { seedFrontendOnlySocketData } from '@src/utils/frontend-only'
 import { onMounted, onUnmounted, ref } from 'vue'
 
 function usePickingSocket(onPick?: (pick: WebsocketPickingResponse) => void) {
@@ -112,6 +113,10 @@ function usePickingSocket(onPick?: (pick: WebsocketPickingResponse) => void) {
   }
 
   onMounted(() => {
+    if (isFrontendOnly) {
+      seedFrontendOnlySocketData()
+      return
+    }
     connectPickingWebSocket()
   })
 

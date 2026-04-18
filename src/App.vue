@@ -4,6 +4,7 @@ import { FullScreenLoading } from './components/full-screen-loading'
 import LoginPage from './domain/auth/login-page'
 import useGetProfile from './hooks/use-get-profile'
 import { useTheme } from './hooks/use-theme'
+import { seedFrontendOnlySocketData } from './utils/frontend-only'
 
 const { data: profile, isLoading } = useGetProfile()
 
@@ -11,6 +12,7 @@ const { data: profile, isLoading } = useGetProfile()
 useTheme()
 
 window.socketData = {}
+seedFrontendOnlySocketData()
 </script>
 
 <template>

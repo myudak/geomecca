@@ -1,4 +1,4 @@
-import { SOCKET_BASE_URL } from '@src/constants/env'
+import { SOCKET_BASE_URL, isFrontendOnly } from '@src/constants/env'
 import { WSEvent } from '@src/types/ws-event'
 import { onMounted, onUnmounted, ref } from 'vue'
 
@@ -82,6 +82,10 @@ function useEventSocket(messageHandler: (event: WSEvent) => void) {
   }
 
   onMounted(() => {
+    if (isFrontendOnly) {
+      isConnecting.value = false
+      return
+    }
     connectWebsocket()
   })
 

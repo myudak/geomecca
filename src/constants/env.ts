@@ -1,4 +1,5 @@
 const USE_MOCK = window.localStorage.getItem('use-mock') === 'true'
+export const isFrontendOnly = import.meta.env.VITE_FRONTEND_ONLY === 'true'
 
 export const API_BASE_URL: string = import.meta.env.VITE_API_BASE_URL
 export const API_BASE_URL_MOCK: string = USE_MOCK ? import.meta.env.VITE_API_BASE_URL_MOCK : API_BASE_URL

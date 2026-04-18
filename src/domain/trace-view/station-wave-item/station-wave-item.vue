@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { getRecordStreamAPI } from '@src/api-service/record-stream'
+import { isFrontendOnly } from '@src/constants/env'
 import useHistoryPickList from '@src/hooks/use-history-pick-list'
 import { PhaseType, StationWaveForm } from '@src/types/waveform'
+import { toRealtimeWaveforms } from '@src/utils/frontend-only'
 import { bandpassFilter } from '@src/utils/filter'
 import * as d3 from 'd3'
 import { addSeconds, subSeconds } from 'date-fns'
@@ -304,6 +307,35 @@ const onEventReceived = (event: StationWaveForm[]) => {
   waveforms.value = newWaveforms
 }
 
+const loadFrontendOnlyWaveforms = async () => {
+  if (!isFrontendOnly) return
+
+  const waveform = await getRecordStreamAPI({
+    network,
+    station: code,
+    channel: channelName.split('.').at(-1) ?? '',
+    location: '00',
+    originTime: new Date(props.startTime),
+    startTime: new Date(props.startTime),
+    endTime: new Date(props.endTime)
+  })
+
+  waveforms.value = toRealtimeWaveforms({
+    date: waveform.date,
+    starttime: waveform.time_start,
+    endtime: waveform.time_end,
+    sampling_rate: waveform.sampling_rate,
+    delta: waveform.delta,
+    location: waveform.location,
+    npts: waveform.npts,
+    station: waveform.station,
+    network: waveform.network,
+    channel: waveform.channel,
+    expiration_timestamp: waveform.expiration_timestamp,
+    waveform: waveform.waveform.map((value) => value ?? 0)
+  })
+}
+
 const reEmitWaveform = () => {
   socket.off(eventName, onEventReceived)
   socket.emit('waveform', channelName)
@@ -311,6 +343,10 @@ const reEmitWaveform = () => {
 }
 
 onMounted(() => {
+  if (isFrontendOnly) {
+    loadFrontendOnlyWaveforms()
+    return
+  }
   socket.emit('waveform', channelName)
   socket.on(eventName, onEventReceived)
 
@@ -345,6 +381,7 @@ watch(
   },
   { immediate: true }
 )
+
 </script>
 
 <template>

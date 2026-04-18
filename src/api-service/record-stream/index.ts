@@ -1,4 +1,6 @@
 import { API_STREAM_URL } from '@src/constants/env'
+import { isFrontendOnly } from '@src/constants/env'
+import { getFrontendOnlyRecordStream } from '@src/mocks/frontend-only'
 import { StationWaveForm } from '@src/types/waveform'
 import api from '@src/utils/api'
 import { getDayOfYear } from 'date-fns'
@@ -20,6 +22,17 @@ export const getRecordStreamAPI = async ({
   startTime,
   endTime
 }: GetRecordStreamAPIProps) => {
+  if (isFrontendOnly) {
+    return getFrontendOnlyRecordStream({
+      network,
+      station,
+      channel,
+      location,
+      originTime,
+      startTime,
+      endTime
+    })
+  }
   const year = originTime.getFullYear()
   const doy = getDayOfYear(originTime)
 
