@@ -18,7 +18,7 @@ const error = ref<string | null>(null)
 
 const imageUrl = computed(() => {
   if (!imageData.value) return null
-  return `data:image/png;base64,${imageData.value}`
+  return imageData.value.startsWith('data:') ? imageData.value : `data:image/png;base64,${imageData.value}`
 })
 
 const equation = computed(() => {

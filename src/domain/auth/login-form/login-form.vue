@@ -39,7 +39,7 @@ const onSubmit = () => {
         v-model="username"
         type="text"
         placeholder="Email"
-        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#0c5a91] focus:ring-2 focus:ring-[#0c5a91]/20 disabled:cursor-not-allowed disabled:opacity-60"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brand-surface-normal focus:ring-2 focus:ring-brand-surface-normal/20 disabled:cursor-not-allowed disabled:opacity-60"
         :disabled="isLoading" />
     </div>
 
@@ -51,7 +51,7 @@ const onSubmit = () => {
           v-model="password"
           :type="showPassword ? 'text' : 'password'"
           placeholder="Password"
-          class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 pr-12 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#0c5a91] focus:ring-2 focus:ring-[#0c5a91]/20 disabled:cursor-not-allowed disabled:opacity-60"
+          class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 pr-12 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brand-surface-normal focus:ring-2 focus:ring-brand-surface-normal/20 disabled:cursor-not-allowed disabled:opacity-60"
           :disabled="isLoading" />
         <button
           type="button"
@@ -85,7 +85,7 @@ const onSubmit = () => {
         <input
           v-model="rememberMe"
           type="checkbox"
-          class="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500" />
+          class="h-4 w-4 rounded border-slate-300 text-amber-600 focus:ring-amber-500" />
         Remember me
       </label>
       <a href="#" class="text-sm font-semibold text-rose-500 transition hover:text-rose-400"> Forgot Password </a>
@@ -94,7 +94,7 @@ const onSubmit = () => {
     <button
       type="submit"
       :disabled="!isValid || isLoading"
-      class="w-full rounded-xl bg-[#0c5a91] px-4 py-3 text-base font-semibold text-white shadow-sm shadow-[#0c5a91]/40 transition hover:bg-[#094873] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0c5a91] disabled:cursor-not-allowed disabled:opacity-60">
+      class="w-full rounded-xl bg-brand-surface-normal px-4 py-3 text-base font-semibold text-white shadow-sm shadow-brand-surface-normal/40 transition hover:bg-brand-surface-normal-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-surface-normal disabled:cursor-not-allowed disabled:opacity-60">
       {{ isLoading ? 'Logging in...' : 'Login' }}
     </button>
 

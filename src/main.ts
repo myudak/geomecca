@@ -4,8 +4,12 @@ import 'vue3-toastify/dist/index.css'
 import { VueQueryPlugin } from '@tanstack/vue-query'
 import { addIcons, OhVueIcon } from 'oh-vue-icons'
 import {
+  BiCloudLightningRain,
+  BiCloudRainHeavy,
+  BiCloudSun,
   BiGeoAlt,
   BiPinAngle,
+  BiSunrise,
   FaCalendar,
   FaCompass,
   FaDownload,
@@ -22,10 +26,12 @@ import {
   IoChevronForwardSharp,
   IoCloseSharp,
   IoHomeOutline,
+  IoInformationCircleOutline,
   LaDotCircle,
   LaFilterSolid,
   MdClose,
   MdHomeOutlined,
+  MdMonitorheart,
   MdSettings,
   RiBaseStationLine,
   WiEarthquake
@@ -40,6 +46,10 @@ import router from './routes'
 addIcons(
   BiGeoAlt,
   BiPinAngle,
+  BiCloudLightningRain,
+  BiCloudRainHeavy,
+  BiCloudSun,
+  BiSunrise,
   FaCalendar,
   FaCompass,
   FaLocationArrow,
@@ -56,10 +66,12 @@ addIcons(
   IoChevronForwardSharp,
   IoCloseSharp,
   IoHomeOutline,
+  IoInformationCircleOutline,
   LaDotCircle,
   LaFilterSolid,
   MdClose,
   MdHomeOutlined,
+  MdMonitorheart,
   MdSettings,
   RiBaseStationLine,
   WiEarthquake

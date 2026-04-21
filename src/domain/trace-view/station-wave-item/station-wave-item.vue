@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { getRecordStreamAPI } from '@src/api-service/record-stream'
 import { isFrontendOnly } from '@src/constants/env'
 import useHistoryPickList from '@src/hooks/use-history-pick-list'
 import { PhaseType, StationWaveForm } from '@src/types/waveform'
-import { toRealtimeWaveforms } from '@src/utils/frontend-only'
 import { bandpassFilter } from '@src/utils/filter'
 import * as d3 from 'd3'
 import { addSeconds, subSeconds } from 'date-fns'
@@ -18,10 +16,10 @@ interface FilterConfig {
 }
 
 const PHASE_COLORS = {
-  arrivalS: '#417edb',
-  arrivalP: '#0f56bf',
-  pick: '#0369a1',
-  fallback: '#093474'
+  arrivalS: '#d97706',
+  arrivalP: '#c88a04',
+  pick: '#8a5a00',
+  fallback: '#6b4500'
 } as const
 
 const props = defineProps<{
@@ -223,7 +221,7 @@ const createLine = (props: {
 
   updateInfo(max, total / length)
 
-  bufferCtx.strokeStyle = '#22d3ee' // Cyan color to match the image
+  bufferCtx.strokeStyle = '#dfaa1d'
   bufferCtx.lineWidth = 1
   bufferCtx.stroke()
   drawAllArrivals(bufferCtx, newXScale, newHeight)
@@ -307,35 +305,6 @@ const onEventReceived = (event: StationWaveForm[]) => {
   waveforms.value = newWaveforms
 }
 
-const loadFrontendOnlyWaveforms = async () => {
-  if (!isFrontendOnly) return
-
-  const waveform = await getRecordStreamAPI({
-    network,
-    station: code,
-    channel: channelName.split('.').at(-1) ?? '',
-    location: '00',
-    originTime: new Date(props.startTime),
-    startTime: new Date(props.startTime),
-    endTime: new Date(props.endTime)
-  })
-
-  waveforms.value = toRealtimeWaveforms({
-    date: waveform.date,
-    starttime: waveform.time_start,
-    endtime: waveform.time_end,
-    sampling_rate: waveform.sampling_rate,
-    delta: waveform.delta,
-    location: waveform.location,
-    npts: waveform.npts,
-    station: waveform.station,
-    network: waveform.network,
-    channel: waveform.channel,
-    expiration_timestamp: waveform.expiration_timestamp,
-    waveform: waveform.waveform.map((value) => value ?? 0)
-  })
-}
-
 const reEmitWaveform = () => {
   socket.off(eventName, onEventReceived)
   socket.emit('waveform', channelName)
@@ -344,7 +313,8 @@ const reEmitWaveform = () => {
 
 onMounted(() => {
   if (isFrontendOnly) {
-    loadFrontendOnlyWaveforms()
+    socket.on(eventName, onEventReceived)
+    socket.emit('waveform', channelName)
     return
   }
   socket.emit('waveform', channelName)
@@ -388,25 +358,24 @@ watch(
   <div class="flex items-center h-full w-full relative group" :style="{ height: `${height}px` }">
     <!-- Left Side - Station Info -->
     <div
-      class="flex items-center justify-between px-6 py-3 bg-brand-surface-light dark:bg-[#1b2332] backdrop-blur-sm border-r border-brand-surface-light-active dark:border-brand-surface-dark-hover min-w-[280px] w-[280px] h-full shrink-0">
+      class="flex h-full min-w-[280px] w-[280px] shrink-0 items-center justify-between border-r border-brand-surface-light-active bg-brand-surface-light px-6 py-3 backdrop-blur-sm dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark">
       <div class="flex flex-col gap-1">
         <div class="flex items-center gap-2">
           <input
             v-if="showToggle"
             :checked="enabled"
             type="checkbox"
-            class="toggle toggle-success rounded-full"
-            style="--tglbg: #0369a1; background-color: transparent"
+            class="toggle rounded-full border-brand-surface-normal text-brand-surface-normal"
             @click="$emit('toggle')" />
           <div class="text-sm font-bold text-brand-text-light dark:text-brand-text-dark">{{ channelName }}</div>
         </div>
         <div :id="`station-info-${channelName.replace(/\./g, '-')}`" class="flex gap-1 text-xs">
-          <div class="text-error font-semibold">
-            <span class="text-error/70">Max: </span>
+          <div class="font-semibold text-brand-text-muted dark:text-brand-text-muted-dark">
+            <span class="text-brand-text-muted/70 dark:text-brand-text-muted-dark/70">Max: </span>
             <span class="info-max">-</span>
           </div>
-          <div class="text-error font-semibold">
-            <span class="text-error/70"> avg: </span>
+          <div class="font-semibold text-brand-text-muted dark:text-brand-text-muted-dark">
+            <span class="text-brand-text-muted/70 dark:text-brand-text-muted-dark/70"> avg: </span>
             <span class="info-avg">-</span>
           </div>
         </div>
@@ -415,7 +384,7 @@ watch(
 
     <!-- Right Side - Waveform Canvas -->
     <div
-      class="flex-1 h-full bg-brand-surface-light dark:bg-[#1b2332] border-b border-brand-surface-light-active dark:border-brand-surface-dark-hover relative overflow-hidden">
+      class="relative h-full flex-1 overflow-hidden border-b border-brand-surface-light-active bg-brand-surface-light dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark">
       <canvas ref="canvas" class="h-full w-full" :style="{ width: `${width - 280}px` }" />
 
       <!-- Hover overlay for better interaction feedback -->

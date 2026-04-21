@@ -1,4 +1,5 @@
 import { SOCKET_BASE_URL, isFrontendOnly } from '@src/constants/env'
+import { startFrontendOnlyRealtimeDemo, subscribeFrontendOnlyEvent } from '@src/mocks/frontend-only/realtime'
 import { WSEvent } from '@src/types/ws-event'
 import { onMounted, onUnmounted, ref } from 'vue'
 
@@ -8,6 +9,7 @@ function useEventSocket(messageHandler: (event: WSEvent) => void) {
   const timeout = ref<number | null>(null)
   const reconnectTimeout = ref<number | null>(null)
   const reconnectCount = ref(0)
+  let unsubscribeFrontendOnlyEvent: (() => void) | null = null
 
   const startReconnect = () => {
     reconnectTimeout.value = setTimeout(() => {
@@ -84,12 +86,18 @@ function useEventSocket(messageHandler: (event: WSEvent) => void) {
   onMounted(() => {
     if (isFrontendOnly) {
       isConnecting.value = false
+      startFrontendOnlyRealtimeDemo()
+      unsubscribeFrontendOnlyEvent = subscribeFrontendOnlyEvent((payload) => {
+        messageHandler(payload)
+      })
       return
     }
     connectWebsocket()
   })
 
   onUnmounted(() => {
+    unsubscribeFrontendOnlyEvent?.()
+    unsubscribeFrontendOnlyEvent = null
     resetWebsocket()
 
     if (reconnectTimeout.value) clearTimeout(reconnectTimeout.value)

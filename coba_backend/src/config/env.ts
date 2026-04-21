@@ -17,7 +17,7 @@ export const env = {
     path.join(process.cwd(), 'Trim_100%_select_merged(2) (1)', 'Trim_100%_select_merged(2)')
     ,
   defaultAdmin: {
-    username: process.env.DEFAULT_ADMIN_USERNAME ?? 'user_geomecca',
+    username: process.env.DEFAULT_ADMIN_USERNAME ?? 'user_mhews',
     password: process.env.DEFAULT_ADMIN_PASSWORD ?? 'superadmin123',
     region: process.env.DEFAULT_ADMIN_REGION ?? 'central'
   },

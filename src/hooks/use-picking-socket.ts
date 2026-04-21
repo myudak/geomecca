@@ -1,4 +1,5 @@
 import { SOCKET_BASE_URL, isFrontendOnly } from '@src/constants/env'
+import { startFrontendOnlyRealtimeDemo, subscribeFrontendOnlyPick } from '@src/mocks/frontend-only/realtime'
 import { WebsocketPickingResponse } from '@src/types/waveform'
 import { seedFrontendOnlySocketData } from '@src/utils/frontend-only'
 import { onMounted, onUnmounted, ref } from 'vue'
@@ -8,6 +9,7 @@ function usePickingSocket(onPick?: (pick: WebsocketPickingResponse) => void) {
   const timeout = ref<number | null>(null)
   const reconnectTimeout = ref<number | null>(null)
   const reconnectCount = ref(0)
+  let unsubscribeFrontendOnlyPick: (() => void) | null = null
 
   const handlePickingData = ({ network, station, picks }: WebsocketPickingResponse) => {
     if (!window.socketData) {
@@ -115,12 +117,19 @@ function usePickingSocket(onPick?: (pick: WebsocketPickingResponse) => void) {
   onMounted(() => {
     if (isFrontendOnly) {
       seedFrontendOnlySocketData()
+      startFrontendOnlyRealtimeDemo()
+      unsubscribeFrontendOnlyPick = subscribeFrontendOnlyPick((payload) => {
+        handlePickingData(payload)
+        onPick?.(payload)
+      })
       return
     }
     connectPickingWebSocket()
   })
 
   onUnmounted(() => {
+    unsubscribeFrontendOnlyPick?.()
+    unsubscribeFrontendOnlyPick = null
     closePickingWebSocket()
 
     if (reconnectTimeout.value) clearTimeout(reconnectTimeout.value)

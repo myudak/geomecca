@@ -5,6 +5,11 @@ export const NAVBAR_MENUS = [
     icon: 'md-home-outlined'
   },
   {
+    path: '/weather-view',
+    label: 'Weather',
+    icon: 'bi-cloud-sun'
+  },
+  {
     path: '/map-view',
     label: 'Microseismic Monitoring',
     icon: 'md-monitorheart'

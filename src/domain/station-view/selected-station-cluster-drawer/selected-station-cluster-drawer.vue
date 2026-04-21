@@ -34,7 +34,7 @@ const filteredStations = computed(() => {
         <div class="flex items-center justify-between border-b border-black/5 dark:border-white/10 px-5 py-4">
           <div class="flex items-center gap-2 text-base font-semibold">
             <svg
-              class="h-5 w-auto text-sky-500 dark:text-sky-400"
+              class="h-5 w-auto text-amber-500 dark:text-amber-300"
               viewBox="0 0 18 23"
               fill="none"
               xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +70,7 @@ const filteredStations = computed(() => {
             :key="station._id"
             class="cursor-pointer rounded-2xl border border-black/5 bg-slate-100/60 px-4 py-3 transition hover:bg-slate-200 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
             @click="$emit('select-channel', station)">
-            <div class="text-xs font-semibold uppercase tracking-[0.3em] text-sky-600 dark:text-sky-400">
+            <div class="text-xs font-semibold uppercase tracking-[0.3em] text-amber-600 dark:text-amber-300">
               {{ station.code }}
             </div>
             <div class="mt-2 text-sm leading-relaxed text-slate-700 dark:text-slate-200">

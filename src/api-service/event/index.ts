@@ -4,16 +4,18 @@ import api from '@src/utils/api'
 import { isFrontendOnly } from '@src/constants/env'
 import {
   getFrontendOnlyCommitResponse,
-  getFrontendOnlyEventDetail,
-  getFrontendOnlyEvents
 } from '@src/mocks/frontend-only'
+import {
+  getFrontendOnlyEventDetailSnapshot,
+  getFrontendOnlyEventsSnapshot
+} from '@src/mocks/frontend-only/realtime'
 import { showFrontendOnlyToast } from '@src/utils/frontend-only'
 
 import { GetAllEventListQuery, PutEventCommitAPIArrival } from './types'
 
 export const getEventListByDateAPI = async (startTime: number, endTime: number) => {
   if (isFrontendOnly) {
-    return getFrontendOnlyEvents({
+    return getFrontendOnlyEventsSnapshot({
       page: 1,
       totalPerPage: 1000,
       startDate: new Date(startTime).toISOString(),
@@ -31,7 +33,7 @@ export const getEventListByDateAPI = async (startTime: number, endTime: number) 
 
 export const getAllEventListAPI = async (params: GetAllEventListQuery) => {
   if (isFrontendOnly) {
-    return getFrontendOnlyEvents(params)
+    return getFrontendOnlyEventsSnapshot(params)
   }
   const { data } = await api.get<{ data: EarthQuakeEvent[]; total: number }>('/event/getall', {
     params: {
@@ -49,7 +51,7 @@ export const getAllEventListAPI = async (params: GetAllEventListQuery) => {
 
 export const getEventDetailAPI = async (eventId: string): Promise<EarthQuakeEventDetail> => {
   if (isFrontendOnly) {
-    return getFrontendOnlyEventDetail(eventId)
+    return getFrontendOnlyEventDetailSnapshot(eventId)
   }
   const { data } = await api.get<{ data: EarthQuakeEventDetail }>('/event/getdetail', {
     params: {

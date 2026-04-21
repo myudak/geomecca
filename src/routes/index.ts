@@ -15,12 +15,12 @@ declare module 'vue-router' {
 }
 
 const defaultMeta: Required<PageMeta> = {
-  title: 'Geomecca | Tsunami Early Warning System Dashboard',
+  title: 'AI-Powered Multi-Hazard Early Warning System: Integrating Earthquake Detection and Weather Intelligence in a Unified Platform',
   description:
-    'Geomecca delivers a unified tsunami early warning dashboard with live seismic insights, waveform analytics, and sensor health monitoring across Indonesia.',
-  keywords: 'Geomecca, tsunami early warning, seismic dashboard, waveform analytics, BMKG',
-  image: '/screenshots/station-view.png',
-  imageAlt: 'Geomecca tsunami early warning dashboard preview'
+    'MHEWS delivers a unified multi-hazard early warning platform combining earthquake detection, weather intelligence, waveform analytics, and operational monitoring across Indonesia.',
+  keywords: 'MHEWS, multi-hazard early warning, earthquake detection, weather intelligence, BMKG-style dashboard',
+  image: '/images/weather-preview.svg',
+  imageAlt: 'MHEWS multi-hazard early warning dashboard preview'
 }
 
 const routes: RouteRecordRaw[] = [
@@ -28,59 +28,73 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('../domain/home/home-page'),
     meta: {
-      title: 'Geomecca | Unified Situational Awareness',
+      title:
+        'AI-Powered Multi-Hazard Early Warning System: Integrating Earthquake Detection and Weather Intelligence in a Unified Platform',
       description:
-        'Stay ahead of tsunami threats with Geomecca’s overview page combining alerts, live telemetry, and mission-critical shortcuts.',
-      keywords: 'Geomecca home, tsunami overview, seismic telemetry',
-      image: '/screenshots/station-view.png',
-      imageAlt: 'Geomecca situational awareness dashboard'
+        'Stay ahead of operational hazards with MHEWS’s overview page combining weather intelligence, earthquake monitoring, and mission-critical shortcuts.',
+      keywords: 'MHEWS home, multi-hazard dashboard, weather intelligence, seismic telemetry',
+      image: '/images/weather-preview.svg',
+      imageAlt: 'MHEWS multi-hazard situational awareness dashboard'
+    }
+  },
+  {
+    path: '/weather-view',
+    component: () => import('@src/domain/weather-view/weather-view-page'),
+    meta: {
+      title: 'MHEWS | Weather Intelligence',
+      description:
+        'Review BMKG-style weather outlooks, warning bulletins, city forecasts, and coastal advisories in MHEWS’s unified multi-hazard workspace.',
+      keywords: 'MHEWS weather intelligence, BMKG-style forecast, multi-hazard early warning',
+      image: '/images/weather-preview.svg',
+      imageAlt: 'Weather intelligence workspace within MHEWS dashboard'
     }
   },
   {
     path: '/login',
     component: () => import('../domain/auth/login-page'),
     meta: {
-      title: 'Geomecca | Secure Access Portal',
-      description: 'Authenticate to access Geomecca’s tsunami early warning and seismic intelligence workspace.',
-      keywords: 'Geomecca login, secure access, tsunami early warning portal',
-      image: '/images/geomecca-logo.png',
-      imageAlt: 'Geomecca brand mark'
+      title: 'MHEWS | Secure Access Portal',
+      description:
+        'Authenticate to access MHEWS’s multi-hazard workspace for earthquake detection and weather intelligence.',
+      keywords: 'MHEWS login, secure access, multi-hazard early warning portal',
+      image: '/images/logo-UI.png',
+      imageAlt: 'MHEWS brand mark'
     }
   },
   {
     path: '/trace-view',
     component: () => import('../domain/trace-view/trace-view-page'),
     meta: {
-      title: 'Geomecca | Trace View',
+      title: 'MHEWS | Trace View',
       description:
-        'Stream real-time waveform traces, analyze amplitude trends, and validate phase picks across the Indonesian seismic network.',
-      keywords: 'Geomecca trace view, waveform monitoring, seismic traces',
+        'Stream real-time waveform traces, analyze amplitude trends, and validate phase picks across MHEWS’s multi-hazard monitoring network.',
+      keywords: 'MHEWS trace view, waveform monitoring, seismic traces',
       image: '/screenshots/trace-view.png',
-      imageAlt: 'Waveform trace analysis inside Geomecca'
+      imageAlt: 'Waveform trace analysis inside MHEWS dashboard'
     }
   },
   {
     path: '/station-view',
     component: () => import('../domain/station-view/station-view-page'),
     meta: {
-      title: 'Geomecca | Station Health Monitor',
+      title: 'MHEWS | Station Health Monitor',
       description:
-        'Visualize seismic station uptime, telemetry quality, and sensor status with Geomecca’s interactive health map.',
-      keywords: 'Geomecca station view, seismic stations, sensor uptime',
+        'Visualize station uptime, telemetry quality, and sensor status with MHEWS’s interactive operational health map.',
+      keywords: 'MHEWS station view, seismic stations, sensor uptime',
       image: '/screenshots/station-view.png',
-      imageAlt: 'Station health map within Geomecca'
+      imageAlt: 'Station health map within MHEWS dashboard'
     }
   },
   {
     path: '/eq-view',
     component: () => import('@src/domain/eq-view/eq-view-page'),
     meta: {
-      title: 'Geomecca | Earthquake Event Feed',
+      title: 'MHEWS | Earthquake Event Feed',
       description:
-        'Track earthquake detections, review hypocenter solutions, and drill into magnitudes with Geomecca’s EQ feed.',
-      keywords: 'Geomecca earthquake view, EQ catalog, hypocenter monitoring',
+        'Track earthquake detections, review hypocenter solutions, and drill into magnitudes within MHEWS’s unified hazard feed.',
+      keywords: 'MHEWS earthquake view, EQ catalog, hypocenter monitoring',
       image: '/screenshots/eq-view.png',
-      imageAlt: 'Earthquake event list within Geomecca'
+      imageAlt: 'Earthquake event list within MHEWS dashboard'
     }
   },
   {
@@ -88,60 +102,60 @@ const routes: RouteRecordRaw[] = [
     name: 'map-view',
     component: () => import('@src/domain/map-view/map-view-page'),
     meta: {
-      title: 'Geomecca | Geospatial Operations Map',
+      title: 'MHEWS | Geospatial Operations Map',
       description:
-        'Layer tectonic plates, stations, and live detections on Geomecca’s high-performance geospatial operations map.',
-      keywords: 'Geomecca map view, tectonic layers, seismic GIS',
+        'Layer tectonic plates, stations, and live detections on MHEWS’s high-performance geospatial operations map.',
+      keywords: 'MHEWS map view, tectonic layers, seismic GIS',
       image: '/screenshots/station-view.png',
-      imageAlt: 'Geomecca geospatial operations map'
+      imageAlt: 'MHEWS geospatial operations map'
     }
   },
   {
     path: '/origin-locator-view/:tab',
     component: () => import('@src/domain/origin-locator-view/origin-locator-view-page'),
     meta: {
-      title: 'Geomecca | Origin Locator Workspace',
+      title: 'MHEWS | Origin Locator Workspace',
       description:
-        'Compare events, magnitudes, and Wadati plots in Geomecca’s origin locator to refine tsunami source solutions.',
-      keywords: 'Geomecca origin locator, Wadati plots, magnitude analysis',
+        'Compare events, magnitudes, and Wadati plots in MHEWS’s origin locator to refine event source solutions.',
+      keywords: 'MHEWS origin locator, Wadati plots, magnitude analysis',
       image: '/screenshots/origin-locator-view.png',
-      imageAlt: 'Origin locator analytics inside Geomecca'
+      imageAlt: 'Origin locator analytics inside MHEWS dashboard'
     }
   },
   {
     path: '/origin-locator-view/:tab/:id',
     component: () => import('@src/domain/origin-locator-view/origin-locator-view-page'),
     meta: {
-      title: 'Geomecca | Origin Locator Workspace',
+      title: 'MHEWS | Origin Locator Workspace',
       description:
-        'Compare events, magnitudes, and Wadati plots in Geomecca’s origin locator to refine tsunami source solutions.',
-      keywords: 'Geomecca origin locator, Wadati plots, magnitude analysis',
+        'Compare events, magnitudes, and Wadati plots in MHEWS’s origin locator to refine event source solutions.',
+      keywords: 'MHEWS origin locator, Wadati plots, magnitude analysis',
       image: '/screenshots/origin-locator-view.png',
-      imageAlt: 'Origin locator analytics inside Geomecca'
+      imageAlt: 'Origin locator analytics inside MHEWS dashboard'
     }
   },
   {
     path: '/origin-locator-view/:tab/:id/:originId',
     component: () => import('@src/domain/origin-locator-view/origin-locator-view-page'),
     meta: {
-      title: 'Geomecca | Origin Locator Workspace',
+      title: 'MHEWS | Origin Locator Workspace',
       description:
-        'Compare events, magnitudes, and Wadati plots in Geomecca’s origin locator to refine tsunami source solutions.',
-      keywords: 'Geomecca origin locator, Wadati plots, magnitude analysis',
+        'Compare events, magnitudes, and Wadati plots in MHEWS’s origin locator to refine event source solutions.',
+      keywords: 'MHEWS origin locator, Wadati plots, magnitude analysis',
       image: '/screenshots/origin-locator-view.png',
-      imageAlt: 'Origin locator analytics inside Geomecca'
+      imageAlt: 'Origin locator analytics inside MHEWS dashboard'
     }
   },
   {
     path: '/config',
     component: () => import('@src/domain/config-view/user-view-page'),
     meta: {
-      title: 'Geomecca | Configuration Center',
+      title: 'MHEWS | Configuration Center',
       description:
-        'Manage operators, access policies, and notification settings across the Geomecca tsunami early warning stack.',
-      keywords: 'Geomecca configuration, user management, alert routing',
+        'Manage operators, access policies, and notification settings across the MHEWS multi-hazard early warning stack.',
+      keywords: 'MHEWS configuration, user management, alert routing',
       image: '/screenshots/config-view.png',
-      imageAlt: 'Configuration management inside Geomecca'
+      imageAlt: 'Configuration management inside MHEWS dashboard'
     }
   },
   {
@@ -149,11 +163,12 @@ const routes: RouteRecordRaw[] = [
     name: 'config-user',
     component: () => import('@src/domain/config-view/user-view-page'),
     meta: {
-      title: 'Geomecca | User Administration',
-      description: 'Invite analysts, adjust privileges, and maintain audit-ready access controls within Geomecca.',
-      keywords: 'Geomecca user admin, access control, TEWS users',
+      title: 'MHEWS | User Administration',
+      description:
+        'Invite analysts, adjust privileges, and maintain audit-ready access controls within MHEWS.',
+      keywords: 'MHEWS user admin, access control, TEWS users',
       image: '/screenshots/config-view.png',
-      imageAlt: 'User administration in Geomecca'
+      imageAlt: 'User administration in MHEWS dashboard'
     }
   },
   {
@@ -161,11 +176,11 @@ const routes: RouteRecordRaw[] = [
     name: 'config-station',
     component: () => import('@src/domain/config-view/station-view-page'),
     meta: {
-      title: 'Geomecca | Station Configuration',
+      title: 'MHEWS | Station Configuration',
       description: 'Register new seismic stations, edit telemetry endpoints, and tune alert rules for field hardware.',
-      keywords: 'Geomecca station config, telemetry setup, seismic hardware',
+      keywords: 'MHEWS station config, telemetry setup, seismic hardware',
       image: '/screenshots/config-view.png',
-      imageAlt: 'Station configuration tools in Geomecca'
+      imageAlt: 'Station configuration tools in MHEWS dashboard'
     }
   }
 ]

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { isFrontendOnly } from '@src/constants/env'
+import { frontendOnlyRealtimeVersion } from '@src/mocks/frontend-only/realtime'
 import { getAllEventListAPI } from '@src/api-service/event'
 import { GetAllEventListQuery } from '@src/api-service/event/types'
 import { DateFilter } from '@src/components/date-filter'
@@ -38,6 +40,15 @@ watch(
   },
   { immediate: true, deep: true }
 )
+
+watch(
+  () => frontendOnlyRealtimeVersion.value,
+  () => {
+    if (isFrontendOnly) {
+      fetchEventList(params.value)
+    }
+  }
+)
 </script>
 
 <template>
@@ -49,7 +60,7 @@ watch(
       </div>
       <DateFilter v-model:range="dateRange" />
     </div>
-    <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900/40">
+    <div class="overflow-x-auto rounded-2xl border border-brand-surface-light-active bg-white dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark/80">
       <EventListTable :events="eventList" />
     </div>
   </section>

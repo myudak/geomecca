@@ -39,7 +39,7 @@ watch(
 </script>
 
 <template>
-  <div class="flex items-center justify-between bg-base-100 px-4 py-2 dark:border-base-300 dark:bg-[#1b2332]">
+  <div class="flex items-center justify-between bg-base-100 px-4 py-2 dark:border-base-300 dark:bg-brand-surface-dark">
     <div
       role="tablist"
       class="tabs tabs-boxed tabs-sm rounded-2xl bg-base-200/70 p-1 shadow-inner dark:border-base-200/60 dark:bg-base-300/40 gap-3 flex">
@@ -70,7 +70,7 @@ watch(
         class="tab tab-sm flex items-center gap-2 rounded-xl px-3 text-[11px] font-semibold uppercase tracking-[0.18em] transition-all"
         :class="[
           status === 'DISABLED'
-            ? 'tab-active border border-secondary/40 bg-secondary/10 text-secondary ring ring-secondary/30 dark:border-secondary/60 dark:bg-secondary/20 dark:text-secondary-content dark:ring-secondary/40'
+            ? 'tab-active border border-brand-text-muted/30 bg-brand-text-muted/10 text-brand-text-muted ring ring-brand-text-muted/20 dark:border-brand-text-muted-dark/40 dark:bg-brand-text-muted-dark/10 dark:text-brand-text-dark dark:ring-brand-text-muted-dark/20'
             : 'border border-transparent text-base-content/70 hover:text-base-content'
         ]"
         @click="$emit('change-status', 'DISABLED')">
@@ -79,7 +79,7 @@ watch(
           class="rounded-full px-2 py-0.5 text-[10px] font-bold"
           :class="[
             status === 'DISABLED'
-              ? 'bg-secondary text-secondary-content'
+              ? 'bg-brand-text-muted text-white dark:bg-brand-text-muted-dark dark:text-brand-surface-darker'
               : 'bg-base-100 text-base-content/80 dark:bg-base-200/70'
           ]">
           {{ totalDisabled }}

@@ -49,7 +49,7 @@ const formattedRange = computed(
       <div class="mb-4 flex flex-wrap items-center gap-4">
         <RouterLink
           to="/origin-locator-view/events"
-          class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-sky-400 hover:text-sky-400 dark:border-slate-700 dark:text-slate-300 dark:hover:border-sky-400">
+          class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-amber-400 hover:text-amber-500 dark:border-slate-700 dark:text-slate-300 dark:hover:border-amber-400 dark:hover:text-amber-300">
           <v-icon name="io-chevron-back-sharp" scale="1.1" />
         </RouterLink>
         <div>

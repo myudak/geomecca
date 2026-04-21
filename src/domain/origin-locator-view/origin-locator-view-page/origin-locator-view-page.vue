@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { isFrontendOnly } from '@src/constants/env'
+import { frontendOnlyLiveEvent, frontendOnlyRealtimeVersion } from '@src/mocks/frontend-only/realtime'
 import { getEventDetailAPI } from '@src/api-service/event'
 import { FullScreenLoading } from '@src/components/full-screen-loading'
 import { PickingPage } from '@src/domain/picking/picking-page'
@@ -39,6 +41,20 @@ watch(
 )
 
 watch(
+  () => frontendOnlyRealtimeVersion.value,
+  () => {
+    if (!isFrontendOnly || !id.value) return
+    if (frontendOnlyLiveEvent.value?._id !== id.value) return
+
+    isLoading.value = true
+    getEventDetailAPI(id.value).then((response) => {
+      data.value = response
+      isLoading.value = false
+    })
+  }
+)
+
+watch(
   [() => originId.value, () => data.value?.preferred_origin_id],
   ([newOriginId, newPreferredId]) => {
     if (newOriginId) {
@@ -53,22 +69,22 @@ watch(
 
 <template>
   <div
-    class="flex h-full flex-1 flex-col gap-6 overflow-y-auto bg-slate-50/40 p-4 dark:bg-slate-950 md:flex-row md:overflow-hidden">
+    class="flex h-full flex-1 flex-col gap-6 overflow-y-auto bg-brand-surface-light/50 p-4 dark:bg-brand-surface-darker md:flex-row md:overflow-hidden">
     <aside
       v-if="showAnalysisColumn"
       class="flex w-full flex-col gap-4 rounded-3xl md:w-80 md:flex-shrink-0 md:max-h-[calc(100vh-5rem)] md:overflow-y-auto md:pr-1">
-      <div class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-slate-900">
+      <div class="rounded-3xl border border-brand-surface-light-active bg-white p-4 shadow-sm dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark">
         <TabList :id="id" :selected-tab="selectedTab" :origin-id="selectedOriginId" />
       </div>
       <div
         v-if="!isLoading && !!data"
-        class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-slate-900">
+        class="rounded-3xl border border-brand-surface-light-active bg-white p-4 shadow-sm dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark">
         <EventSummary :event="data" :origin-id="selectedOriginId" />
       </div>
     </aside>
 
     <section
-      class="flex-1 rounded-3xl border border-slate-200 bg-white/90 p-0 shadow-sm dark:border-white/10 dark:bg-slate-950/60 md:p-0">
+      class="flex-1 rounded-3xl border border-brand-surface-light-active bg-white/90 p-0 shadow-sm dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark/80 md:p-0">
       <div class="h-full w-full overflow-y-auto rounded-3xl p-4 text-slate-900 dark:text-slate-100">
         <LocationDetail
           v-if="!isLoading && selectedTab === 'location' && !!data"

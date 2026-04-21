@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { isFrontendOnly } from '@src/constants/env'
+import { frontendOnlyRealtimeVersion } from '@src/mocks/frontend-only/realtime'
 import { getAllEventListAPI } from '@src/api-service/event'
 import { GetAllEventListQuery } from '@src/api-service/event/types'
 import { DateFilter } from '@src/components/date-filter'
@@ -65,6 +67,15 @@ watch(
     fetchEventList(newParams)
   },
   { immediate: true, deep: true }
+)
+
+watch(
+  () => frontendOnlyRealtimeVersion.value,
+  () => {
+    if (isFrontendOnly) {
+      fetchEventList(params.value)
+    }
+  }
 )
 
 const filteredEvents = computed(() => {
@@ -264,7 +275,7 @@ const toRad = (value: number) => (value * Math.PI) / 180
         <div class="flex items-end">
           <button
             type="submit"
-            class="w-full rounded-2xl bg-sky-600 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-600/30 transition hover:bg-sky-500">
+            class="w-full rounded-2xl bg-brand-surface-normal py-3 text-sm font-semibold text-white shadow-lg shadow-brand-surface-normal/30 transition hover:bg-brand-surface-normal-hover">
             Apply
           </button>
         </div>

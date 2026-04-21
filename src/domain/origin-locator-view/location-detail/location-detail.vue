@@ -100,7 +100,7 @@ const handleWadatiReady = (url: string) => {
       class="rounded-[32px] border border-brand-surface-light-active bg-brand-surface-light p-6 text-brand-text-light shadow-lg dark:border-brand-surface-dark-hover dark:bg-brand-surface-darker dark:text-brand-text-dark">
       <header class="mb-6 flex items-center gap-3">
         <div
-          class="flex h-11 w-11 items-center justify-center rounded-full bg-sky-500/20 text-sky-500 dark:bg-sky-500/10">
+          class="flex h-11 w-11 items-center justify-center rounded-full bg-amber-500/20 text-amber-600 dark:bg-amber-500/10 dark:text-amber-300">
           <v-icon name="gi-sound-waves" scale="1.2" />
         </div>
         <div>

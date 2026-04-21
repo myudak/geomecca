@@ -61,8 +61,8 @@ const getItemClasses = (toolKey: string, disabled: boolean) => {
   }
 
   return shouldHighlight(toolKey)
-    ? 'border-sky-500 bg-sky-50 text-slate-900 shadow-[0_10px_30px_rgba(12,74,110,0.12)] dark:border-sky-400/70 dark:bg-sky-500/10 dark:text-white'
-    : 'border-slate-200 text-slate-500 hover:border-sky-300 hover:text-slate-900 dark:border-white/10 dark:text-slate-300 dark:hover:border-sky-400/80 dark:hover:text-white'
+    ? 'border-amber-500 bg-amber-50 text-slate-900 shadow-[0_10px_30px_rgba(200,138,4,0.16)] dark:border-amber-400/70 dark:bg-amber-500/10 dark:text-white'
+    : 'border-slate-200 text-slate-500 hover:border-amber-300 hover:text-slate-900 dark:border-white/10 dark:text-slate-300 dark:hover:border-amber-400/80 dark:hover:text-white'
 }
 </script>
 
@@ -82,10 +82,10 @@ const getItemClasses = (toolKey: string, disabled: boolean) => {
         :title="tool.disabled ? 'Select an event/origin to unlock this tool' : undefined"
         @click="tool.disabled && $event.preventDefault()">
         <div
-          class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-sky-50 text-sky-600 dark:bg-slate-800 dark:text-sky-200"
+          class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 dark:bg-slate-800 dark:text-amber-200"
           :class="{
             'bg-slate-200 text-slate-400 dark:bg-slate-800/70 dark:text-slate-500': tool.disabled,
-            'bg-sky-500 text-white dark:bg-sky-400 dark:text-slate-900': !tool.disabled && shouldHighlight(tool.key)
+            'bg-amber-500 text-white dark:bg-amber-400 dark:text-slate-900': !tool.disabled && shouldHighlight(tool.key)
           }">
           <v-icon :name="tool.icon" scale="1" />
         </div>

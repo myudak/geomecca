@@ -1,6 +1,9 @@
 import api from '@src/utils/api'
 import { isFrontendOnly } from '@src/constants/env'
-import { frontendOnlyGlobalBValue, frontendOnlyLatestEvent } from '@src/mocks/frontend-only'
+import {
+  getFrontendOnlyGlobalBValueSnapshot,
+  getFrontendOnlyLatestEventSnapshot
+} from '@src/mocks/frontend-only/realtime'
 
 export interface LatestEventResponse {
   time: string
@@ -16,7 +19,7 @@ export interface GlobalBValueResponse {
 
 export const getLatestEvent = async () => {
   if (isFrontendOnly) {
-    return { data: frontendOnlyLatestEvent }
+    return { data: getFrontendOnlyLatestEventSnapshot() }
   }
   const { data } = await api.get<{ data: LatestEventResponse }>('/dashboard/latest-event')
   return data
@@ -24,7 +27,7 @@ export const getLatestEvent = async () => {
 
 export const getGlobalBValue = async () => {
   if (isFrontendOnly) {
-    return { data: frontendOnlyGlobalBValue }
+    return { data: getFrontendOnlyGlobalBValueSnapshot() }
   }
   const { data } = await api.get<{ data: GlobalBValueResponse }>('/dashboard/global-bvalue')
   return data

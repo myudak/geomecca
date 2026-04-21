@@ -2,13 +2,13 @@
 import useGetProfile from '@src/hooks/use-get-profile'
 import { getLatestEvent, getGlobalBValue } from '@src/api-service/dashboard'
 import { isFrontendOnly } from '@src/constants/env'
+import { frontendOnlyRealtimeVersion } from '@src/mocks/frontend-only/realtime'
 import Cookies from 'js-cookie'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import Avatar from 'vue-boring-avatars'
 import { RouterLink } from 'vue-router'
 
 import { AdminMenu } from './admin-menu'
-import { showFrontendOnlyToast } from '@src/utils/frontend-only'
 
 const { data: profile } = useGetProfile()
 
@@ -20,7 +20,7 @@ const latestEvent = ref({
 })
 
 const bValue = ref('0.00')
-const profileColors: string[] = ['#0A0310', '#49007E', '#FF005B', '#FF7D10', '#FFB238']
+const profileColors: string[] = ['#3f2400', '#8a4d00', '#c97b00', '#f2b705', '#ffd76a']
 const profileName = computed(() => profile.value?.username ?? 'Analyst')
 
 const fetchDashboardData = async () => {
@@ -43,6 +43,15 @@ onMounted(() => {
   fetchDashboardData()
 })
 
+watch(
+  () => frontendOnlyRealtimeVersion.value,
+  () => {
+    if (isFrontendOnly) {
+      fetchDashboardData()
+    }
+  }
+)
+
 const logout = () => {
   Cookies.remove('access_token')
   location.reload()
@@ -51,18 +60,18 @@ const logout = () => {
 
 <template>
   <header
-    class="border-b border-slate-200 bg-white/95 text-slate-900 shadow-sm transition-colors dark:border-white/5 dark:bg-[#080f1c] dark:text-slate-100">
+    class="border-b border-slate-200 bg-white/95 text-slate-900 shadow-sm transition-colors dark:border-white/5 dark:bg-brand-surface-darker dark:text-slate-100">
     <div class="mx-auto flex w-full max-w-screen-2xl flex-wrap items-center gap-4 px-4 py-4 lg:px-10">
       <RouterLink
         to="/"
         class="group flex items-center gap-3 text-lg font-semibold tracking-wide text-slate-800 transition hover:text-slate-900 dark:text-white/90 dark:hover:text-white">
         <img
-          src="/images/geomecca-logo.png"
-          alt="Geomecca Logo"
-          class="h-12 w-12 rounded-full border border-transparent bg-white p-1 shadow-md transition duration-200 group-hover:scale-105 group-hover:border-sky-400 group-hover:ring-2 group-hover:ring-sky-300 group-hover:ring-offset-2 group-hover:ring-offset-white dark:bg-white/5 dark:group-hover:ring-sky-400/80 dark:group-hover:ring-offset-[#080f1c]" />
+          src="/images/logo-UI.png"
+          alt="MHEWS Logo"
+          class="h-12 w-12 rounded-full border border-transparent bg-white p-1 shadow-md transition duration-200 group-hover:scale-105 group-hover:border-amber-400 group-hover:ring-2 group-hover:ring-amber-300 group-hover:ring-offset-2 group-hover:ring-offset-white dark:bg-white/5 dark:group-hover:ring-amber-400/80 dark:group-hover:ring-offset-brand-surface-darker" />
         <span
           class="hidden text-base font-semibold uppercase tracking-[0.2em] text-slate-500 transition group-hover:text-slate-700 dark:text-white/70 dark:group-hover:text-white sm:block">
-          Geomecca
+          MHEWS
         </span>
       </RouterLink>
       <div class="flex flex-1 flex-wrap items-center justify-end gap-3">

@@ -73,7 +73,7 @@ const styles = {
 
   TrenchLine: new Style({
     stroke: new Stroke({
-      color: 'blue',
+      color: '#b97b00',
       width: 3
     })
   }),
@@ -95,7 +95,7 @@ const styles = {
 
   ReservoirLine: new Style({
     stroke: new Stroke({
-      color: '#0ea5e9',
+      color: '#7a8f3b',
       width: 2
     })
   }),

@@ -25,7 +25,7 @@ if (defaultOriginId) {
 
 const wadatiImageUrl = computed(() => {
   const base64 = wadatiData.value?.data.image
-  return base64 ? `data:image/png;base64,${base64}` : ''
+  return base64 ? (base64.startsWith('data:') ? base64 : `data:image/png;base64,${base64}`) : ''
 })
 
 const totalEvents = computed(() => wadatiData.value?.data.total_event ?? event?.origins?.length ?? 0)
@@ -54,7 +54,7 @@ const formattedRange = computed(() => {
       <header class="mb-6 flex items-center gap-3">
         <RouterLink
           to="/origin-locator-view/events"
-          class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-sky-400 hover:text-sky-400 dark:border-slate-700 dark:text-slate-300 dark:hover:border-sky-400">
+          class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-amber-400 hover:text-amber-500 dark:border-slate-700 dark:text-slate-300 dark:hover:border-amber-400 dark:hover:text-amber-300">
           <v-icon name="io-chevron-back-sharp" scale="1.1" />
         </RouterLink>
         <div>

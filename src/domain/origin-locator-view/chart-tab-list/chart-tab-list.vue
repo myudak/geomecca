@@ -24,7 +24,11 @@ const wadatiImage = computed(() => {
   return data?.value?.data.image
 })
 const wadatiImageUrl = computed(() => {
-  const url = wadatiImage.value ? `data:image/png;base64,${wadatiImage.value}` : ''
+  const url = wadatiImage.value
+    ? wadatiImage.value.startsWith('data:')
+      ? wadatiImage.value
+      : `data:image/png;base64,${wadatiImage.value}`
+    : ''
   console.log('[ChartTabList] Wadati image URL:', url ? `${url.substring(0, 50)}...` : 'EMPTY')
   return url
 })

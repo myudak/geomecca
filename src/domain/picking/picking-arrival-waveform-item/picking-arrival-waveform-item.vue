@@ -221,7 +221,7 @@ watch(
 <template>
   <div
     class="h-[70px] border-b border-b-white/10 hover:cursor-pointer relative"
-    :class="{ 'bg-blue-600/20': selected, 'hover:bg-blue-600/10': !selected }"
+    :class="{ 'bg-amber-500/20': selected, 'hover:bg-amber-500/10': !selected }"
     @click="$emit('select-station', station)">
     <canvas ref="canvas" class="w-full h-full" />
     <div

@@ -2,17 +2,26 @@ import { EarthQuakeEventDetail } from '@src/types/event'
 import { Magnitude } from '@src/types/magnitude'
 // import { format } from 'date-fns'
 
-export const formatDate = (date: string | Date) => {
+export const formatDate = (date?: string | Date | null) => {
   // const strFormat = 'd/M/yyyy pp'
-  if (typeof date === 'string') {
-    // return format(newISODate(date), strFormat)
-    return newISODate(date).toISOString()
+  if (!date) {
+    return '-'
   }
-  // return format(date, strFormat)
-  return date.toISOString()
+
+  const normalizedDate = typeof date === 'string' ? newISODate(date) : date
+
+  if (!(normalizedDate instanceof Date) || Number.isNaN(normalizedDate.getTime())) {
+    return '-'
+  }
+
+  // return format(normalizedDate, strFormat)
+  return normalizedDate.toISOString()
 }
 
 export const newISODate = (date: string) => {
+  if (!date) {
+    return new Date(NaN)
+  }
   return new Date(date.includes('T') && !date.includes('Z') ? `${date}Z` : date)
 }
 

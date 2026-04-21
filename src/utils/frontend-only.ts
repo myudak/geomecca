@@ -1,4 +1,10 @@
 import { isFrontendOnly } from '@src/constants/env'
+import {
+  registerFrontendOnlySocketHandler,
+  requestFrontendOnlyWaveform,
+  startFrontendOnlyRealtimeDemo,
+  unregisterFrontendOnlySocketHandler
+} from '@src/mocks/frontend-only/realtime'
 import { RealtimeArrival, RealtimePick, StationWaveForm } from '@src/types/waveform'
 import { toast } from 'vue3-toastify'
 
@@ -22,18 +28,16 @@ export const showFrontendOnlyToast = (message = 'Frontend-only mode: action not 
 }
 
 export const createSocketStub = (): SocketStub => {
-  const handlers = new Map<string, Set<SocketEventHandler>>()
-
   const api: SocketStub = {
     emit(eventName, ...args) {
-      handlers.get(eventName)?.forEach((handler) => handler(...args))
+      if (eventName === 'waveform' && typeof args[0] === 'string') {
+        requestFrontendOnlyWaveform(args[0])
+      }
       return api
     },
     on(eventName, handler) {
-      if (!handlers.has(eventName)) {
-        handlers.set(eventName, new Set())
-      }
-      handlers.get(eventName)!.add(handler)
+      startFrontendOnlyRealtimeDemo()
+      registerFrontendOnlySocketHandler(eventName, handler)
       if (eventName === 'connect') {
         queueMicrotask(() => handler())
       }
@@ -41,18 +45,18 @@ export const createSocketStub = (): SocketStub => {
     },
     off(eventName, handler) {
       if (!eventName) {
-        handlers.clear()
+        unregisterFrontendOnlySocketHandler()
         return api
       }
       if (!handler) {
-        handlers.delete(eventName)
+        unregisterFrontendOnlySocketHandler(eventName)
         return api
       }
-      handlers.get(eventName)?.delete(handler)
+      unregisterFrontendOnlySocketHandler(eventName, handler)
       return api
     },
     disconnect() {
-      handlers.clear()
+      unregisterFrontendOnlySocketHandler()
     }
   }
 

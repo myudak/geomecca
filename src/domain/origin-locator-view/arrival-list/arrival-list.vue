@@ -7,7 +7,7 @@ import { Arrival } from '@src/types/arrival'
 import { EarthQuakeEventDetail } from '@src/types/event'
 import { Pick } from '@src/types/pick'
 import { Station } from '@src/types/station'
-import { formatDate, getPreferredOrigin } from '@src/utils/string'
+import { formatDate, getPreferredOrigin, newISODate } from '@src/utils/string'
 import { computed, ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { toast } from 'vue3-toastify'
@@ -84,7 +84,17 @@ const groupedArrivals = computed(() => {
   return Object.values(groupedArrival)
 })
 
+const isValidTimestamp = (timestamp?: string) => {
+  if (!timestamp) return false
+  return !Number.isNaN(newISODate(timestamp).getTime())
+}
+
 const getPickerTimestamp = (arrival: Arrival) => {
+  const updatedArrival =
+    arrival.phase_type === 'P'
+      ? updatedPick?.[arrival.pick_details._id]?.p?.timestamp
+      : updatedPick?.[arrival.pick_details._id]?.s?.timestamp
+
   if (!updatedPick || !updatedPick[arrival.pick_details._id]) {
     return {
       original: arrival.timestamp
@@ -94,13 +104,13 @@ const getPickerTimestamp = (arrival: Arrival) => {
   if (arrival.phase_type === 'P') {
     return {
       original: arrival.timestamp,
-      updated: updatedPick[arrival.pick_details._id]?.p?.timestamp
+      updated: isValidTimestamp(updatedArrival) ? updatedArrival : undefined
     }
   }
 
   return {
     original: arrival.timestamp,
-    updated: updatedPick[arrival.pick_details._id]?.s?.timestamp
+    updated: isValidTimestamp(updatedArrival) ? updatedArrival : undefined
   }
 }
 
@@ -206,7 +216,7 @@ watch(
                 v-if="selectedPicks[groupedArrival.pick._id]"
                 v-model="selectedPicks[groupedArrival.pick._id].selected"
                 type="checkbox"
-                class="h-4 w-4 cursor-pointer rounded border-slate-300 text-sky-500 focus:ring-sky-400 dark:border-slate-600"
+                class="h-4 w-4 cursor-pointer rounded border-slate-300 text-amber-500 focus:ring-amber-400 dark:border-slate-600"
                 @click.stop />
             </td>
             <td class="px-4 py-3 font-semibold text-slate-700 dark:text-slate-100">
@@ -242,11 +252,11 @@ watch(
     <div class="flex flex-wrap items-center justify-end gap-3">
       <RouterLink
         :to="`/origin-locator-view/picking/${event._id}/${originId}`"
-        class="rounded-full border border-slate-300 px-6 py-2 text-sm font-semibold text-slate-700 transition hover:border-sky-400 hover:text-sky-600 dark:border-slate-600 dark:text-slate-200 dark:hover:border-sky-500 dark:hover:text-sky-300">
+        class="rounded-full border border-slate-300 px-6 py-2 text-sm font-semibold text-slate-700 transition hover:border-amber-400 hover:text-amber-600 dark:border-slate-600 dark:text-slate-200 dark:hover:border-amber-500 dark:hover:text-amber-300">
         Picker
       </RouterLink>
       <button
-        class="rounded-full bg-sky-600 px-6 py-2 text-sm font-semibold text-white shadow-lg transition hover:bg-sky-500 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:opacity-70"
+        class="rounded-full bg-brand-surface-normal px-6 py-2 text-sm font-semibold text-white shadow-lg shadow-brand-surface-normal/25 transition hover:bg-brand-surface-normal-hover disabled:cursor-not-allowed disabled:bg-slate-500 disabled:opacity-70"
         type="button"
         :title="selectedPickIds.length < 4 ? 'Pick at least 4 arrivals before committing' : ''"
         :disabled="selectedPickIds.length < 4"

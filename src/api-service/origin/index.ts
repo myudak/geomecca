@@ -1,6 +1,7 @@
 import api from '@src/utils/api'
 import { isFrontendOnly } from '@src/constants/env'
-import { getFrontendOnlyOriginDetail, getFrontendOnlyPSTheoretical } from '@src/mocks/frontend-only'
+import { getFrontendOnlyPSTheoretical } from '@src/mocks/frontend-only'
+import { getFrontendOnlyOriginDetailSnapshot } from '@src/mocks/frontend-only/realtime'
 
 import { OriginDetail, PSTheoriticalPayload, PSTheoriticalResponse } from './types'
 
@@ -14,7 +15,7 @@ export const postPSTheoritical = async (payload: PSTheoriticalPayload) => {
 
 export const getOriginDetail = async (originId: string) => {
   if (isFrontendOnly) {
-    return getFrontendOnlyOriginDetail(originId)
+    return getFrontendOnlyOriginDetailSnapshot(originId)
   }
   const { data } = await api.get<{ data: OriginDetail[] }>('/origin/getdetail', {
     params: {

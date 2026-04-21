@@ -240,7 +240,7 @@ const prevPage = () => {
       @next-page="nextPage"
       @prev-page="prevPage" />
 
-    <div class="flex-1 w-full h-full overflow-y-auto bg-brand-surface-light dark:bg-[#1b2332]">
+    <div class="flex-1 w-full h-full overflow-y-auto bg-white dark:bg-brand-surface-dark">
       <div class="flex">
         <div v-if="show" id="trace-view-container" ref="traceViewContainer" class="h-full flex-1 overflow-x-hidden">
           <StationWaveItem
@@ -263,7 +263,7 @@ const prevPage = () => {
 
     <!-- Footer with Station Count and Copyright -->
     <div
-      class="bg-brand-surface-light dark:bg-[#080f1c] border-t border-brand-surface-light-active dark:border-brand-surface-dark-hover px-6 py-3 grid grid-cols-3 items-center gap-4">
+      class="grid grid-cols-3 items-center gap-4 border-t border-brand-surface-light-active bg-brand-surface-light px-6 py-3 dark:border-brand-surface-dark-hover dark:bg-brand-surface-darker">
       <!-- Left: Active Stations -->
       <div class="flex items-center gap-2 text-sm">
         <div
@@ -277,7 +277,7 @@ const prevPage = () => {
 
       <!-- Center: Copyright -->
       <div class="text-center text-sm text-brand-text-muted dark:text-brand-text-dark/70">
-        GeoMecca System © {{ new Date().getFullYear() }}
+        MHEWS System © {{ new Date().getFullYear() }}
       </div>
 
       <!-- Right: Config Icons -->

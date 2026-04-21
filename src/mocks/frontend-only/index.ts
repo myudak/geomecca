@@ -122,8 +122,8 @@ const mockStations: Station[] = [
     longitude: 119.8701,
     latitude: -0.8912,
     elevation: 18,
-    server_seedlink: 'demo-seedlink.geomecca.local',
-    server_fdsn: 'demo-fdsn.geomecca.local',
+    server_seedlink: 'demo-seedlink.mhews.local',
+    server_fdsn: 'demo-fdsn.mhews.local',
     status: 'enabled'
   },
   {
@@ -136,8 +136,8 @@ const mockStations: Station[] = [
     longitude: 127.3746,
     latitude: 0.7893,
     elevation: 22,
-    server_seedlink: 'demo-seedlink.geomecca.local',
-    server_fdsn: 'demo-fdsn.geomecca.local',
+    server_seedlink: 'demo-seedlink.mhews.local',
+    server_fdsn: 'demo-fdsn.mhews.local',
     status: 'enabled'
   },
   {
@@ -150,8 +150,8 @@ const mockStations: Station[] = [
     longitude: 127.4025,
     latitude: 0.7552,
     elevation: 11,
-    server_seedlink: 'demo-seedlink.geomecca.local',
-    server_fdsn: 'demo-fdsn.geomecca.local',
+    server_seedlink: 'demo-seedlink.mhews.local',
+    server_fdsn: 'demo-fdsn.mhews.local',
     status: 'enabled'
   },
   {
@@ -164,8 +164,8 @@ const mockStations: Station[] = [
     longitude: 119.442,
     latitude: -5.145,
     elevation: 27,
-    server_seedlink: 'demo-seedlink.geomecca.local',
-    server_fdsn: 'demo-fdsn.geomecca.local',
+    server_seedlink: 'demo-seedlink.mhews.local',
+    server_fdsn: 'demo-fdsn.mhews.local',
     status: 'enabled'
   },
   {
@@ -178,8 +178,8 @@ const mockStations: Station[] = [
     longitude: 140.703,
     latitude: -2.561,
     elevation: 35,
-    server_seedlink: 'demo-seedlink.geomecca.local',
-    server_fdsn: 'demo-fdsn.geomecca.local',
+    server_seedlink: 'demo-seedlink.mhews.local',
+    server_fdsn: 'demo-fdsn.mhews.local',
     status: 'enabled'
   },
   {
@@ -192,8 +192,8 @@ const mockStations: Station[] = [
     longitude: 107.6191,
     latitude: -6.9175,
     elevation: 708,
-    server_seedlink: 'demo-seedlink.geomecca.local',
-    server_fdsn: 'demo-fdsn.geomecca.local',
+    server_seedlink: 'demo-seedlink.mhews.local',
+    server_fdsn: 'demo-fdsn.mhews.local',
     status: 'enabled'
   }
 ]

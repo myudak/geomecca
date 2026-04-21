@@ -33,7 +33,7 @@ const getMagnitudeBadgeClass = (magnitude: number) => {
   } else if (magnitude >= 3.0) {
     return 'bg-green-500/90 text-white'
   } else {
-    return 'bg-blue-500/90 text-white'
+    return 'bg-amber-500/90 text-white'
   }
 }
 
@@ -49,7 +49,7 @@ watch(
 <template>
   <div class="overflow-x-auto">
     <table class="w-full">
-      <thead class="bg-gray-100 dark:bg-[#0f1419] sticky top-0 text-gray-700 dark:text-gray-300">
+      <thead class="sticky top-0 bg-gray-100 text-gray-700 dark:bg-brand-surface-darker dark:text-gray-300">
         <tr>
           <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Origin Time</th>
           <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Latitude</th>
@@ -60,11 +60,11 @@ watch(
           <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Country</th>
         </tr>
       </thead>
-      <tbody class="bg-white dark:bg-[#1a1f2e] divide-y divide-gray-200 dark:divide-gray-700">
+      <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-brand-surface-dark">
         <tr
           v-for="event in sortedEvents"
           :key="event._id"
-          class="cursor-pointer hover:bg-gray-50 dark:hover:bg-[#222a3a] transition-colors"
+          class="cursor-pointer transition-colors hover:bg-gray-50 dark:hover:bg-brand-surface-darker"
           @click="onEventClick(event)">
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
             {{ formatDate(event.origins.origin_time) }}

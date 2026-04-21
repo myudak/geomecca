@@ -38,7 +38,7 @@ const formattedOrigins = computed(() =>
   <div class="flex flex-col gap-2">
     <div class="w-full overflow-x-auto">
       <table class="table table-sm whitespace-nowrap">
-        <thead class="bg-base-200">
+        <thead class="bg-brand-surface-light-hover dark:bg-brand-surface-dark">
           <tr>
             <th>OT</th>
             <th>Phases</th>
@@ -49,7 +49,7 @@ const formattedOrigins = computed(() =>
             <th>Az Gap (km)</th>
             <th>Err Epicenter (km)</th>
             <th>Region</th>
-            <th class="sticky right-0 bg-base-200" />
+            <th class="sticky right-0 bg-brand-surface-light-hover dark:bg-brand-surface-dark" />
           </tr>
         </thead>
         <tbody>
@@ -59,12 +59,13 @@ const formattedOrigins = computed(() =>
             class="hover:cursor-pointer"
             :class="{
               'font-bold': origin._id === preferredOriginId,
-              'text-teal-500': origin._id === preferredOriginId,
-              'text-yellow-500': origin.modified_by === profile?._id,
-              'bg-teal-500/20': origin._id === selectedOrigin?._id,
-              'bg-yellow-500/20': origin.modified_by === profile?._id,
-              'hover:bg-teal-800/20': origin._id !== selectedOrigin?._id,
-              'hover:bg-yellow-800/20': origin.modified_by !== profile?._id
+              'text-brand-surface-normal dark:text-brand-surface-light-active': origin._id === preferredOriginId,
+              'text-amber-700 dark:text-amber-300': origin.modified_by === profile?._id,
+              'bg-brand-surface-light-active/40 dark:bg-brand-surface-dark/70': origin._id === selectedOrigin?._id,
+              'bg-amber-100/40 dark:bg-amber-500/10': origin.modified_by === profile?._id,
+              'hover:bg-brand-surface-light-hover/70 dark:hover:bg-brand-surface-dark-hover/40':
+                origin._id !== selectedOrigin?._id,
+              'hover:bg-amber-100/30 dark:hover:bg-amber-500/10': origin.modified_by !== profile?._id
             }"
             @click="selectedOrigin = origin">
             <td>{{ formatDate(origin.origin_time) }}</td>
@@ -76,7 +77,7 @@ const formattedOrigins = computed(() =>
             <td>{{ origin.gap }}</td>
             <td>{{ origin.err_epicenter }}</td>
             <td>{{ origin.sub_region }}, {{ origin.region }}</td>
-            <td class="sticky right-0 bg-base-100 dark:bg-[#020617]">
+            <td class="sticky right-0 bg-base-100 dark:bg-brand-surface-darker">
               <RouterLink :to="`/origin-locator-view/location/${eventId}/${origin._id}`" class="btn btn-xs btn-primary"
                 >Open</RouterLink
               >

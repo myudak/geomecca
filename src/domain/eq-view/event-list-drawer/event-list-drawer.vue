@@ -64,9 +64,9 @@ const onRefresh = () => {
 </script>
 
 <template>
-  <div class="flex flex-col w-full h-full top-0 left-0 fixed z-[9999] bg-white dark:bg-[#1a1f2e]">
+  <div class="fixed left-0 top-0 z-[9999] flex h-full w-full flex-col bg-white dark:bg-brand-surface-dark">
     <!-- Header with filters -->
-    <div class="flex flex-col gap-4 p-6 bg-white dark:bg-[#1a1f2e] border-b border-gray-200 dark:border-gray-700">
+    <div class="flex flex-col gap-4 border-b border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-brand-surface-dark">
       <!-- Title row -->
       <div class="flex items-center justify-between">
         <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">Events</h2>
@@ -86,7 +86,7 @@ const onRefresh = () => {
             v-model="searchRegion"
             type="text"
             placeholder="e.g. Sulawesi, Sumatra"
-            class="w-full px-4 py-2.5 bg-gray-50 dark:bg-[#0f1419] border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors" />
+            class="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2.5 text-gray-900 transition-colors placeholder-gray-400 focus:border-amber-500 focus:outline-none dark:border-gray-700 dark:bg-brand-surface-darker dark:text-white dark:placeholder-gray-500" />
         </div>
 
         <!-- Minimum Magnitude -->
@@ -96,14 +96,14 @@ const onRefresh = () => {
             v-model="minMagnitude"
             type="text"
             placeholder="e.g. 3.0"
-            class="w-full px-4 py-2.5 bg-gray-50 dark:bg-[#0f1419] border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors" />
+            class="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2.5 text-gray-900 transition-colors placeholder-gray-400 focus:border-amber-500 focus:outline-none dark:border-gray-700 dark:bg-brand-surface-darker dark:text-white dark:placeholder-gray-500" />
         </div>
 
         <!-- Date range and refresh (slot for DateFilter) -->
         <div class="flex items-center gap-2">
           <slot />
           <button
-            class="p-2.5 bg-gray-50 dark:bg-[#0f1419] border border-gray-300 dark:border-gray-700 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-blue-500 transition-colors"
+            class="rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-600 transition-colors hover:border-amber-500 hover:text-gray-900 dark:border-gray-700 dark:bg-brand-surface-darker dark:text-gray-400 dark:hover:text-white"
             @click="onRefresh">
             <svg width="22" height="22" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -125,18 +125,18 @@ const onRefresh = () => {
 
     <!-- Footer with pagination -->
     <div
-      class="flex items-center justify-between px-6 py-4 bg-white dark:bg-[#1a1f2e] border-t border-gray-200 dark:border-gray-700">
+      class="flex items-center justify-between border-t border-gray-200 bg-white px-6 py-4 dark:border-gray-700 dark:bg-brand-surface-dark">
       <div class="text-sm text-gray-600 dark:text-gray-400">Showing {{ showingCount }} of {{ totalEvents }} events</div>
       <div class="flex gap-2">
         <button
           :disabled="!canGoPrev"
-          class="px-4 py-2 bg-gray-50 dark:bg-[#0f1419] border border-gray-300 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-gray-300 dark:disabled:hover:border-gray-700 disabled:hover:text-gray-700 dark:disabled:hover:text-gray-300"
+          class="rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 text-gray-700 transition-colors hover:border-amber-500 hover:text-gray-900 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-gray-300 disabled:hover:text-gray-700 dark:border-gray-700 dark:bg-brand-surface-darker dark:text-gray-300 dark:hover:text-white dark:disabled:hover:border-gray-700 dark:disabled:hover:text-gray-300"
           @click="goToPrev">
           Prev
         </button>
         <button
           :disabled="!canGoNext"
-          class="px-4 py-2 bg-blue-600 border border-blue-600 rounded-lg text-white hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600"
+          class="rounded-lg border border-brand-surface-normal bg-brand-surface-normal px-4 py-2 text-white transition-colors hover:bg-brand-surface-normal-hover disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-brand-surface-normal"
           @click="goToNext">
           Next
         </button>

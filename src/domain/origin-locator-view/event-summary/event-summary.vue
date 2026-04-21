@@ -12,28 +12,16 @@ import {
   getOriginTimeFromEvent,
   getPreferredOrigin
 } from '@src/utils/string'
-import { computed, ref, watch } from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps<{
   event: EarthQuakeEventDetail
   originId?: string
 }>()
 
-const { event } = props
-const preferredOrigin = ref<Origin>()
+const preferredOrigin = computed<Origin | undefined>(() => getPreferredOrigin(props.event, props.originId))
 const magnitude = computed(() => getDefaultMagnitude(preferredOrigin.value?.magnitudes ?? []))
-const originTime = computed(() => getOriginTimeFromEvent(event))
-
-watch(
-  () => props.originId,
-  (newOriginId) => {
-    preferredOrigin.value = undefined
-    setTimeout(() => {
-      preferredOrigin.value = getPreferredOrigin(event, newOriginId)
-    }, 100)
-  },
-  { immediate: true }
-)
+const originTime = computed(() => getOriginTimeFromEvent(props.event))
 
 const informations = computed(() => [
   {
@@ -95,7 +83,7 @@ const informations = computed(() => [
       <DownloadButton
         v-if="preferredOrigin"
         :origin="preferredOrigin"
-        class="btn btn-sm rounded-full border border-slate-200 bg-white text-slate-700 hover:border-sky-400 hover:text-sky-600 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200" />
+        class="btn btn-sm rounded-full border border-slate-200 bg-white text-slate-700 hover:border-amber-400 hover:text-amber-600 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200" />
     </div>
   </div>
 </template>

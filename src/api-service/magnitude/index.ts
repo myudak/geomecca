@@ -1,6 +1,6 @@
 import api from '@src/utils/api'
 import { isFrontendOnly } from '@src/constants/env'
-import { frontendOnlyBValuePlot } from '@src/mocks/frontend-only'
+import { getFrontendOnlyBValuePlotSnapshot } from '@src/mocks/frontend-only/realtime'
 
 export interface BValuePlotResponse {
   image: string
@@ -13,7 +13,7 @@ export const getBValuePlot = async (originId: string) => {
   console.log('[API] getBValuePlot called with originId:', originId)
 
   if (isFrontendOnly) {
-    return frontendOnlyBValuePlot
+    return getFrontendOnlyBValuePlotSnapshot(originId)
   }
 
   const requestBody = { origin_id: originId }

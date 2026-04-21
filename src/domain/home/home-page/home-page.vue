@@ -7,31 +7,46 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-// Mock data for monitoring cards
 const monitoringCards = [
+  {
+    id: 'weather',
+    title: 'Meteorological Ops',
+    description: 'National weather outlook, early warning bulletins, and coastal maritime advisories.',
+    route: '/weather-view',
+    image: '/images/weather-preview.svg',
+    statusLabel: 'ACTIVE',
+    statusClass: 'text-emerald-700 border-emerald-500/20 bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/30 dark:bg-emerald-500/20',
+    pulse: true
+  },
   {
     id: 'microseismic',
     title: 'Microseismic Monitoring',
-    description: 'Event statistics, b-value trends, total events, and average magnitude with adjustable windows',
+    description: 'Event statistics, b-value trends, total events, and average magnitude with adjustable windows.',
     route: '/map-view',
     image: '/screenshots/eq-view.png',
-    isLive: true
+    statusLabel: 'LIVE',
+    statusClass: 'text-emerald-700 border-emerald-500/20 bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/30 dark:bg-emerald-500/20',
+    pulse: false
   },
   {
     id: 'trace',
     title: 'Trace Monitoring',
-    description: 'Event statistics, b-value trends, total events, and average magnitude with adjustable windows',
+    description: 'Waveform analytics, station trace visualization, and real-time feed diagnostics.',
     route: '/trace-view',
     image: '/screenshots/trace-view.png',
-    isLive: true
+    statusLabel: 'LIVE',
+    statusClass: 'text-emerald-700 border-emerald-500/20 bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/30 dark:bg-emerald-500/20',
+    pulse: false
   },
   {
     id: 'analyst',
     title: 'Microseismic Analyst',
-    description: 'Event statistics, b-value trends, total events, and average magnitude with adjustable windows',
+    description: 'Event processing, origin location review, and manual phase picking tools.',
     route: '/origin-locator-view/events',
     image: '/screenshots/origin-locator-view.png',
-    isLive: true
+    statusLabel: 'LIVE',
+    statusClass: 'text-emerald-700 border-emerald-500/20 bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/30 dark:bg-emerald-500/20',
+    pulse: false
   }
 ]
 
@@ -52,12 +67,12 @@ const navigateTo = (route: string) => {
 }
 
 const formatDistance = (km?: number | null) => {
-  if (km === undefined || km === null) return 'Depth unavailable'
-  return `${km.toFixed(1)} km`
+  if (km === undefined || km === null) return 'N/A'
+  return `${km.toFixed(1)} KM`
 }
 
 const formatDateTime = (timestamp?: string) => {
-  if (!timestamp) return 'Unknown time'
+  if (!timestamp) return 'UNKNOWN'
   const date = new Date(timestamp.includes('Z') ? timestamp : `${timestamp}Z`)
   return `${date.toLocaleString('en-US', {
     year: 'numeric',
@@ -65,9 +80,10 @@ const formatDateTime = (timestamp?: string) => {
     day: '2-digit',
     hour: '2-digit',
     minute: '2-digit',
+    second: '2-digit',
     hour12: false,
     timeZone: 'UTC'
-  })} (UTC)`
+  })} UTC`
 }
 
 const getPreferredMagnitudeValue = (event: EarthQuakeEvent) => {
@@ -88,31 +104,31 @@ const getLocationLabel = (event: EarthQuakeEvent) => {
 }
 
 const getAlertLevel = (magnitude: number | null) => {
-  if (magnitude === null) return 'Unknown'
-  if (magnitude >= 7) return 'Red'
-  if (magnitude >= 6) return 'Orange'
-  if (magnitude >= 5) return 'Yellow'
-  return 'Green'
+  if (magnitude === null) return 'UNKNOWN'
+  if (magnitude >= 7) return 'CRITICAL'
+  if (magnitude >= 6) return 'WARNING'
+  if (magnitude >= 5) return 'ELEVATED'
+  return 'NORMAL'
 }
 
 const getAlertBadgeClass = (magnitude: number | null) => {
   if (magnitude === null)
-    return 'bg-brand-surface-light-active text-brand-text-muted dark:bg-brand-surface-dark dark:text-brand-text-muted-dark'
+    return 'bg-stone-100 text-stone-500 border-stone-200 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-700'
   if (magnitude >= 7)
-    return 'bg-red-50 text-red-700 border border-red-200 dark:bg-red-500/10 dark:text-red-200 dark:border-red-500/40'
+    return 'bg-red-500/10 text-red-700 border-red-500/20 dark:bg-red-500/20 dark:text-red-400 dark:border-red-500/30'
   if (magnitude >= 6)
-    return 'bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-500/10 dark:text-orange-200 dark:border-orange-500/40'
+    return 'bg-orange-500/10 text-orange-700 border-orange-500/20 dark:bg-orange-500/20 dark:text-orange-400 dark:border-orange-500/30'
   if (magnitude >= 5)
-    return 'bg-yellow-50 text-yellow-700 border border-yellow-200 dark:bg-yellow-500/10 dark:text-yellow-200 dark:border-yellow-500/40'
-  return 'bg-green-50 text-green-700 border border-green-200 dark:bg-green-500/10 dark:text-green-200 dark:border-green-500/40'
+    return 'bg-amber-500/10 text-amber-700 border-amber-500/20 dark:bg-amber-500/20 dark:text-amber-400 dark:border-amber-500/30'
+  return 'bg-emerald-500/10 text-emerald-700 border-emerald-500/20 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30'
 }
 
 const getAlertDotClass = (magnitude: number | null) => {
-  if (magnitude === null) return 'bg-brand-text-muted dark:bg-brand-text-muted-dark'
+  if (magnitude === null) return 'bg-stone-400'
   if (magnitude >= 7) return 'bg-red-500'
   if (magnitude >= 6) return 'bg-orange-500'
-  if (magnitude >= 5) return 'bg-yellow-500'
-  return 'bg-green-500'
+  if (magnitude >= 5) return 'bg-amber-500'
+  return 'bg-emerald-500'
 }
 
 const getIntensityScale = (magnitude: number | null) => {
@@ -125,231 +141,176 @@ const getIntensityScale = (magnitude: number | null) => {
   if (magnitude >= 5) return 'IV'
   return 'III'
 }
-
-const getMagnitudeText = (magnitude: number | null) => {
-  if (magnitude === null) return 'Intensity unavailable'
-  if (magnitude >= 7) return 'Very Strong Shaking'
-  if (magnitude >= 6) return 'Strong Shaking'
-  if (magnitude >= 5) return 'Moderate Shaking'
-  return 'Light Shaking'
-}
 </script>
 
 <template>
-  <div class="min-h-screen page-shell transition-colors">
-    <!-- Header -->
-    <div class="bg-brand-surface-light-hover px-6 py-6 dark:bg-[#141923]">
-      <h1 class="text-2xl font-bold text-brand-text-light dark:text-brand-text-dark mb-1">Dashboard</h1>
-      <p class="text-sm text-brand-text-muted dark:text-brand-text-muted-dark">
-        Real-time visualization and analysis of earthquake activity across Indonesia.
-      </p>
-    </div>
+  <div class="min-h-screen bg-[#F7F5F0] text-[#2A241B] dark:bg-[#110F0D] dark:text-[#F0EDE6] font-sans selection:bg-brand-surface-normal selection:text-white pb-16">
+    
+    <!-- HEADER BAR -->
+    <header class="border-b border-[#E5DFD3] bg-white px-6 py-4 dark:border-[#2E2A24] dark:bg-[#1A1815]">
+      <div class="mx-auto flex max-w-screen-2xl flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <div class="flex items-center gap-3">
+            <h1 class="text-xl font-bold uppercase tracking-wide">AI-Powered Multi-Hazard Early Warning System</h1>
+            <span class="rounded bg-[#2A241B] px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-widest text-white dark:bg-[#F0EDE6] dark:text-[#110F0D]">
+              MHEWS
+            </span>
+          </div>
+          <p class="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            Integrating Earthquake Detection and Weather Intelligence in a Unified Platform
+          </p>
+        </div>
+        
+        <div class="flex items-center gap-6 font-mono text-xs">
+          <div class="flex flex-col items-end">
+            <span class="text-stone-400">SYSTEM STATUS</span>
+            <span class="flex items-center gap-2 font-bold text-emerald-600 dark:text-emerald-400">
+              <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              ONLINE
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
 
     <!-- Main Content -->
-    <div class="px-6 py-6 pb-20 bg-white dark:bg-[#141923]">
+    <main class="mx-auto max-w-screen-2xl p-6 space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Left Section - Monitoring Cards -->
+        
+        <!-- Left Section - Monitoring Modules -->
         <div class="lg:col-span-2 flex flex-col gap-6">
           <article
             v-for="card in monitoringCards"
             :key="card.id"
-            class="group card rounded-[28px] border border-brand-surface-light-active p-5 text-brand-text-light shadow-lg shadow-brand-numeric-200/40 transition-all duration-300 hover:-translate-y-1 hover:border-brand-surface-normal hover:bg-brand-surface-light-hover hover:shadow-2xl hover:shadow-brand-numeric-300/30 dark:border-brand-surface-dark-hover dark:bg-[#1b1f28] dark:text-brand-text-dark lg:p-6 bg-white">
-            <div class="flex flex-col gap-5 lg:flex-row">
-              <!-- Left Side - Preview Image -->
-              <figure
-                class="flex h-40 w-full shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-2xl border border-brand-surface-light-active bg-brand-surface-light-hover transition-colors group-hover:border-brand-surface-normal lg:h-auto lg:w-60 dark:border-brand-surface-dark-hover dark:bg-brand-surface-dark"
-                @click="navigateTo(card.route)">
-                <img
-                  :src="card.image"
-                  :alt="card.title"
-                  class="h-full w-full object-cover transition-all duration-300 hover:scale-105"
-                  @error="(e) => ((e.target as HTMLImageElement).style.display = 'none')" />
-                <div
-                  v-if="!card.image"
-                  class="absolute inset-0 flex items-center justify-center text-brand-text-muted/40 dark:text-brand-text-muted-dark/50">
-                  <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1.5"
-                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                </div>
-              </figure>
+            class="group relative flex flex-col sm:flex-row gap-5 rounded-lg border border-[#E5DFD3] bg-white p-5 transition-colors hover:border-brand-surface-normal dark:border-[#2E2A24] dark:bg-[#1A1815] dark:hover:border-brand-surface-normal cursor-pointer"
+            @click="navigateTo(card.route)">
+            
+            <!-- Module Preview Image -->
+            <figure
+              class="relative flex h-40 w-full sm:w-56 shrink-0 items-center justify-center overflow-hidden rounded border border-[#E5DFD3] bg-[#F7F5F0] dark:border-[#2E2A24] dark:bg-[#110F0D]">
+              <img
+                :src="card.image"
+                :alt="card.title"
+                class="h-full w-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105"
+                @error="(e) => ((e.target as HTMLImageElement).style.display = 'none')" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+            </figure>
 
-              <!-- Right Side - Content -->
-              <div class="flex flex-1 flex-col justify-between gap-6">
-                <!-- Top Section -->
-                <div class="flex flex-col gap-4">
-                  <div class="flex flex-wrap items-start justify-between gap-3">
-                    <div class="space-y-2">
-                      <h2
-                        class="text-xl font-semibold text-brand-text-light transition-colors dark:text-brand-text-dark">
-                        {{ card.title }}
-                      </h2>
-                      <p class="max-w-xl text-sm leading-relaxed text-brand-text-muted dark:text-brand-text-muted-dark">
-                        {{ card.description }}
-                      </p>
-                    </div>
-                    <!-- Live Badge -->
-                    <span
-                      v-if="card.isLive"
-                      class="inline-flex items-center gap-2 rounded-full bg-green-400/15 px-4 py-2 text-xs font-semibold text-success shadow-sm">
-                      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h4l2-5 4 10 2-5h6" />
-                      </svg>
-                      <span>Live</span>
-                    </span>
-                  </div>
+            <!-- Module Info -->
+            <div class="flex flex-1 flex-col justify-between py-1">
+              <div>
+                <div class="flex items-start justify-between gap-3 mb-2">
+                  <h2 class="text-lg font-bold uppercase tracking-wider text-stone-800 dark:text-stone-200 group-hover:text-brand-surface-normal transition-colors">
+                    {{ card.title }}
+                  </h2>
+                  <span
+                    class="flex items-center gap-1.5 rounded border px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-widest"
+                    :class="card.statusClass">
+                    <span v-if="card.pulse" class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    {{ card.statusLabel }}
+                  </span>
                 </div>
-
-                <!-- Bottom Section: Button -->
-                <div class="flex w-full justify-end">
-                  <button
-                    class="btn btn-primary btn-sm gap-2 rounded-full px-8 text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/50 bg-[#025481] p-2"
-                    @click="navigateTo(card.route)">
-                    Open View
-                    <span aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1"
-                      >→</span
-                    >
-                  </button>
-                </div>
+                <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+                  {{ card.description }}
+                </p>
+              </div>
+              
+              <div class="mt-4 flex items-center justify-end">
+                <span class="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-stone-500 group-hover:text-brand-surface-normal transition-colors">
+                  Akses Modul
+                  <v-icon name="bi-arrow-right" class="transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
               </div>
             </div>
           </article>
         </div>
 
-        <!-- Right Section - Nearby Earthquake -->
+        <!-- Right Section - Recent Earthquakes -->
         <div class="lg:col-span-1">
-          <div
-            class="rounded-[28px] border border-brand-surface-light-active shadow-lg shadow-brand-numeric-200/40 overflow-hidden sticky top-6 transition-all duration-300 hover:shadow-xl hover:border-brand-surface-normal dark:bg-[#1b1f28] bg-white">
+          <div class="sticky top-6 flex flex-col h-[calc(100vh-140px)] rounded-lg border border-[#E5DFD3] bg-white dark:border-[#2E2A24] dark:bg-[#1A1815]">
             <!-- Header -->
-            <div class="px-6 py-4 border-b border-brand-surface-light-active dark:border-brand-surface-dark-hover">
-              <div class="flex items-center justify-between">
-                <h3 class="text-base font-semibold text-brand-text-light dark:text-brand-text-dark">
-                  Nearby Earthquake
-                </h3>
-                <button
-                  class="text-xs text-primary hover:text-primary-focus font-medium transition-colors"
-                  @click="navigateTo('/eq-view')">
-                  Lihat
-                </button>
-              </div>
+            <div class="flex items-center justify-between border-b border-[#E5DFD3] px-5 py-4 dark:border-[#2E2A24]">
+              <h3 class="font-bold uppercase tracking-wider text-stone-800 dark:text-stone-200">
+                Recent Seismic Events
+              </h3>
+              <button
+                class="font-mono text-[10px] font-bold uppercase tracking-widest text-brand-surface-normal hover:text-brand-surface-dark transition-colors"
+                @click="navigateTo('/eq-view')">
+                View All
+              </button>
             </div>
 
-            <!-- Earthquake List -->
-            <div class="overflow-y-auto max-h-[calc(100vh-200px)]">
-              <div v-if="isEventsLoading" class="px-6 py-12 text-center">
-                <p class="text-sm text-brand-text-muted dark:text-brand-text-muted-dark">Loading nearby earthquakes…</p>
+            <!-- List -->
+            <div class="flex-1 overflow-y-auto divide-y divide-[#E5DFD3] dark:divide-[#2E2A24]">
+              <div v-if="isEventsLoading" class="px-5 py-10 text-center font-mono text-xs text-stone-500">
+                LOADING FEED...
               </div>
 
-              <div v-else-if="eventList.length === 0" class="px-6 py-12 text-center">
-                <p class="text-sm text-brand-text-muted dark:text-brand-text-muted-dark">No recent earthquakes</p>
+              <div v-else-if="eventList.length === 0" class="px-5 py-10 text-center font-mono text-xs text-stone-500">
+                NO RECENT EVENTS
               </div>
 
-              <div v-else class="divide-y divide-brand-surface-light-active dark:divide-brand-surface-dark-hover">
-                <article
-                  v-for="event in eventList"
-                  :key="event._id"
-                  class="px-6 py-5 transition-all duration-200 cursor-pointer border-l-4 border-transparent hover:-translate-y-0.5 hover:bg-brand-surface-light-hover hover:border-brand-surface-normal dark:hover:bg-brand-surface-dark"
-                  @click="navigateTo(`/origin-locator-view/events/${event._id}`)">
-                  <div class="flex flex-col gap-4 sm:flex-row sm:items-start">
-                    <div
-                      class="min-w-[72px] rounded-2xl bg-brand-surface-light-active px-4 py-3 text-center shadow-inner dark:bg-[#1f2430]">
-                      <div class="text-3xl font-bold text-brand-text-light dark:text-brand-text-dark">
-                        {{ formatMagnitudeValue(event) }}
-                      </div>
-                      <div
-                        class="text-[11px] uppercase tracking-wide text-brand-text-muted dark:text-brand-text-muted-dark">
-                        Mw
-                      </div>
-                    </div>
-
-                    <div class="flex-1 min-w-0">
-                      <div class="flex flex-wrap items-start justify-between gap-3">
-                        <div class="flex items-start gap-2 min-w-0">
-                          <svg
-                            class="w-4 h-4 text-primary flex-shrink-0 mt-0.5"
-                            fill="currentColor"
-                            viewBox="0 0 20 20">
-                            <path
-                              fill-rule="evenodd"
-                              d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                              clip-rule="evenodd" />
-                          </svg>
-                          <div class="space-y-1 min-w-0">
-                            <p class="text-sm font-semibold text-primary dark:text-blue-300 line-clamp-2">
-                              {{ getLocationLabel(event) }}
-                            </p>
-                            <p class="text-xs text-brand-text-muted dark:text-brand-text-muted-dark">
-                              {{ formatDateTime(event.origins?.origin_time) }}
-                            </p>
-                          </div>
-                        </div>
-                        <div class="text-right">
-                          <p class="text-xs text-brand-text-muted dark:text-brand-text-muted-dark">Depth</p>
-                          <p class="text-sm font-semibold text-brand-text-light dark:text-brand-text-dark">
-                            {{ formatDistance(event.origins?.depth) }}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div
-                        class="mt-4 flex flex-col gap-3 text-xs text-brand-text-muted dark:text-brand-text-muted-dark sm:flex-row sm:items-center sm:justify-between">
-                        <div class="flex flex-wrap items-center gap-2">
-                          <span>Pager Alert Level:</span>
-                          <span
-                            :class="[
-                              'inline-flex items-center gap-2 rounded-full px-3 py-1 font-semibold',
-                              getAlertBadgeClass(getPreferredMagnitudeValue(event))
-                            ]">
-                            <span
-                              class="w-2 h-2 rounded-full"
-                              :class="getAlertDotClass(getPreferredMagnitudeValue(event))"></span>
-                            {{ getAlertLevel(getPreferredMagnitudeValue(event)) }}
-                          </span>
-                        </div>
-                        <div class="flex flex-wrap items-center gap-2">
-                          <span
-                            :class="[
-                              'inline-flex items-center rounded-lg px-3 py-1 text-xs font-semibold border',
-                              getAlertBadgeClass(getPreferredMagnitudeValue(event))
-                            ]">
-                            {{ getIntensityScale(getPreferredMagnitudeValue(event)) }}
-                          </span>
-                          <span>({{ getMagnitudeText(getPreferredMagnitudeValue(event)) }})</span>
-                        </div>
-                      </div>
-                    </div>
+              <article
+                v-else
+                v-for="event in eventList"
+                :key="event._id"
+                class="group flex flex-col gap-3 p-4 transition-colors hover:bg-[#F7F5F0] dark:hover:bg-[#110F0D] cursor-pointer"
+                @click="navigateTo(`/origin-locator-view/events/${event._id}`)">
+                
+                <div class="flex items-start gap-3">
+                  <!-- Magnitude Box -->
+                  <div class="flex shrink-0 flex-col items-center justify-center rounded border border-[#E5DFD3] bg-white h-12 w-12 dark:border-[#2E2A24] dark:bg-[#1A1815] group-hover:border-brand-surface-normal transition-colors">
+                    <span class="font-mono text-lg font-bold" :class="getPreferredMagnitudeValue(event) >= 5 ? 'text-brand-surface-normal' : 'text-stone-700 dark:text-stone-300'">
+                      {{ formatMagnitudeValue(event) }}
+                    </span>
+                    <span class="font-mono text-[9px] text-stone-400">Mw</span>
                   </div>
-                </article>
-              </div>
+
+                  <!-- Info -->
+                  <div class="flex-1 min-w-0">
+                    <h4 class="truncate font-bold text-sm text-stone-800 dark:text-stone-200 group-hover:text-brand-surface-normal transition-colors">
+                      {{ getLocationLabel(event) }}
+                    </h4>
+                    <p class="font-mono text-[10px] text-stone-500 mt-0.5">
+                      {{ formatDateTime(event.origins?.origin_time) }}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Footer Metriks -->
+                <div class="flex items-center justify-between font-mono text-[10px]">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-stone-400">DEPTH:</span>
+                    <span class="font-bold text-stone-700 dark:text-stone-300">{{ formatDistance(event.origins?.depth) }}</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-stone-400">ALERT:</span>
+                    <span :class="getAlertBadgeClass(getPreferredMagnitudeValue(event))" class="rounded px-1.5 py-0.5 font-bold tracking-widest border">
+                      {{ getAlertLevel(getPreferredMagnitudeValue(event)) }}
+                    </span>
+                  </div>
+                </div>
+              </article>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </main>
 
     <!-- Footer Status Bar -->
-    <div
-      class="fixed bottom-0 left-0 right-0 bg-brand-surface-light-hover backdrop-blur-sm border-t border-brand-surface-light-active px-6 py-3 dark:border-brand-surface-dark-hover dark:bg-[#080f1c]">
-      <div class="flex items-center justify-between text-xs text-brand-text-muted dark:text-brand-text-muted-dark">
-        <div class="flex items-center gap-6">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 bg-success rounded-full"></span>
-            <span>Koneksi Database: Stabil</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 bg-success rounded-full"></span>
-            <span>Server Status: Online</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 bg-warning rounded-full"></span>
-            <span>Sinkronisasi: 98.7%</span>
-          </div>
+    <div class="fixed bottom-0 left-0 right-0 z-10 flex items-center justify-between border-t border-[#E5DFD3] bg-white px-6 py-2 font-mono text-[10px] uppercase tracking-widest text-stone-500 dark:border-[#2E2A24] dark:bg-[#1A1815]">
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span class="h-1.5 w-1.5 bg-emerald-500 rounded-full"></span>
+          <span>DB: STABLE</span>
         </div>
-        <div>Geomecca v1.1.0</div>
+        <div class="flex items-center gap-2">
+          <span class="h-1.5 w-1.5 bg-emerald-500 rounded-full"></span>
+          <span>SYNC: 99.9%</span>
+        </div>
       </div>
+      <div>MHEWS System v1.2.0</div>
     </div>
   </div>
 </template>

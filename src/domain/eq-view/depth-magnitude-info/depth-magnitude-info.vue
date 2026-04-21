@@ -33,7 +33,7 @@ const magnitudes = [...new Array(8)].map((_, index) => index + 1)
       <div class="mt-4 flex items-end justify-between gap-3">
         <div v-for="magnitude in magnitudes" :key="magnitude" class="flex flex-col items-center gap-2 text-sm">
           <span
-            class="flex items-center justify-center rounded-full border border-slate-900/10 bg-sky-600 dark:border-white/20"
+            class="flex items-center justify-center rounded-full border border-slate-900/10 bg-brand-surface-normal dark:border-white/20"
             :style="{
               width: `${getMagnitudeWidth(magnitude)}px`,
               height: `${getMagnitudeWidth(magnitude)}px`

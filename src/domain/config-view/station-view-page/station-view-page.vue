@@ -193,7 +193,7 @@ function showMore(page: number) {
         <div class="flex flex-wrap items-center justify-between gap-4">
           <div>
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-brand-text-muted dark:text-brand-text-muted-dark">
-              Geomecca
+              MHEWS
             </p>
             <h2 class="mt-1 text-3xl font-bold text-brand-text-light dark:text-brand-text-dark">Station Management</h2>
             <p class="text-sm text-brand-text-muted dark:text-brand-text-muted-dark">Manage seismic monitoring stations</p>
