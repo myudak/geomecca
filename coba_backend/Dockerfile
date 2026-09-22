@@ -1,18 +1,19 @@
-FROM node:20-bookworm-slim AS base
+FROM node:20-alpine AS base
 WORKDIR /app
 
 # System deps for native/wasm modules and fonts
-# Remove docker-clean apt hook that fails on old BuildKit (Docker 20.10.x)
-RUN rm -f /etc/apt/apt.conf.d/docker-clean && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends \
+# Alpine uses apk (no dpkg/lzma memory issue on Docker 20.10.x)
+RUN apk add --no-cache \
     ca-certificates \
     python3 \
-    build-essential \
+    py3-pip \
+    make \
+    g++ \
+    vips-dev \
     fontconfig \
-    fonts-dejavu \
-    netcat-openbsd \
-    && rm -rf /var/lib/apt/lists/*
+    ttf-dejavu \
+    font-noto \
+    netcat-openbsd
 
 # Install dependencies first (better layer caching)
 COPY coba_backend/package*.json ./
