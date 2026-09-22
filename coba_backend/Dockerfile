@@ -2,7 +2,10 @@ FROM node:20-bookworm-slim AS base
 WORKDIR /app
 
 # System deps for native/wasm modules and fonts
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Remove docker-clean apt hook that fails on old BuildKit (Docker 20.10.x)
+RUN rm -f /etc/apt/apt.conf.d/docker-clean && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
     ca-certificates \
     python3 \
     build-essential \
